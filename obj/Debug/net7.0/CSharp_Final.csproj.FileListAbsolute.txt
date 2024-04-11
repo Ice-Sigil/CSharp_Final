@@ -1,0 +1,14 @@
+/home/nick/CSharp_Final/bin/Debug/net7.0/CSharp_Final
+/home/nick/CSharp_Final/bin/Debug/net7.0/CSharp_Final.deps.json
+/home/nick/CSharp_Final/bin/Debug/net7.0/CSharp_Final.runtimeconfig.json
+/home/nick/CSharp_Final/bin/Debug/net7.0/CSharp_Final.dll
+/home/nick/CSharp_Final/bin/Debug/net7.0/CSharp_Final.pdb
+/home/nick/CSharp_Final/obj/Debug/net7.0/CSharp_Final.GeneratedMSBuildEditorConfig.editorconfig
+/home/nick/CSharp_Final/obj/Debug/net7.0/CSharp_Final.AssemblyInfoInputs.cache
+/home/nick/CSharp_Final/obj/Debug/net7.0/CSharp_Final.AssemblyInfo.cs
+/home/nick/CSharp_Final/obj/Debug/net7.0/CSharp_Final.csproj.CoreCompileInputs.cache
+/home/nick/CSharp_Final/obj/Debug/net7.0/CSharp_Final.dll
+/home/nick/CSharp_Final/obj/Debug/net7.0/refint/CSharp_Final.dll
+/home/nick/CSharp_Final/obj/Debug/net7.0/CSharp_Final.pdb
+/home/nick/CSharp_Final/obj/Debug/net7.0/CSharp_Final.genruntimeconfig.cache
+/home/nick/CSharp_Final/obj/Debug/net7.0/ref/CSharp_Final.dll
