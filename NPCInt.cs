@@ -26,6 +26,12 @@ public interface NPCInt
         HP += damage;
     }
 
+    private void sayDialogue(){
+        Player player = new Player();
+        var rand = new Random();
+        player.NormalMessage(_possibleDialogue[rand.Next(0, 5)]);
+    }
+
 
 
 }
