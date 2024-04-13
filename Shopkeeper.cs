@@ -13,5 +13,10 @@ public class Shopkeeper : NPCInt{
     _possibleDialogue[3] = "May the gods let you die quickly.";
     _possibleDialogue[4] = "Wretched filth. I'll put you where you belong.";
 
+    if(_HP < 100){
+        _isHostile = true;
+        sayDialogue();
+    }
+
 
 }
