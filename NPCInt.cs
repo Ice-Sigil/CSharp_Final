@@ -5,8 +5,8 @@ public interface NPCInt
     - NPC "Moves" (attack, wait, damage, ect. Must incorporate into combat system)
     - Specialized NPCs such as enemies, shopkeepers, and questgivers
     - Dialogue for every NPC that they can say
-    (i.e. shopkeeper will tell you about items, enemies might taunt you if they're human, ect)
-    - A boolean to track whether they're human or not (?)
+    (i.e. shopkeeper will tell you about items, enemies might taunt you if they're human, ect) DONE 
+    - A boolean to track whether they're human or not (?) DONE
     - A way for a room to contain/hold an NPC. This could either be in rooms or in NPCs systems
     - A way to tell the player that there is an NPC in the room (can incorporate w/ ^), i.e. discovery dialogue 
     */
@@ -21,6 +21,8 @@ public interface NPCInt
     private string[] _moves; //Potentially not best way to hold moves, can be determined later
 
     private int _HP{ get return _HP; set _HP = value; }
+
+    private int _maxHP{get return _maxHP;  set _maxHP = value;}
 
     private void modifyHealth(int damage){
         HP += damage;
