@@ -13,10 +13,10 @@ namespace StarterGame{
                 _name = value; 
             }
         }
-        private int _hp
+        private int _hp;
         public int HP{
             get{
-                _hp
+                _hp;
             }
             set{
                 _hp = value; 
