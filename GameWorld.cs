@@ -10,15 +10,13 @@ namespace StarterGame
 {
     public class GameWorld
     {
-        int _width,_height;
-        Room[,] floor;
-        public int Width { get {return _width;} set {_width = value;} }
-        public int Height { get {return _height;} set {_height = value;} }
-        public Room[,] Floor{get { return floor; } set { floor = value; } }
-        public string west = "west";
-        public string east = "east";
-        public string south = "south";
-        public string north = "north";
+        public int Width { get; set; }
+        public int Height { get; set;}
+        public Room[,] Floor{ get; set; }
+        public string right = "right";
+        public string left = "left";
+        public string up = "up";
+        public string down = "down";
         public string tile = "on a regular floor tile";
 
         private static GameWorld _instance;
@@ -56,7 +54,7 @@ namespace StarterGame
                 }
                 if(player.CurrentRoom == _worldOut)
                 {
-                    player.InfoMessage("\n***Moving to next floor...");
+                    player.InfoMessage("\n***Exit found..!");
                 }
             }
         }
@@ -64,72 +62,115 @@ namespace StarterGame
         private void CreateWorld()
         {
             Random random = new Random();
-            _height = 5;//random.Next(5,7); //height can be from 5 to 7
-            _width = 3;                 //the width is gonna be the same so it doesnt take too long to complete the floor, will change after project is over
+            Height = random.Next(5,8); //Height can be from 5 to 8
+            Width = 3;                 //the Width is gonna be the same so it doesnt take too long to complete the Floor, will change after project is over
             int direction;
 
-            floor = new Room[_height,_width];
+            Floor = new Room[Height,Width];
             /*
-                #E# <-- _entrance floor[0,width-2]         
+                #E# <-- _entrance Floor[0,Width-2]         
                 ###                
                 ###                
                 ###         
-                #X# <-- _worldOut floor[height-1,width-2]
+                #X# <-- _worldOut Floor[Height-1,Width-2]
 
             */
-            floor[0,1] = new Room("at the beginning of the floor");
-            _entrance = floor[0,1];
+            TrapRoom tp = new TrapRoom("unlock");
+            Floor[0,1] = new Room("at the beginning of the Floor");
+            Floor[1,1] = new Room(tile);
+            _entrance = Floor[0,1];
 
-            floor[_height-1,_width-2] = new Room("at the exit");
-            _worldOut = floor[_height-1,_width-2];
-            direction = 5;
+            Floor[Height-1,Width-2] = new Room("at the exit");
+            Floor[Height-2,Width-2] = new Room(tile);
+            _worldOut = Floor[Height-1,Width-2];
+            direction = random.Next(1,10);
 
-            for(int i = 1; i < _height; i++)
+            for(int i = 1; i < Height-1; i+=2)    //create Floor
             {
-                for(int j = 0; j < _width; j++)
+                for(int j = 0; j < Width; j++)
                 {
-                    if(i == _height-1) {break;}
-                    
-                    if(direction <= 2)
+                    if(i == Height-1) {break;}
+                    if(i % 2 != 0)
                     {
-                        floor[i,0] = new Room(tile);
-                        floor[i,1] = new Room(tile);
-                        direction = random.Next(3,9);
+                        Floor[i,j] = new Room(tile);
                     }
-                    else if(direction >= 8)
+                    if(direction < 6)
                     {
-                        floor[i,1] = new Room(tile);
-                        floor[i,2] = new Room(tile);
-                        direction = random.Next(1,7);
+                        Floor[i,0] = new Room(tile);
+                        Floor[i+1,0] = new Room(tile);
+                        direction = random.Next(2,7);
                     }
-                    else
+                    else if(direction > 5)
                     {
-                        floor[i,1] = new Room(tile);
-                        direction = random.Next(1,9);
+                        Floor[i,2] = new Room(tile);     // 1 2 3 4 5  6 7 8 9 10 
+                        Floor[i+1,2] = new Room(tile);
+                        direction = random.Next(4,9);     //change this to influence chance of either left or right path
                     }
                 }
             }
-            Map(_height,_width,floor);
+
+            Floor[0,1].SetExit(down,Floor[1,1]);
+            for(int i = 1; i < Height; i++)    //create exits
+            {
+                for(int j = 0; j < Width; j++)
+                {
+                    if(Floor[i,j] != null)
+                    {
+                        for(int k = 1; k <= 4; k++)
+                        {
+                            if(Floor[i-1,j] != null)
+                            {
+                                Floor[i,j].SetExit(up,Floor[i-1,j]);
+                            }
+                            if(j != 2)
+                            {
+                                if(Floor[i,j+1] != null)
+                                {
+                                    Floor[i,j].SetExit(right,Floor[i,j+1]);
+                                }
+                            }
+                            if(i != (Height-1))
+                            {
+                                if(Floor[i+1,j] != null)
+                                {
+                                    Floor[i,j].SetExit(down,Floor[i+1,j]);
+                                }
+                            }
+                            if(j != 0)
+                            {
+                                if(Floor[i,j-1] != null)
+                                {
+                                    Floor[i,j].SetExit(left,Floor[i,j-1]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        public void Map(int height, int width, Room[,] floor)
+        public void Map(Player player)
         {
-            for(int i = 0; i < height; i++)
+            for(int i = 0; i < Height; i++)
             {
                 Console.WriteLine();
-                for(int j = 0; j < width; j++)
+                for(int j = 0; j < Width; j++)
                 {
-                    if(floor[i,j] == null)
+                    switch (player.CurrentRoom == Floor[i,j])
                     {
+                    case true:
+                        Console.Write("P");
+                        break;
+                    case false when Floor[i,j] == null:
                         Console.Write("#");
-                    }
-                   // if(Player.CurrentRoom)
-                    else
-                    {
+                        break;
+                    default:
                         Console.Write("O");
+                        break;
                     }
                 }
             }
             Console.WriteLine();
+            Console.WriteLine(" ^ the exit");
         }
     
         // private void CreateWorld()
@@ -150,44 +191,44 @@ namespace StarterGame
         //     Room woodhall = new Room(" in Woodhall");
         //     Room greekCenter = new Room(" at the Greek Center");
 
-        //     outside.SetExit("west", boulevard);
+        //     outside.SetExit("right", boulevard);
 
-        //     boulevard.SetExit("east", outside);
-        //     boulevard.SetExit("south", scctparking);
-        //     boulevard.SetExit("west", theGreen);
-        //     boulevard.SetExit("north", universityParking);
+        //     boulevard.SetExit("left", outside);
+        //     boulevard.SetExit("up", scctparking);
+        //     boulevard.SetExit("right", theGreen);
+        //     boulevard.SetExit("down", universityParking);
 
-        //     scctparking.SetExit("west", scct);
-        //     scctparking.SetExit("north", boulevard);
+        //     scctparking.SetExit("right", scct);
+        //     scctparking.SetExit("down", boulevard);
 
-        //     scct.SetExit("east", scctparking);
-        //     scct.SetExit("north", schuster);
+        //     scct.SetExit("left", scctparking);
+        //     scct.SetExit("down", schuster);
 
-        //     schuster.SetExit("south", scct);
-        //     schuster.SetExit("north", universityHall);
-        //     schuster.SetExit("east", theGreen);
+        //     schuster.SetExit("up", scct);
+        //     schuster.SetExit("down", universityHall);
+        //     schuster.SetExit("left", theGreen);
 
-        //     theGreen.SetExit("west", schuster);
-        //     theGreen.SetExit("east", boulevard);
+        //     theGreen.SetExit("right", schuster);
+        //     theGreen.SetExit("left", boulevard);
 
-        //     universityHall.SetExit("south", schuster);
-        //     universityHall.SetExit("east", universityParking);
+        //     universityHall.SetExit("up", schuster);
+        //     universityHall.SetExit("left", universityParking);
 
-        //     universityParking.SetExit("south", boulevard);
-        //     universityParking.SetExit("west", universityHall);
-        //     universityParking.SetExit("north", parkingDeck);
+        //     universityParking.SetExit("up", boulevard);
+        //     universityParking.SetExit("right", universityHall);
+        //     universityParking.SetExit("down", parkingDeck);
 
-        //     parkingDeck.SetExit("south", universityParking);
+        //     parkingDeck.SetExit("up", universityParking);
         //     //set up room delegates
         //     TrapRoom tp = new TrapRoom();
         //     scct.RoomDelegate = tp;
 
         //     //Build annex world
-        //     davidson.SetExit("west", clockTower);
-        //     clockTower.SetExit("north", greekCenter);
-        //     clockTower.SetExit("south", woodhall);
+        //     davidson.SetExit("right", clockTower);
+        //     clockTower.SetExit("down", greekCenter);
+        //     clockTower.SetExit("up", woodhall);
 
-        //     greekCenter.SetExit("north", clockTower);
+        //     greekCenter.SetExit("down", clockTower);
 
         //     _triggerRoom = scctparking;
         //     _entrance = outside;
