@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System;
 public class Shopkeeper : NPCInt{
 
     _isShopkeeper = true;
@@ -17,6 +20,17 @@ public class Shopkeeper : NPCInt{
         _isHostile = true;
         sayDialogue();
     }
-    //TEST MODIFICATION TEST MODIFICATION TEST MODIFICATION 
 
+    if(!_isHostile){
+        showStoreMenu();
+    }
+
+    private string[] inventory = new String[4];
+    private randomizeInventory(string[] inventory){
+        var rand = new Random();
+    }
+    public void showStoreMenu(Player player){
+        player.InfoMessage("\"Wanna have a look? Sure. This is what I've got in stock.\"
+        \n ")
+    }
 }

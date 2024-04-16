@@ -1,3 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
+using System;
+namespace StarterGame{
 public interface NPCInt
 {
     /*THINGS WE NEED:
@@ -10,30 +14,30 @@ public interface NPCInt
     - A way for a room to contain/hold an NPC. This could either be in rooms or in NPCs systems
     - A way to tell the player that there is an NPC in the room (can incorporate w/ ^), i.e. discovery dialogue 
     */
+        private Room _roomLoc;
+        private string _discoveryDialogue;
+        private bool _isHuman; 
+        private bool _isShopkeeper;
+        private bool _isHostile; //Might not be used for everything, just if you attack a shopkeeper
+        private string[] _possibleDialogue = new string[5]; //Can just be set to null if not human
 
-    private Room _roomLoc;
-    private string _discoveryDialogue;
-    private bool _isHuman; //Maybe they say something every turn? How store?
-    private bool _isShopkeeper;
-    private bool _isHostile; //Might not be used for everything, just if you attack a shopkeeper
-    private string[] _possibleDialogue = new string[5]; //Can just be set to null if not human
+        private string[] _moves; //Potentially not best way to hold moves, can be determined later
 
-    private string[] _moves; //Potentially not best way to hold moves, can be determined later
+        private int _HP{ get return _HP; set _HP = value; }
 
-    private int _HP{ get return _HP; set _HP = value; }
+        private int _maxHP{get return _maxHP;  set _maxHP = value;}
 
-    private int _maxHP{get return _maxHP;  set _maxHP = value;}
+        private void modifyHealth(int damage){
+            HP += damage;
+        }
 
-    private void modifyHealth(int damage){
-        HP += damage;
+        private void sayDialogue(){
+            Player player = new Player();
+            var rand = new Random();
+            player.NormalMessage(_possibleDialogue[rand.Next(0, 4)]);
+        }
+
+
+
     }
-
-    private void sayDialogue(){
-        Player player = new Player();
-        var rand = new Random();
-        player.NormalMessage(_possibleDialogue[rand.Next(0, 4)]);
-    }
-
-
-
-}
+  }
