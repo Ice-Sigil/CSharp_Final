@@ -12,3 +12,11 @@
 /home/nick/CSharp_Final/obj/Debug/net7.0/CSharp_Final.pdb
 /home/nick/CSharp_Final/obj/Debug/net7.0/CSharp_Final.genruntimeconfig.cache
 /home/nick/CSharp_Final/obj/Debug/net7.0/ref/CSharp_Final.dll
+C:\Users\grayj\Desktop\CSharp_Final\obj\Debug\net7.0\CSharp_Final.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\grayj\Desktop\CSharp_Final\obj\Debug\net7.0\CSharp_Final.AssemblyInfoInputs.cache
+C:\Users\grayj\Desktop\CSharp_Final\obj\Debug\net7.0\CSharp_Final.AssemblyInfo.cs
+C:\Users\grayj\Desktop\CSharp_Final\obj\Debug\net7.0\CSharp_Final.csproj.CoreCompileInputs.cache
+C:\Users\grayj\Desktop\CSharp_Final\obj\Debug\net7.0\CSharp_Final.sourcelink.json
+C:\Users\grayj\Desktop\CSharp_Final\obj\Debug\net7.0\CSharp_Final.dll
+C:\Users\grayj\Desktop\CSharp_Final\obj\Debug\net7.0\refint\CSharp_Final.dll
+C:\Users\grayj\Desktop\CSharp_Final\obj\Debug\net7.0\CSharp_Final.pdb

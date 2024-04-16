@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 namespace StarterGame{
-public interface NPCInt
+public class NPCInt
 {
     /*THINGS WE NEED:
     - NPC Health DONE
@@ -14,25 +14,33 @@ public interface NPCInt
     - A way for a room to contain/hold an NPC. This could either be in rooms or in NPCs systems
     - A way to tell the player that there is an NPC in the room (can incorporate w/ ^), i.e. discovery dialogue 
     */
-        private Room _roomLoc;
-        private string _discoveryDialogue;
-        private bool _isHuman; 
-        private bool _isShopkeeper;
-        private bool _isHostile; //Might not be used for everything, just if you attack a shopkeeper
-        private string[] _possibleDialogue = new string[5]; //Can just be set to null if not human
+        public Room _roomLoc;
+        public string _discoveryDialogue;
+        public bool _isHuman; 
+        public bool _isShopkeeper;
+        public bool _isHostile; //Might not be used for everything, just if you attack a shopkeeper
+        public string[] _possibleDialogue = new string[5]; //Can just be set to null if not human
 
-        private string[] _moves; //Potentially not best way to hold moves, can be determined later
+        public string[] _moves; //Potentially not best way to hold moves, can be determined later
 
-        private int _HP{ get return _HP; set _HP = value; }
-
-        private int _maxHP{get return _maxHP;  set _maxHP = value;}
-
-        private void modifyHealth(int damage){
-            HP += damage;
+        public int _HP{
+            get{
+            return _HP; }
+            set {
+            _HP = value; }
+        }
+        public int _maxHP{
+            get {
+                return _maxHP; } 
+            set {
+                _maxHP = value;}
         }
 
-        private void sayDialogue(){
-            Player player = new Player();
+        public void modifyHealth(int damage){
+            _HP += damage;
+        }
+
+        public void sayDialogue(Player player){
             var rand = new Random();
             player.NormalMessage(_possibleDialogue[rand.Next(0, 4)]);
         }

@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "/home/nick/.nuget/packages/": {}
+    "C:\\Users\\grayj\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/nick/CSharp_Final/CSharp_Final.csproj",
+      "projectUniqueName": "C:\\Users\\grayj\\Desktop\\CSharp_Final\\CSharp_Final.csproj",
       "projectName": "CSharp_Final",
-      "projectPath": "/home/nick/CSharp_Final/CSharp_Final.csproj",
-      "packagesPath": "/home/nick/.nuget/packages/",
-      "outputPath": "/home/nick/CSharp_Final/obj/",
+      "projectPath": "C:\\Users\\grayj\\Desktop\\CSharp_Final\\CSharp_Final.csproj",
+      "packagesPath": "C:\\Users\\grayj\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\grayj\\Desktop\\CSharp_Final\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/nick/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\grayj\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -54,12 +54,30 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.18, 7.0.18]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[7.0.18, 7.0.18]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[7.0.18, 7.0.18]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[7.0.18, 7.0.18]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.104\\RuntimeIdentifierGraph.json"
       }
     }
   }

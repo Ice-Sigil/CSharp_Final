@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using StarterGame;
 public class Shopkeeper : NPCInt{
-
     _isShopkeeper = true;
     _isHuman = true;
     _isHostile = false;
@@ -31,6 +31,6 @@ public class Shopkeeper : NPCInt{
     }
     public void showStoreMenu(Player player){
         player.InfoMessage("\"Wanna have a look? Sure. This is what I've got in stock.\"
-        \n ")
+        \n ");
     }
 }
