@@ -261,5 +261,7 @@ namespace StarterGame
 
         }
 
+        //use room's .drop function to add items to rooms. Can use the same for shops?
+
     }
 }
