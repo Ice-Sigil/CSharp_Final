@@ -6,8 +6,8 @@ namespace StarterGame{
     public class Character{
         private string? _name;
         public string? Name{
-            get{
-                _name; 
+            get {
+               return _name; 
             }
             set{ 
                 _name = value; 
@@ -16,7 +16,7 @@ namespace StarterGame{
         private int _hp;
         public int HP{
             get{
-                _hp;
+                return _hp;
             }
             set{
                 _hp = value; 
