@@ -75,7 +75,7 @@ namespace StarterGame
                 #X# <-- _worldOut Floor[Height-1,Width-2]
 
             */
-            TrapRoom tp = new TrapRoom("unlock");
+          //  TrapRoom tp = new TrapRoom("unlock");
             Floor[0,1] = new Room("at the beginning of the Floor");
             Floor[1,1] = new Room(tile);
             _entrance = Floor[0,1];
