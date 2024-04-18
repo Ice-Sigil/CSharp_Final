@@ -65,7 +65,7 @@ namespace StarterGame
 
         public string Description()
         {
-            return "You are " + this.Tag + ".\n *** " + this.GetExits();
+            return "You are " + this.Tag + ".\n *** " + this.GetExits() +"\n There may be an item on the floor. Pick up the " + (itemOnFloor==null ? "" : itemOnFloor.Name) + "?";
         }
     }
 }
