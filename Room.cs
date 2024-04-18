@@ -14,14 +14,31 @@ namespace StarterGame
         public string Tag { get { return _tag; } set { _tag = value; } }
 
         public Room() : this("No Tag"){}
-
+        public ItemClass itemOnFloor;
         // Designated Constructor
         public Room(string tag)
         {
+            itemOnFloor = null;
             _exits = new Dictionary<string, Room>();
             this.Tag = tag;
         }
 
+        public ItemClass drop(ItemClass item){
+            ItemClass oldItem = itemOnFloor;
+            itemOnFloor = item;
+            return oldItem;
+        }
+
+        public ItemClass pickup(string itemName){
+            ItemClass oldItem = null;
+            if(itemOnFloor != null){
+                if(itemOnFloor.Name.Equals(itemName)){
+                    oldItem=itemOnFloor;
+                    itemOnFloor = null;
+                }
+            }
+            return oldItem;
+        }
         public void SetExit(string exitName, Room room)
         {
             _exits[exitName] = room;
