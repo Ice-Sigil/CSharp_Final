@@ -22,8 +22,8 @@ namespace StarterGame
             _currentRoom = room;
             Name = ""; 
             HP = 30;
-            ATK = 5;
-            DEF = 5;
+            //ATK = 5;
+            //DEF = 5;
             LVL = 1; // to start
             XP = 0;
             MXP = 13;
@@ -90,8 +90,8 @@ namespace StarterGame
         private void LevelCheck(Player player){
             if (player.XP >= player.MXP){
                 Console.WriteLine(player.Name + " has leveled up!!!");  
-                player.MHP += 2;
-                player.HP = player.MHP; 
+             //   player.MHP += 2;
+            //    player.HP = player.MHP; 
                 player.XP = 0;
                 player.MXP *= 2; 
                 player.ATK += 2; 
@@ -139,6 +139,12 @@ namespace StarterGame
         }
           public void Inspect(string itemName){
             ItemClass pickedUpItem = CurrentRoom.pickup(itemName);
+            if (pickedUpItem != null){
+                InfoMessage("\nItem Info: " + pickedUpItem.Description);
+            }
+            else{
+                ErrorMessage("\n There is no item named that, or there is no such item in the room.");
+            }
         }
     }
 
