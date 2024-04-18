@@ -137,6 +137,9 @@ namespace StarterGame
             Console.WriteLine("|" ); 
             Console.WriteLine("====================");
         }
+          public void Inspect(string itemName){
+            ItemClass pickedUpItem = CurrentRoom.pickup(itemName);
+        }
     }
 
 }
