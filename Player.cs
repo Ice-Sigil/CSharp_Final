@@ -17,13 +17,18 @@ namespace StarterGame
         private Room _currentRoom = null;
         public Room CurrentRoom { get { return _currentRoom; } set { _currentRoom = value; } }
 
-        public Player(Room room)
+        public Player() : this(null) { }
+        public Player(Room room) : this(room, null) { }
+        public Player(Room room, string? name) : this(room, name, 0) { }
+        public Player(Room room, string? name, int hp) : this(room, name, hp, 0) { }
+        public Player(Room room, string? name, int hp, int atk) : this(room, name, hp, atk, 0){}
+        public Player(Room room, string? name, int hp, int atk, int def)
         {
             _currentRoom = room;
-            Name = ""; 
-            HP = 30;
-            //ATK = 5;
-            //DEF = 5;
+            Name = name;
+            HP = hp;
+            ATK = atk;
+            DEF = def;
             LVL = 1; // to start
             XP = 0;
             MXP = 13;
