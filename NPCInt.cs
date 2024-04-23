@@ -8,7 +8,7 @@ public class NPCInt
     - NPC Health DONE
     - NPC "Moves" (attack, wait, damage, ect. Must incorporate into combat system)
     - Specialized NPCs such as enemies, shopkeepers, and questgivers
-    - Dialogue for every NPC that they can say
+    - Dialogue for every NPC that they can say DONE
     (i.e. shopkeeper will tell you about items, enemies might taunt you if they're human, ect) DONE 
     - A boolean to track whether they're human or not (?) DONE
     - A way for a room to contain/hold an NPC. This could either be in rooms or in NPCs systems
