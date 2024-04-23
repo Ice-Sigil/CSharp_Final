@@ -5,6 +5,10 @@ using System;
 namespace StarterGame{
     public class Character{
 
+        public Character(): this("CharName"){}
+        public Character(String name): this(name, 0){}
+        public Character(String name, int hp): this(name, hp, 0){}
+        public Character(String name, int hp, int atk) : this(name, hp, atk, 0){}
         public Character(string name, int hp, int atk, int def){
             Name = name;
             HP = hp;
