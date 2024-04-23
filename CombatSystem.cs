@@ -24,14 +24,14 @@ namespace StarterGame{
                 case "a":
                 //Attack
                 Console.WriteLine("You swing with your weapon! ");
-                //NEED ATTACK COMMAND
+                //NEED ATTACK COMMAND(maybe)
                 int dmg = player.Attack(enemy);
                 Console.WriteLine("Dealing " + dmg + " damage!");
                 break; 
                 case "d":
                 //Defend
                 Console.WriteLine("You stand your ground!!!");
-                //NEED DEFEND COMMAND
+                //NEED DEFEND COMMAND(maybe)
                 dmg = player.Defend(enemy); 
                 Console.WriteLine("You take " + dmg + " damage!");
                 break;
@@ -40,7 +40,7 @@ namespace StarterGame{
                 break;
                 case "r":
                 //Run
-                // NEED RUN COMMAND
+                // NEED to finish RUN method
                 player.Run(enemy); 
                 break;
                 default:
@@ -75,8 +75,6 @@ namespace StarterGame{
             Environment.Exit(0); 
         }
     }
-    //NEED TO MAKE ENEMY CLASS
-    //ADD PLAYER ATTRIBUTES
     public void CombatMenu(Player player, Enemy enemy){
         Console.Clear(); 
         Console.WriteLine(enemy.Name);
@@ -89,7 +87,7 @@ namespace StarterGame{
         Console.WriteLine("Name: " + player.Name);
         Console.WriteLine("Level: " + player.LVL);
         Console.WriteLine("Exp: " + player.XP + " / " + player.MXP);
-        Console.WriteLine("HP: " + player.HP + " / " + player.MHP);
+        Console.WriteLine("HP: " + player.HP + " / " ); // + player.MHP);
         Console.WriteLine("MP: ");
         Console.WriteLine("Potions: ");
     }

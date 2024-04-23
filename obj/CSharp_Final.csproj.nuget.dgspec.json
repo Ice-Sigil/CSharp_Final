@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\grayj\\Desktop\\CSharp_Final\\CSharp_Final.csproj": {}
+    "C:\\Users\\dsmit\\OneDrive\\Documents\\CSU-SpringSemester2024\\Object-OrientedDesign\\SourceCode\\FinalProject\\CSharp_Final\\CSharp_Final.csproj": {}
   },
   "projects": {
-    "C:\\Users\\grayj\\Desktop\\CSharp_Final\\CSharp_Final.csproj": {
+    "C:\\Users\\dsmit\\OneDrive\\Documents\\CSU-SpringSemester2024\\Object-OrientedDesign\\SourceCode\\FinalProject\\CSharp_Final\\CSharp_Final.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\grayj\\Desktop\\CSharp_Final\\CSharp_Final.csproj",
+        "projectUniqueName": "C:\\Users\\dsmit\\OneDrive\\Documents\\CSU-SpringSemester2024\\Object-OrientedDesign\\SourceCode\\FinalProject\\CSharp_Final\\CSharp_Final.csproj",
         "projectName": "CSharp_Final",
-        "projectPath": "C:\\Users\\grayj\\Desktop\\CSharp_Final\\CSharp_Final.csproj",
-        "packagesPath": "C:\\Users\\grayj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\grayj\\Desktop\\CSharp_Final\\obj\\",
+        "projectPath": "C:\\Users\\dsmit\\OneDrive\\Documents\\CSU-SpringSemester2024\\Object-OrientedDesign\\SourceCode\\FinalProject\\CSharp_Final\\CSharp_Final.csproj",
+        "packagesPath": "C:\\Users\\dsmit\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dsmit\\OneDrive\\Documents\\CSU-SpringSemester2024\\Object-OrientedDesign\\SourceCode\\FinalProject\\CSharp_Final\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\grayj\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\dsmit\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -51,19 +51,19 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.18, 7.0.18]"
+              "version": "[7.0.15, 7.0.15]"
             },
             {
               "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[7.0.18, 7.0.18]"
+              "version": "[7.0.15, 7.0.15]"
             },
             {
               "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.18, 7.0.18]"
+              "version": "[7.0.15, 7.0.15]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.18, 7.0.18]"
+              "version": "[7.0.15, 7.0.15]"
             }
           ],
           "frameworkReferences": {
@@ -71,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

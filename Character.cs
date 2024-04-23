@@ -23,22 +23,38 @@ namespace StarterGame{
             }
         }
         private int _atk; 
-        public string ATK{
+        public int ATK{
             get{
-                _atk;
+                return _atk;
             }
             set{
                 _atk = value; 
             }
         }
-         private int _def; 
-        public string DEF{
+        private int _def; 
+        public int DEF{
             get{
-                _def;
+                return _def;
             }
             set{
                 _def = value; 
             }
+        }
+        //Attack Method  
+        public int Attack(Character target){
+            int damage = Math.Max(ATK - target.DEF, 0); // Ensure damage is not negative
+            target.TakeDamage(damage);
+            return damage; 
+        }
+        //Defend Method 
+        public int Defend(Character target){
+            int damage = Math.Max(target.ATK - DEF, 0);
+            TakeDamage(damage);
+            return damage; 
+        }
+        //Take Damage Method
+        public void TakeDamage(int damage){
+            HP = Math.Max(HP - damage, 0); // Ensure HP does not go below 0
         }
     }
 }
