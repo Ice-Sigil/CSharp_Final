@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 
 namespace StarterGame{
-    public class Character{
+    public class Character : ICharacter{
         private string? _name;
         public string? Name{
             get {
@@ -40,6 +40,14 @@ namespace StarterGame{
                 _def = value; 
             }
         }
+
+        public Character(string? name, int hp, int atk, int def){
+            Name = name; 
+            HP = hp; 
+            ATK = atk; 
+            DEF = def;  
+        }
+
         //Attack Method  
         public int Attack(Character target){
             int damage = Math.Max(ATK - target.DEF, 0); // Ensure damage is not negative
