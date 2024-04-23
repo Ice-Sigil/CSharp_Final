@@ -13,6 +13,7 @@ namespace StarterGame{
                 _name = value; 
             }
         }
+    
         private int _hp;
         public int HP{
             get{
@@ -39,6 +40,17 @@ namespace StarterGame{
             set{
                 _def = value; 
             }
+        }
+        public Character(): this("No name"){}
+        public Character(string? name) : this(name, 0){}
+        public Character(string? name, int hp) :this(name, hp, 0){}
+        public Character(string? name, int hp, int atk) :this(name, hp, atk, 0){}
+        public Character(string? name, int hp,int atk, int def) : this(name, hp, atk, def, 0){}
+        public Character(string? name, int hp, int atk, int def, int lootchance){
+            _name = name;
+            _hp = hp;
+            _def = def;
+            _atk = atk;
         }
         //Attack Method  
         public int Attack(Character target){
