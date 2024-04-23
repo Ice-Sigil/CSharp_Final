@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 
 namespace StarterGame{
-    public class Character{
+    public class Character : ICharacter{
         private string? _name;
         public string? Name{
             get {
@@ -41,17 +41,14 @@ namespace StarterGame{
                 _def = value; 
             }
         }
-        public Character(): this("No name"){}
-        public Character(string? name) : this(name, 0){}
-        public Character(string? name, int hp) :this(name, hp, 0){}
-        public Character(string? name, int hp, int atk) :this(name, hp, atk, 0){}
-        public Character(string? name, int hp,int atk, int def) : this(name, hp, atk, def, 0){}
-        public Character(string? name, int hp, int atk, int def, int lootchance){
-            _name = name;
-            _hp = hp;
-            _def = def;
-            _atk = atk;
+
+        public Character(string? name, int hp, int atk, int def){
+            Name = name; 
+            HP = hp; 
+            ATK = atk; 
+            DEF = def;  
         }
+
         //Attack Method  
         public int Attack(Character target){
             int damage = Math.Max(ATK - target.DEF, 0); // Ensure damage is not negative
