@@ -4,18 +4,6 @@ using System;
 
 namespace StarterGame{
     public class Character{
-
-        public Character(): this("CharName"){}
-        public Character(String name): this(name, 0){}
-        public Character(String name, int hp): this(name, hp, 0){}
-        public Character(String name, int hp, int atk) : this(name, hp, atk, 0){}
-        public Character(string name, int hp, int atk, int def){
-            Name = name;
-            HP = hp;
-            ATK = atk;
-            DEF = def;
-        }
-
         private string? _name;
         public string? Name{
             get {
@@ -25,8 +13,8 @@ namespace StarterGame{
                 _name = value; 
             }
         }
-        private int? _hp;
-        public int? HP{
+        private int _hp;
+        public int HP{
             get{
                 return _hp;
             }
@@ -34,19 +22,19 @@ namespace StarterGame{
                 _hp = value; 
             }
         }
-        private int _atk;
-        public int ATK{
+        private int _atk; 
+        public string ATK{
             get{
-                return _atk;
+                _atk;
             }
             set{
-                _atk = value;
+                _atk = value; 
             }
-        } 
-        private int? _def; 
-        public int? DEF{
+        }
+         private int _def; 
+        public string DEF{
             get{
-                return _def;
+                _def;
             }
             set{
                 _def = value; 
