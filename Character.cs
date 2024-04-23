@@ -4,6 +4,14 @@ using System;
 
 namespace StarterGame{
     public class Character{
+
+        public Character(string name, int hp, int atk, int def){
+            Name = name;
+            HP = hp;
+            ATK = atk;
+            DEF = def;
+        }
+
         private string? _name;
         public string? Name{
             get {
@@ -13,8 +21,8 @@ namespace StarterGame{
                 _name = value; 
             }
         }
-        private int _hp;
-        public int HP{
+        private int? _hp;
+        public int? HP{
             get{
                 return _hp;
             }
@@ -22,19 +30,19 @@ namespace StarterGame{
                 _hp = value; 
             }
         }
-        private int _atk; 
-        public string ATK{
+        private int _atk;
+        public int ATK{
             get{
-                _atk;
+                return _atk;
             }
             set{
-                _atk = value; 
+                _atk = value;
             }
-        }
-         private int _def; 
-        public string DEF{
+        } 
+        private int? _def; 
+        public int? DEF{
             get{
-                _def;
+                return _def;
             }
             set{
                 _def = value; 
