@@ -25,10 +25,6 @@ namespace StarterGame
         public Player(Room room, string name, int hp, int atk, int def) : base(name, hp, atk, def)
         {
             _currentRoom = room;
-            Name = name;
-            HP = hp;
-            ATK = atk;
-            DEF = def;
             LVL = 1; // to start
             XP = 0;
             MXP = 13;
