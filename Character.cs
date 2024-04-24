@@ -42,7 +42,7 @@ namespace StarterGame{
             }
         }
 
-        public Character(string? name, int hp, int atk, int def){
+        public Character(string name, int hp, int atk, int def){
             Name = name; 
             HP = hp; 
             ATK = atk; 

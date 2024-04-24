@@ -22,7 +22,7 @@ namespace StarterGame
         public Player(Room room, string? name) : this(room, name, 0) { }
         public Player(Room room, string? name, int hp) : this(room, name, hp, 0) { }
         public Player(Room room, string? name, int hp, int atk) : this(room, name, hp, atk, 0){}
-        public Player(Room room, string? name, int hp, int atk, int def)
+        public Player(Room room, string name, int hp, int atk, int def) : base(name, hp, atk, def)
         {
             _currentRoom = room;
             Name = name;

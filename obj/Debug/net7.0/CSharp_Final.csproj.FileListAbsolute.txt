@@ -28,3 +28,10 @@ C:\Users\dsmit\OneDrive\Documents\CSU-SpringSemester2024\Object-OrientedDesign\S
 C:\Users\dsmit\OneDrive\Documents\CSU-SpringSemester2024\Object-OrientedDesign\SourceCode\FinalProject\CSharp_Final\obj\Debug\net7.0\CSharp_Final.dll
 C:\Users\dsmit\OneDrive\Documents\CSU-SpringSemester2024\Object-OrientedDesign\SourceCode\FinalProject\CSharp_Final\obj\Debug\net7.0\refint\CSharp_Final.dll
 C:\Users\dsmit\OneDrive\Documents\CSU-SpringSemester2024\Object-OrientedDesign\SourceCode\FinalProject\CSharp_Final\obj\Debug\net7.0\CSharp_Final.pdb
+C:\Users\grayj\Desktop\CSharp_Final\bin\Debug\net7.0\CSharp_Final.exe
+C:\Users\grayj\Desktop\CSharp_Final\bin\Debug\net7.0\CSharp_Final.deps.json
+C:\Users\grayj\Desktop\CSharp_Final\bin\Debug\net7.0\CSharp_Final.runtimeconfig.json
+C:\Users\grayj\Desktop\CSharp_Final\bin\Debug\net7.0\CSharp_Final.dll
+C:\Users\grayj\Desktop\CSharp_Final\bin\Debug\net7.0\CSharp_Final.pdb
+C:\Users\grayj\Desktop\CSharp_Final\obj\Debug\net7.0\CSharp_Final.genruntimeconfig.cache
+C:\Users\grayj\Desktop\CSharp_Final\obj\Debug\net7.0\ref\CSharp_Final.dll
