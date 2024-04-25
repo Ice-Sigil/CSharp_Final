@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading;
 using System.Threading.Tasks;
@@ -75,8 +76,7 @@ namespace StarterGame
                 #X# <-- _worldOut Floor[Height-1,Width-2]
 
             */
-          //  TrapRoom tp = new TrapRoom("unlock");
-            Floor[0,1] = new Room("at the beginning of the Floor");
+            Floor[0,1] = new Room("at the beginning of the floor");
             Floor[1,1] = new Room(tile);
             _entrance = Floor[0,1];
 
@@ -109,6 +109,12 @@ namespace StarterGame
                 }
             }
 
+            MakeExits();
+            FillRoom();
+        }
+
+        public void MakeExits()
+        {
             Floor[0,1].SetExit(down,Floor[1,1]);
             for(int i = 1; i < Height; i++)    //create exits
             {
@@ -148,6 +154,27 @@ namespace StarterGame
                 }
             }
         }
+
+        public void FillRoom()
+        {
+            TrapRoom tp = new TrapRoom("unlock");
+            IItem item = new Item("knife");
+            Floor[0,1].Drop(item);
+            Floor[1,1].RoomDelegate = tp;
+
+            IItem decorator = new Item("gem", 0.5f);
+            item.Decorate(decorator);
+            decorator = new Item("gold", 0.7f);
+            item.Decorate(decorator);
+
+            IItemContainer chest = new ItemContainer("chest", 0f);
+            Floor[1,1].Drop(chest);
+            item = new Item("ball", 0.5f);
+            chest.Insert(item);
+            item = new Item("bat", 3.5f);
+            chest.Insert(item);
+        }
+
         public void Map(Player player)
         {
             for(int i = 0; i < Height; i++)
@@ -158,19 +185,27 @@ namespace StarterGame
                     switch (player.CurrentRoom == Floor[i,j])
                     {
                     case true:
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.Write("P");
+                        Console.ResetColor();
                         break;
                     case false when Floor[i,j] == null:
-                        Console.Write("#");
+                        // Console.BackgroundColor = ConsoleColor.Black;
+                        // Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write(" ");
+                        // Console.ResetColor();
                         break;
                     default:
-                        Console.Write("O");
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                        Console.Write(" ");
+                        Console.ResetColor();
                         break;
                     }
                 }
             }
             Console.WriteLine();
-            Console.WriteLine(" ^ the exit");
+            player.InfoMessage(" ^ the exit");
         }
     
         // private void CreateWorld()
@@ -260,7 +295,6 @@ namespace StarterGame
             }
 
         }
-
         //use room's .drop function to add items to rooms. Can use the same for shops?
 
     }
