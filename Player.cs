@@ -30,6 +30,7 @@ namespace StarterGame
             MXP = 13;
             COIN = 13;
         }
+        private IItemContainer _Backpack;
 
         public void WaltTo(string direction)
         {
@@ -146,6 +147,10 @@ namespace StarterGame
             else{
                 ErrorMessage("\n There is no item named that, or there is no such item in the room.");
             }
+        }
+
+        public void Inventory(){
+            NormalMessage(_Backpack.Description); //itemcontainer, fix later
         }
     }
 
