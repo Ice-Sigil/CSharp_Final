@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.ComponentModel;
 
 namespace StarterGame
 {
@@ -111,15 +112,15 @@ namespace StarterGame
             Random chance = new Random();
             switch (chance.Next(0, 3)){
                 case 1:
-                    //No escape
+                    //No escape. Stay in combat system
                     
                     break;
                 case 2:
-                    //Rough escape
+                    //Rough escape. Exit combat system, but take damage.
                     
                     break;
                 case 3:
-                    //True escape
+                    //True escape. Exit combat system without damage.
                     
                     break;
                 default:
@@ -151,6 +152,36 @@ namespace StarterGame
 
         public void Inventory(){
             NormalMessage(_Backpack.Description); //itemcontainer, fix later
+        }
+
+        public void Give(IItem item){
+            _Backpack.Insert(item);
+        }
+
+        public IItem Take(string itemName){
+            return _Backpack.Remove(itemName);
+        }
+
+        public void Pickup(string itemName){
+            IItem item = CurrentRoom.pickup(itemName);
+            if (itemName != null){
+                Give(item);
+                NormalMessage("You have picked up the " + itemName);
+            }
+            else{
+                ErrorMessage("There is no item named " + itemName +" in this room.");
+            }
+        }
+
+        public void Drop(string itemName){
+            IItem item = Take(itemName);
+            if (itemName != null){
+                CurrentRoom.drop(item);
+                NormalMessage("You have dropped up the " + itemName);
+            }
+            else{
+                ErrorMessage("There is no item named " + itemName +" in your inventory.");
+            }
         }
     }
 

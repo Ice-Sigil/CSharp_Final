@@ -1,17 +1,16 @@
-﻿using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace StarterGame
 {
-    /*
-     * Spring 2024
-     */
-    public class InspectCommand : Command
+    public class PickupCommand : Command
     {
 
-        public InspectCommand() : base()
+        public PickupCommand() : base()
         {
-            this.Name = "inspect";
+            this.Name = "Pickup";
         }
 
         override
@@ -19,11 +18,11 @@ namespace StarterGame
         {
             if (this.HasSecondWord())
             {
-                player.Inspect(this.SecondWord);
+                player.Pickup(SecondWord);
             }
             else
             {
-                player.WarningMessage("\nInspect what?");
+                player.ErrorMessage(" I cannot pick up nothing.");
             }
             return false;
         }
