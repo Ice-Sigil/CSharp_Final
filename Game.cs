@@ -6,7 +6,11 @@ namespace StarterGame
 {
     /*
      * Spring 2024
+     * Foundation Class that holds the Player and Parser
+     *
+     *
      */
+
     public class Game
     {
         private Player _player;
@@ -17,11 +21,9 @@ namespace StarterGame
         {
             _playing = false;
             _parser = new Parser(new CommandWords());
+            _player = new Player(GameWorld.Instance.Entrance, "Prisoner", 30, 12, 6);
         }
 
-        /**
-     *  Main play routine.  Loops until end of play.
-     */
         public void Play()
         {
 
@@ -46,7 +48,6 @@ namespace StarterGame
             }
 
         }
-
 
         public void Start()
         {

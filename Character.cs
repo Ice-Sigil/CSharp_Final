@@ -6,14 +6,13 @@ namespace StarterGame{
     public class Character : ICharacter{
         private string? _name;
         public string? Name{
-            get {
+            get{
                return _name; 
             }
             set{ 
                 _name = value; 
             }
         }
-    
         private int _hp;
         public int HP{
             get{
@@ -21,6 +20,15 @@ namespace StarterGame{
             }
             set{
                 _hp = value; 
+            }
+        }
+        private int _maxHP;
+        public int MHP{
+            get{
+                return _maxHP;
+            } 
+            set{
+                _maxHP = value;
             }
         }
         private int _atk; 
@@ -42,6 +50,7 @@ namespace StarterGame{
             }
         }
 
+        //Generic Constructor for all Characters
         public Character(string name, int hp, int atk, int def){
             Name = name; 
             HP = hp; 

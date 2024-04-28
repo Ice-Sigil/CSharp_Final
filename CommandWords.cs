@@ -2,43 +2,36 @@
 using System.Collections.Generic;
 using System;
 
-namespace StarterGame
-{
+namespace StarterGame{
     /*
      * Spring 2024
      */
-    public class CommandWords
-    {
-        private Dictionary<string, Command> _commands;
+    public class CommandWords{
+        private Dictionary<string, Command> _commands; 
         private static Command[] _commandArray = { new GoCommand(), new QuitCommand(), new MapCommand(), new InspectCommand(), new InventoryCommand(), new DropCommand(), new PickupCommand()};
 
         public CommandWords() : this(_commandArray) {}
 
         // Designated Constructor
-        public CommandWords(Command[] commandList)
-        {
+        public CommandWords(Command[] commandList){
             _commands = new Dictionary<string, Command>();
-            foreach (Command command in commandList)
-            {
+            foreach (Command command in commandList){
                 _commands[command.Name] = command;
             }
             Command help = new HelpCommand(this);
             _commands[help.Name] = help;
         }
-
-        public Command Get(string word)
-        {
+        //Method to retrieve a command given its name
+        public Command Get(string word){
             Command command = null;
             _commands.TryGetValue(word, out command);
             return command;
         }
-
-        public string Description()
-        {
+        //Command's Description 
+        public string Description(){
             string commandNames = "";
             Dictionary<string, Command>.KeyCollection keys = _commands.Keys;
-            foreach (string commandName in keys)
-            {
+            foreach (string commandName in keys){
                 commandNames += " " + commandName;
             }
             return commandNames;

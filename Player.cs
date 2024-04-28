@@ -15,9 +15,13 @@ namespace StarterGame
         public int XP {get; private set;}  // Experience points
         public int MXP {get; private set;} // Max Exp
         public int COIN {get; private set;} // Player Coins 
-        private Room _currentRoom = null;
+        Random rand = new Random();
+        private Room _currentRoom = null; // Player's current location 
         public Room CurrentRoom { get { return _currentRoom; } set { _currentRoom = value; } }
 
+        private IItemContainer _Backpack;
+
+        //Constructors
         public Player() : this(null) { }
         public Player(Room room) : this(room, null) { }
         public Player(Room room, string? name) : this(room, name, 0) { }
@@ -30,17 +34,21 @@ namespace StarterGame
             XP = 0;
             MXP = 13;
             COIN = 13;
+            HP = hp; 
+            MHP = hp;
+            ATK = atk;
+            DEF = def; 
         }
-        private IItemContainer _Backpack;
-
         public void WaltTo(string direction)
         {
             Room nextRoom = this.CurrentRoom.GetExit(direction);
             if (nextRoom != null)
             {
                 CurrentRoom = nextRoom;
-                // Notification notification = new Notification("PlayerDidEnterRoom", );
-                //NotificationCenter.Instance.PostNoficiation(notification)
+                Notification notification = new Notification("PlayerDidEnterRoom", this);
+                NotificationCenter.Instance.PostNotification(notification);
+                Notification combatStart = new Notification("PlayerDidStartCombat", this); 
+                NotificationCenter.Instance.PostNotification(combatStart);
                 NormalMessage("\n" + this.CurrentRoom.Description());
             }
             else
@@ -141,7 +149,7 @@ namespace StarterGame
             Console.WriteLine("====================");
         }
           public void Inspect(string itemName){
-            ItemClass pickedUpItem = CurrentRoom.pickup(itemName);
+            IItem pickedUpItem = CurrentRoom.Pickup(itemName);
             if (pickedUpItem != null){
                 InfoMessage("\nItem Info: " + pickedUpItem.Description);
             }
@@ -163,7 +171,7 @@ namespace StarterGame
         }
 
         public void Pickup(string itemName){
-            IItem item = CurrentRoom.pickup(itemName);
+            IItem item = CurrentRoom.Pickup(itemName);
             if (itemName != null){
                 Give(item);
                 NormalMessage("You have picked up the " + itemName);
@@ -176,7 +184,7 @@ namespace StarterGame
         public void Drop(string itemName){
             IItem item = Take(itemName);
             if (itemName != null){
-                CurrentRoom.drop(item);
+                CurrentRoom.Drop(item);
                 NormalMessage("You have dropped up the " + itemName);
             }
             else{
@@ -184,5 +192,4 @@ namespace StarterGame
             }
         }
     }
-
 }
