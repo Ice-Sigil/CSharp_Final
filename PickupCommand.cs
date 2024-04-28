@@ -10,7 +10,7 @@ namespace StarterGame
 
         public PickupCommand() : base()
         {
-            this.Name = "Pickup";
+            this.Name = "pickup";
         }
 
         override

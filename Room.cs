@@ -199,9 +199,6 @@ namespace StarterGame{
             _active = true;
             _enemy = enemy;
             NotificationCenter.Instance.AddObserver("PlayerDidStartCombat", PlayerDidStartCombat);
-
-
-            //
         }
 
         public void PlayerDidStartCombat(Notification notification){

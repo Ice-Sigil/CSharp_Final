@@ -59,7 +59,7 @@ namespace StarterGame
 
         public void OutputMessage(string message)
         {
-            Console.WriteLine(message);
+            Console.Write(message);
         }
 
         public void ColoredMessage(string message, ConsoleColor newColor)
@@ -78,16 +78,19 @@ namespace StarterGame
         public void InfoMessage(string message)
         {
             ColoredMessage(message, ConsoleColor.Blue);
+            Console.WriteLine();
         }
 
         public void WarningMessage(string message)
         {
             ColoredMessage(message, ConsoleColor.DarkYellow);
+            Console.WriteLine();
         }
 
         public void ErrorMessage(string message)
         {
             ColoredMessage(message, ConsoleColor.Red);
+            Console.WriteLine();
         }
 
         public void GainXP(int amount){
@@ -156,6 +159,19 @@ namespace StarterGame
             else{
                 ErrorMessage("\n There is no item named that, or there is no such item in the room.");
             }
+        }
+
+        public void Say(string word)
+        {
+            Console.Write("The player says: \"");
+            NormalMessage(word);
+            Console.Write("\"\n");
+            Notification notification = new Notification("PlayerDidSayAWord", this);
+            Dictionary<string, object> userInfo = new Dictionary<string, object>();
+            userInfo["word"] = word;
+            notification.UserInfo = userInfo;
+            NotificationCenter.Instance.PostNotification(notification);
+    
         }
 
         public void Inventory(){
