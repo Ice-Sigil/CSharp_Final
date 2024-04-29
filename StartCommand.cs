@@ -19,6 +19,7 @@ namespace StarterGame
             if (this.HasSecondWord())
             {
                 player.SetDifficulty(SecondWord);
+                player.InfoMessage(player.CurrentRoom.Description());
                 return true;
             }
             else
