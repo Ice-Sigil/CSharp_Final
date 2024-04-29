@@ -35,8 +35,11 @@ namespace StarterGame
         private Room _entrance;
         public Room Entrance { get { return _entrance; } }
         private Room _triggerRoom;
-        private Room _worldOut;
+        public Room _worldOut;
         private Room _worldInAnnex;
+        private Room _combatRoom; 
+
+        private static Enemy[] _enemyArray = { new Enemy("goblin", 50, 2, 1)};
 
         private GameWorld()
         {
@@ -56,6 +59,10 @@ namespace StarterGame
                 if(player.CurrentRoom == _worldOut)
                 {
                     player.InfoMessage("\n***Exit found..!");
+                }
+                if (player.CurrentRoom == _combatRoom)
+                {
+                    player.WarningMessage("You are in a Combat Room"); 
                 }
             }
         }
@@ -173,6 +180,11 @@ namespace StarterGame
             chest.Insert(item);
             item = new Item("bat", 3.5f);
             chest.Insert(item);
+
+            Enemy practiceDummy = new Enemy("Bandit", 20, 5, 5);
+            CombatRoom cr = new CombatRoom(_enemyArray[0]);
+            Floor[Height-1,Width-2].RoomDelegate = cr;
+            
         }
 
         public void Map(Player player)
@@ -278,15 +290,18 @@ namespace StarterGame
             private Room _worldInAnnex;
             private string _directionFromWorld;
             private string _directionToWorld;
+            private Room _combatRoom;
 
-            public WorldEvent(Room trigger, Room worldOut, Room worldInAnnex, string directionFromWorld, string directionToWorld)
+            public WorldEvent(Room trigger, Room worldOut, Room worldInAnnex, string directionFromWorld, string directionToWorld, Room combatRoom)
             {
                 _trigger = trigger;
                 _worldOut = worldOut;
                 _worldInAnnex = worldInAnnex;
                 _directionFromWorld = directionFromWorld;
                 _directionToWorld = directionToWorld;
+                _combatRoom = combatRoom;
             }
+
 
             public void ExecuteEvent()
             {

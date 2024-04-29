@@ -10,7 +10,7 @@ namespace StarterGame
 
         public DropCommand() : base()
         {
-            this.Name = "Drop";
+            this.Name = "drop";
         }
 
         override
