@@ -10,8 +10,13 @@ namespace StarterGame{
     
         private string[] possibleDialogue = new string[]{"Is this really what you want to do? Fine, then. Die like the rest.", "Fool. You'll get what you deserve.", "You should have never come down here.", "May the gods let you die quickly.", "Wretched filth. I'll put you where you belong."};
         public string getDialogue(){
-           // Random random= new Random(4);
             return _discoveryDialogue;
         }
+        public string getAttackDialogue(){
+             Random random= new Random(4);
+             return possibleDialogue[random.Next()];
+        }
+        private IItemContainer _inventory;
+
         }
     }

@@ -375,12 +375,35 @@ namespace StarterGame{
 
         public string OnTag(string tag)
         {
-
-
             return tag + (_active?".\n *** You have entered a Shop Room! You are free to purchase whatever you please.":"");
 
         }
+        public void ShopMenu(){
+        Console.Clear(); 
+        Console.WriteLine("=======================");
+        Console.WriteLine("|| (B)uy      (S)ell ||");
+        Console.WriteLine("||      (A)ttack     ||");
+        Console.WriteLine("||     (G)oodbye     ||");
+        Console.WriteLine("=======================");
+        }
+        public void ShopLoop(Player player, Shopkeeper shopkeeper){
+            ShopMenu();
+            string? playerInput = Console.ReadLine().ToLower();
+            while(playerInput != "g"){
+                switch(playerInput){
+                    case "b": 
+                     //   shopkeeper.displayWares;
+                        break;
+                    case "s":
+                    //    player.displayInventory;
+                        break;
+                    case "a":
+                    //     start combat here
+                        break;
+                }
+            }
+        }
     }
-}
+ }
 
 
