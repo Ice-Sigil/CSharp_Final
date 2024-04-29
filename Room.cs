@@ -329,6 +329,58 @@ namespace StarterGame{
         Console.WriteLine("Potions: ");
         }   
     }
+    // barrier for shop class
+     public class ShopRoom : IRoomDelegate
+    {
+        private Shopkeeper _shopkeeper; 
+        public Shopkeeper Shopkeeper {
+            get { return _shopkeeper; }
+            set { _shopkeeper = value; }
+        }
+        private bool _active;
+        private Room _containingRoom;
+        public Room ContainingRoom
+        {
+            set
+            {
+                _containingRoom = value;
+            }
+            get
+            {
+                return _containingRoom;
+            }
+        }
+        public ShopRoom(Shopkeeper shopkeeper)
+        {
+            _active = true;
+            _shopkeeper = shopkeeper;
+            NotificationCenter.Instance.AddObserver("PlayerDidEnterShop", PlayerDidEnterShop);
+        }
+
+        public void PlayerDidEnterShop(Notification notification){
+            Player player = (Player)notification.Object;
+            if (_active){
+                if (player != null){
+                    if(player.CurrentRoom == ContainingRoom){
+                        player.NormalMessage(_shopkeeper.getDialogue());
+                    }
+                }
+            }
+        }
+
+        public Room OnGetExit(Room room)
+        {
+            return _active?null:room;
+        }
+
+        public string OnTag(string tag)
+        {
+
+
+            return tag + (_active?".\n *** You have entered a Shop Room! You are free to purchase whatever you please.":"");
+
+        }
+    }
 }
 
 

@@ -38,6 +38,7 @@ namespace StarterGame
         public Room _worldOut;
         private Room _worldInAnnex;
         private Room _combatRoom; 
+        private Room _shopRoom;
 
         private static Enemy[] _enemyArray = { new Enemy("goblin", 50, 2, 1)};
 
@@ -184,6 +185,10 @@ namespace StarterGame
             Enemy practiceDummy = new Enemy("Bandit", 20, 5, 5);
             CombatRoom cr = new CombatRoom(_enemyArray[0]);
             Floor[Height-1,Width-2].RoomDelegate = cr;
+
+            Shopkeeper shopkeeper = new Shopkeeper("Shopman", 20, 5, 5);
+            ShopRoom sr = new ShopRoom(shopkeeper);
+            Floor[Height-2, Width-2].RoomDelegate = sr;
             
         }
 

@@ -50,6 +50,8 @@ namespace StarterGame
                 NotificationCenter.Instance.PostNotification(notification);
                 Notification combatStart = new Notification("PlayerDidStartCombat", this); 
                 NotificationCenter.Instance.PostNotification(combatStart);
+                Notification shopEnter = new Notification("PlayerDidEnterShop", this);
+                NotificationCenter.Instance.PostNotification(shopEnter);
                 NormalMessage("\n" + this.CurrentRoom.Description());
             }
             else
