@@ -370,7 +370,7 @@ namespace StarterGame{
 
         public Room OnGetExit(Room room)
         {
-            return _active?null:room;
+            return room;
         }
 
         public string OnTag(string tag)
