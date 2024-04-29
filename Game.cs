@@ -16,7 +16,6 @@ namespace StarterGame
         private Player _player;
         private Parser _parser;
         private bool _playing;
-        private bool _gameStart;
 
         public Game()
         {
@@ -34,36 +33,17 @@ namespace StarterGame
             {
                 bool finished = false;
                 while (!finished)
-                {
+                {   
                     Console.Write("\n>");
                     Command command = _parser.ParseCommand(Console.ReadLine());
-                    if(_gameStart)
+                    if (command == null)
                     {
-                        if (command == null)
-                        {
-                            _player.ErrorMessage("I don't understand...");
-                        }
-                        else
-                        {
-                            finished = command.Execute(_player);
-                        }
+                        _player.ErrorMessage("I don't understand...");
                     }
                     else
                     {
-                        if(command == null)
-                        {
-                            Console.WriteLine("Nope!");
-                        }
-                        else if(command.ToString() == "start")
-                        {
-                            _gameStart = command.Execute(_player);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Nope!");
-                        }
+                        finished = command.Execute(_player);
                     }
-                    
                 }
             }
 
@@ -73,7 +53,6 @@ namespace StarterGame
         {
             _playing = true;
             _player.InfoMessage(Welcome());
-            _gameStart = false;
         }
 
         public void End()
