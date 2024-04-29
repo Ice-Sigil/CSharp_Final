@@ -19,6 +19,7 @@ namespace StarterGame
         public string up = "up";
         public string down = "down";
         public string tile = "on a regular floor tile";
+        private int _floor = 0;
 
         private static GameWorld _instance;
         public static GameWorld Instance
@@ -40,7 +41,14 @@ namespace StarterGame
         private Room _combatRoom; 
         private Room _shopRoom;
 
-        private static Enemy[] _enemyArray = { new Enemy("goblin", 50, 2, 1)};
+        private static Enemy[] _enemyArray = { 
+			new Enemy("Goblin", 50, 2, 1)};
+		private static Enemy[] _enemyBosses = { 
+			new Enemy("Boss 1: Bandit Chief", 5, 5, 3), 
+			new Enemy("Boss 2: Mutant Rat", 7, 6, 4),
+			new Enemy("Boss 3: Stone Golem", 1, 10, 6),
+			new Enemy("Boss 4: Ghost Rider", 1, 15, 9),
+			new Enemy("Final Boss: Dr. Obando", 2, 20, 10)};
 
         private GameWorld()
         {
@@ -68,8 +76,34 @@ namespace StarterGame
             }
         }
 
+        public bool NextFloor(Player player)
+        {
+            if (player.CurrentRoom == _worldOut)
+            {
+                if (_floor < 5)
+                {
+                    Floor = null;
+                    CreateWorld();
+                    player.CurrentRoom = _entrance;
+                    player.InfoMessage("\n" + player.CurrentRoom.Description());
+                }
+                else
+                {
+                    player.WarningMessage("You just beat the final boss! Congraturaltionese!");
+                    player.WarningMessage(":DDDDD");
+                    return true;
+                }
+            }
+            else
+            {
+                player.WarningMessage("You need to be at the exit to proceed to the next floor!");
+            }
+            return false;
+        }
+
         private void CreateWorld()
         {
+            _floor += 1;
             Random random = new Random();
             Height = random.Next(5,8); //Height can be from 5 to 8
             Width = 3;                 //the Width is gonna be the same so it doesnt take too long to complete the Floor, will change after project is over
@@ -183,7 +217,7 @@ namespace StarterGame
             chest.Insert(item);
 
             Enemy practiceDummy = new Enemy("Bandit", 20, 5, 5);
-            CombatRoom cr = new CombatRoom(_enemyArray[0]);
+            CombatRoom cr = new CombatRoom(_enemyBosses[_floor-1]);
             Floor[Height-1,Width-2].RoomDelegate = cr;
 
             Shopkeeper shopkeeper = new Shopkeeper("Shopman", 20, 5, 5);
