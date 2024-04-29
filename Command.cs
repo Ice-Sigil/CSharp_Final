@@ -20,6 +20,12 @@ namespace StarterGame
         public bool HasSecondWord(){
             return this.SecondWord != null;
         }
+        
+        override
+        public string ToString()
+        {
+            return _name;
+        }
         public abstract bool Execute(Player player);
     }
 }
