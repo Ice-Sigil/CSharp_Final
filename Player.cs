@@ -19,7 +19,7 @@ namespace StarterGame
         private Room _currentRoom = null; // Player's current location 
         public Room CurrentRoom { get { return _currentRoom; } set { _currentRoom = value; } }
 
-        private IItemContainer _Backpack;
+        private IItemContainer _backpack;
 
         //Constructors
         public Player() : this(null) { }
@@ -30,6 +30,7 @@ namespace StarterGame
         public Player(Room room, string name, int hp, int atk, int def) : base(name, hp, atk, def)
         {
             _currentRoom = room;
+            _backpack = new ItemContainer("backpack", 0f);
             LVL = 1; // to start
             XP = 0;
             MXP = 13;
@@ -175,15 +176,15 @@ namespace StarterGame
         }
 
         public void Inventory(){
-            NormalMessage(_Backpack.Description); //itemcontainer, fix later
+            NormalMessage(_backpack.Description); //itemcontainer, fix later
         }
 
         public void Give(IItem item){
-            _Backpack.Insert(item);
+            _backpack.Insert(item);
         }
 
         public IItem Take(string itemName){
-            return _Backpack.Remove(itemName);
+            return _backpack.Remove(itemName);
         }
 
         public void Pickup(string itemName){
