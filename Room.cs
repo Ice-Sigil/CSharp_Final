@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace StarterGame{
     /*
@@ -177,11 +178,14 @@ namespace StarterGame{
     {
         private Enemy _enemy; 
         Random rand = new Random();
+        int coins;
+        int _xp;
         public Enemy Enemy {
             get { return _enemy; }
             set { _enemy = value; }
         }
         private bool _active;
+        private bool _escape = false;
         private Room _containingRoom;
         public Room ContainingRoom
         {
@@ -226,35 +230,52 @@ namespace StarterGame{
 
         }
         public void StartCombat(Player player){
-        while (player.HP > 0 && _enemy.HP > 0){
-            CombatMenu(player, _enemy);  
-            string? playerAction = Console.ReadLine(); 
-            Console.ReadKey(); 
-            switch (playerAction?.ToLower()){
+        while (player.HP > 0 && _enemy.HP > 0 && !_escape){
+            CombatMenu(player, _enemy);
+            string? playerAction = Console.ReadLine();
+            switch (playerAction?.ToLower())
+            {
                 case "a":
-                //Attack
-                Console.WriteLine("You swing with your weapon! ");
-                //NEED ATTACK COMMAND(maybe)
-                int dmg = player.Attack(_enemy);
-                Console.WriteLine("Dealing " + dmg + " damage!");
-                break; 
-                case "d":
-                //Defend
-                Console.WriteLine("You stand your ground!!!");
-                //NEED DEFEND COMMAND(maybe)
-                dmg = player.Defend(_enemy); 
-                Console.WriteLine("You take " + dmg + " damage!");
-                break;
+                    //Attack
+                    Console.WriteLine("You swing with your weapon! ");
+                    //NEED ATTACK COMMAND(maybe)
+                    int dmg = player.Attack(_enemy);
+                    Console.WriteLine("Dealing " + dmg + " damage!");
+                    break;
                 case "i":
-                //Item
-                break;
+				    player.Inventory();
+                    break;
                 case "r":
-                //Run
-                // NEED to finish RUN method
-                player.Run(_enemy); 
-                break;
+                    /*//Run
+                    // NEED to finish RUN method
+                    player.Run(enemy);*/
+                    if (player.CurrentRoom != GameWorld.Instance._worldOut)
+                    {
+                        _escape = false;
+                        Random chance = new Random();
+                        switch (chance.Next(0, 3))
+                        {
+                            case 1:
+                                player.WarningMessage("Escape failed..!");
+                                break;
+                            case 2:
+                                player.InfoMessage("You escaped, but barely... [-2 HP]");
+                                player.HP -= 2;
+                                _escape = true;
+                                break;
+                            default:
+                                player.InfoMessage("You escape successfully...");
+                                _escape = true;
+                                break;
+                        }
+                    }
+					else
+					{
+						player.WarningMessage("You can't escape the boss battle!?");
+					}
+                    break;
                 default:
-                break; 
+                    break;
             }
             Console.ReadKey();  
             if(_enemy.HP > 0){
@@ -266,10 +287,10 @@ namespace StarterGame{
                 Console.ReadKey(); 
             }
         }
-        if (player.HP > 0){    
-            int coins = rand.Next(10,30); 
+        if (player.HP > 0 && _escape == false){    
+            coins = rand.Next(10,30); 
             // absurd leveling to see where it goes
-            int _xp = rand.Next(13,50); 
+            _xp = rand.Next(13,50); 
             //NEED GAINXP(), GAINCOIN(), AND LEVELCHECK() FUNCTIONS FROM MY PROTO PLAYER CLASS
             Console.WriteLine("You are victorious!");  
             Console.WriteLine("You gained " + _xp + " Exp and " + coins + " coins!");
@@ -277,6 +298,13 @@ namespace StarterGame{
             player.GainCOIN(coins);
             //player.LevelCheck(player); 
             Console.ReadKey(); 
+        }
+        else if(_escape == true)
+        {
+            coins = 0;
+            _xp = 0;
+			Console.WriteLine("You gain 0 coins and XP.");
+            Console.ReadKey();
         }
         else{
             //Death Check 
@@ -290,8 +318,7 @@ namespace StarterGame{
         Console.WriteLine(enemy.Name);
         Console.WriteLine("HP: " + enemy.HP);
         Console.WriteLine("=======================");
-        Console.WriteLine("|| (A)ttack (D)efend ||");
-        Console.WriteLine("||  (S)pells (I)tems ||");
+        Console.WriteLine("|| (A)ttack (I)tems  ||");
         Console.WriteLine("||       (R)un       ||");
         Console.WriteLine("=======================");
         Console.WriteLine("Name: " + player.Name);

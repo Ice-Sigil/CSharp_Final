@@ -35,7 +35,7 @@ namespace StarterGame
         private Room _entrance;
         public Room Entrance { get { return _entrance; } }
         private Room _triggerRoom;
-        private Room _worldOut;
+        public Room _worldOut;
         private Room _worldInAnnex;
         private Room _combatRoom; 
 
@@ -184,7 +184,6 @@ namespace StarterGame
             Enemy practiceDummy = new Enemy("Bandit", 20, 5, 5);
             CombatRoom cr = new CombatRoom(_enemyArray[0]);
             Floor[Height-1,Width-2].RoomDelegate = cr;
-            _combatRoom = Floor[Height-1,Width-2];
             
         }
 
@@ -308,7 +307,6 @@ namespace StarterGame
             {
                 _worldOut.SetExit(_directionFromWorld, _worldInAnnex);
                 _worldInAnnex.SetExit(_directionToWorld, _worldOut);
-
             }
 
         }
