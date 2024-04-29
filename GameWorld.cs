@@ -7,10 +7,8 @@ using System.Reflection.Metadata.Ecma335;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace StarterGame
-{
-    public class GameWorld
-    {
+namespace StarterGame{
+    public class GameWorld{
         public int Width { get; set; }
         public int Height { get; set;}
         public Room[,] Floor{ get; set; }
@@ -42,7 +40,13 @@ namespace StarterGame
         private Room _shopRoom;
 
         private static Enemy[] _enemyArray = { 
-			new Enemy("Goblin", 50, 2, 1)};
+			new Enemy("Goblin", 50, 2, 1),
+            new Enemy("Bandit", 25, 4, 2), 
+            new Enemy ("Skeleton", 40, 8, 2),
+            new Enemy ("Angry ShopKeeper", 9999, 99, 99),
+            new Enemy ("Gargoyle", 20, 10, 15)
+            };
+            
 		private static Enemy[] _enemyBosses = { 
 			new Enemy("Boss 1: Bandit Chief", 5, 5, 3), 
 			new Enemy("Boss 2: Mutant Rat", 7, 6, 4),

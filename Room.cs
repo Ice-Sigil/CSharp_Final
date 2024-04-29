@@ -7,8 +7,7 @@ namespace StarterGame{
     /*
      * Spring 2024
      */
-    public class Room
-    {
+    public class Room{
         private Dictionary<string, Room> _exits;
         private string _tag;
         public string Tag 

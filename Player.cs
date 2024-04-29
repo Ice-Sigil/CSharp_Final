@@ -210,5 +210,13 @@ namespace StarterGame
                 ErrorMessage("There is no item named " + itemName +" in your inventory.");
             }
         }
+        public void SetDifficulty(string input){
+            if (MOD == null){
+                this.MOD = input;
+            }
+            else{
+
+            }
+        }
     }
 }

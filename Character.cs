@@ -49,6 +49,7 @@ namespace StarterGame{
                 _def = value; 
             }
         }
+        public string? MOD;
 
         //Generic Constructor for all Characters
         public Character(string name, int hp, int atk, int def){
