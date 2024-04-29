@@ -324,12 +324,11 @@ namespace StarterGame{
         Console.WriteLine("Level: " + player.LVL);
         Console.WriteLine("Exp: " + player.XP + " / " + player.MXP);
         Console.WriteLine("HP: " + player.HP + " / "  + player.MHP);
-        Console.WriteLine("MP: ");
         Console.WriteLine("Potions: ");
         }   
     }
     // barrier for shop class
-     public class ShopRoom : IRoomDelegate
+    public class ShopRoom : IRoomDelegate
     {
         private Shopkeeper _shopkeeper; 
         public Shopkeeper Shopkeeper {
@@ -397,7 +396,7 @@ namespace StarterGame{
                     //    player.displayInventory;
                         break;
                     case "a":
-                    //     start combat here
+                    
                         break;
                 }
             }
