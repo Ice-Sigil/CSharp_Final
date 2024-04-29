@@ -52,15 +52,15 @@ namespace StarterGame
                     {
                         if(command == null)
                         {
-                            Console.WriteLine("Nope!");
+                            _player.WarningMessage("That's not a command...");
                         }
-                        else if(command.ToString() == "start")
+                        else if(command.ToString() == "start" || command.ToString() == "help")
                         {
                             _gameStart = command.Execute(_player);
                         }
                         else
                         {
-                            Console.WriteLine("Nope!");
+                            _player.WarningMessage("You can't use that command yet...");
                         }
                     }
                     
