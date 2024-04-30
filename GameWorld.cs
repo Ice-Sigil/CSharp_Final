@@ -122,7 +122,7 @@ namespace StarterGame{
                 #X# <-- _worldOut Floor[Height-1,Width-2]
 
             */
-            Floor[0,1] = new Room("at the beginning of the floor");
+            Floor[0,1] = new Room("at the beginning of Floor" + _floor + ".");
             Floor[1,1] = new Room(tile);
             _entrance = Floor[0,1];
 
@@ -246,15 +246,27 @@ namespace StarterGame{
                         Console.ResetColor();
                         break;
                     case false when Floor[i,j] == null:
-                        // Console.BackgroundColor = ConsoleColor.Black;
-                        // Console.ForegroundColor = ConsoleColor.Black;
                         Console.Write(" ");
-                        // Console.ResetColor();
                         break;
                     default:
-                        Console.BackgroundColor = ConsoleColor.Blue;
-                        Console.Write(" ");
-                        Console.ResetColor();
+                        if(Floor[i,j] == _combatRoom)
+                        {
+                            Console.BackgroundColor = ConsoleColor.Red;
+                            Console.Write(" ");
+                            Console.ResetColor();
+                        }
+                        else if(Floor[i,j] == _shopRoom)
+                        {
+                            Console.BackgroundColor = ConsoleColor.Yellow;
+                            Console.Write(" ");
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = ConsoleColor.Blue;
+                            Console.Write(" ");
+                            Console.ResetColor();
+                        }
                         break;
                     }
                 }
