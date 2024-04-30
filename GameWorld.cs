@@ -40,19 +40,20 @@ namespace StarterGame{
         private Room _shopRoom;
 
         private static Enemy[] _enemyArray = { 
-			new Enemy("Goblin", 50, 2, 1),
-            new Enemy("Bandit", 25, 4, 2), 
-            new Enemy ("Skeleton", 40, 8, 2),
-            new Enemy ("Angry ShopKeeper", 9999, 99, 99),
-            new Enemy ("Gargoyle", 20, 10, 15)
-            };
+		new Enemy("Goblin", 50, 2, 1),
+            	new Enemy("Bandit", 25, 4, 2), 
+           	new Enemy ("Skeleton", 40, 8, 2),
+          	new Enemy ("Angry ShopKeeper", 9999, 99, 99),
+         	new Enemy ("Gargoyle", 20, 10, 15)
+        };
             
-		private static Enemy[] _enemyBosses = { 
-			new Enemy("Boss 1: Bandit Chief", 5, 5, 3), 
-			new Enemy("Boss 2: Mutant Rat", 7, 6, 4),
-			new Enemy("Boss 3: Stone Golem", 1, 10, 6),
-			new Enemy("Boss 4: Ghost Rider", 1, 15, 9),
-			new Enemy("Final Boss: Dr. Obando", 2, 20, 10)};
+	private static Enemy[] _enemyBosses = { 
+		new Enemy("Boss 1: Bandit Chief", 5, 5, 3), 
+		new Enemy("Boss 2: Mutant Rat", 7, 6, 4),
+		new Enemy("Boss 3: Stone Golem", 1, 10, 6),
+		new Enemy("Boss 4: Ghost Rider", 1, 15, 9),
+		new Enemy("Final Boss: Dr. Obando", 2, 20, 10)
+	};
 
         private GameWorld()
         {
@@ -223,10 +224,12 @@ namespace StarterGame{
             Enemy practiceDummy = new Enemy("Bandit", 20, 5, 5);
             CombatRoom cr = new CombatRoom(_enemyBosses[_floor-1]);
             Floor[Height-1,Width-2].RoomDelegate = cr;
+	    _combatRoom = Floor[Height-1, Width-2];
 
             Shopkeeper shopkeeper = new Shopkeeper("Shopman", 20, 5, 5);
             ShopRoom sr = new ShopRoom(shopkeeper);
             Floor[Height-2, Width-2].RoomDelegate = sr;
+	    _shopRoom = Floor[Height-2, Width-2];
             
         }
 
