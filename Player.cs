@@ -189,7 +189,7 @@ namespace StarterGame
 
         public void Pickup(string itemName){
             IItem item = CurrentRoom.Pickup(itemName);
-            if (itemName != null){
+            if (item != null){
                 Give(item);
                 NormalMessage("You have picked up the " + itemName);
             }

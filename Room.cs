@@ -45,7 +45,7 @@ namespace StarterGame{
                 _roomDelegate = value;
             }
         }
-        private IItem _itemOnFloor;
+        private IItem _itemsOnFloor;
         public Room() : this("No Tag"){}
 
         // Designated Constructor
@@ -59,24 +59,14 @@ namespace StarterGame{
 
         public IItem Drop(IItem item)
         {
-            IItem oldItem = _itemOnFloor;
-            _itemOnFloor = item;
+            IItem oldItem = _itemsOnFloor.Remove(item.Name);
+            _itemsOnFloor.Insert(item);
             return oldItem;
         }
 
         public IItem Pickup(string itemName)
         {
-            IItem oldItem = null;
-            if (_itemOnFloor != null)
-            {
-                if(_itemOnFloor.Name.Equals(itemName))
-                {
-                    oldItem = _itemOnFloor;
-                    _itemOnFloor = null;
-                    return oldItem;
-                }
-            }
-            return oldItem;
+            return _itemsOnFloor.Remove(itemName);
         }
 
         public void SetExit(string exitName, Room room)
@@ -109,7 +99,7 @@ namespace StarterGame{
 
         public string Description()
         {
-            return "You are " + this.Tag + ".\n *** " + this.GetExits() + "\nItem: " + (_itemOnFloor == null ? "" : _itemOnFloor.Name);
+            return "You are " + this.Tag + ".\n *** " + this.GetExits() + "\nItems: " + _itemsOnFloor.Description;
         }
     }
 
