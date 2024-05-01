@@ -99,7 +99,7 @@ namespace StarterGame{
 
         public string Description()
         {
-            return "You are " + this.Tag + ".\n *** " + this.GetExits() + "\nItem: " + (_itemOnFloor == null ? "" : _itemOnFloor.Name);
+            return "You are " + this.Tag + ".\n *** " + this.GetExits() + "\nItems: " + _itemsOnFloor.Description;
         }
     }
 
