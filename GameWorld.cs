@@ -224,12 +224,12 @@ namespace StarterGame{
             Enemy practiceDummy = new Enemy("Bandit", 20, 5, 5);
             CombatRoom cr = new CombatRoom(_enemyBosses[_floor-1]);
             Floor[Height-1,Width-2].RoomDelegate = cr;
-	    _combatRoom = Floor[Height-1, Width-2];
+	        _combatRoom = Floor[Height-1, Width-2];
 
             Shopkeeper shopkeeper = new Shopkeeper("Shopman", 20, 5, 5);
             ShopRoom sr = new ShopRoom(shopkeeper);
             Floor[Height-2, Width-2].RoomDelegate = sr;
-	    _shopRoom = Floor[Height-2, Width-2];
+	        _shopRoom = Floor[Height-2, Width-2];
             
         }
 

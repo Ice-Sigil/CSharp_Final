@@ -150,8 +150,6 @@ namespace StarterGame
             Console.WriteLine("|ATK: " + ATK);
             Console.WriteLine("|DEF: " + DEF); 
             Console.WriteLine("|Coins: " + COIN);
-            Console.WriteLine("|" );
-            Console.WriteLine("|" ); 
             Console.WriteLine("====================");
         }
           public void Inspect(string itemName){
