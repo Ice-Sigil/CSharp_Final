@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 
@@ -16,6 +16,7 @@ namespace StarterGame
         private Player _player;
         private Parser _parser;
         private bool _playing;
+        private bool _gameStart;
 
         public Game()
         {
@@ -36,14 +37,33 @@ namespace StarterGame
                 {
                     Console.Write("\n>");
                     Command command = _parser.ParseCommand(Console.ReadLine());
-                    if (command == null)
+                    if(_gameStart)
                     {
-                        _player.ErrorMessage("I don't understand...");
+                        if (command == null)
+                        {
+                            _player.ErrorMessage("I don't understand...");
+                        }
+                        else
+                        {
+                            finished = command.Execute(_player);
+                        }
                     }
                     else
                     {
-                        finished = command.Execute(_player);
+                        if(command == null)
+                        {
+                            _player.WarningMessage("That's not a command...");
+                        }
+                        else if(command.ToString() == "start" || command.ToString() == "help")
+                        {
+                            _gameStart = command.Execute(_player);
+                        }
+                        else
+                        {
+                            _player.WarningMessage("You can't use that command yet...");
+                        }
                     }
+                    
                 }
             }
 
@@ -53,6 +73,7 @@ namespace StarterGame
         {
             _playing = true;
             _player.InfoMessage(Welcome());
+            _gameStart = false;
         }
 
         public void End()
@@ -63,7 +84,7 @@ namespace StarterGame
 
         public string Welcome()
         {
-            return "Welcome to the World of CSU!\n\n The World of CSU is a new, incredibly boring adventure game.\n\nType 'help' if you need help." + _player.CurrentRoom.Description();
+            return "Welcome to Dante-Jackson-NickTopia!\n\nType 'start' and your difficulty to begin [easy, medium, hard]\n\nType 'help' if you need help.";
         }
 
         public string Goodbye()
@@ -73,3 +94,4 @@ namespace StarterGame
 
     }
 }
+

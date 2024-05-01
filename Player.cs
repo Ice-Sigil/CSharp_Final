@@ -150,8 +150,6 @@ namespace StarterGame
             Console.WriteLine("|ATK: " + ATK);
             Console.WriteLine("|DEF: " + DEF); 
             Console.WriteLine("|Coins: " + COIN);
-            Console.WriteLine("|" );
-            Console.WriteLine("|" ); 
             Console.WriteLine("====================");
         }
           public void Inspect(string itemName){
@@ -191,7 +189,7 @@ namespace StarterGame
 
         public void Pickup(string itemName){
             IItem item = CurrentRoom.Pickup(itemName);
-            if (itemName != null){
+            if (item != null){
                 Give(item);
                 NormalMessage("You have picked up the " + itemName);
             }
@@ -208,14 +206,6 @@ namespace StarterGame
             }
             else{
                 ErrorMessage("There is no item named " + itemName +" in your inventory.");
-            }
-        }
-        public void SetDifficulty(string input){
-            if (MOD == null){
-                this.MOD = input;
-            }
-            else{
-
             }
         }
     }
