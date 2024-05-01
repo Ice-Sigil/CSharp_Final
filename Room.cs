@@ -381,7 +381,6 @@ namespace StarterGame{
         Console.Clear(); 
         Console.WriteLine("=======================");
         Console.WriteLine("|| (B)uy      (S)ell ||");
-        Console.WriteLine("||      (A)ttack     ||");
         Console.WriteLine("||     (G)oodbye     ||");
         Console.WriteLine("=======================");
         }
@@ -395,9 +394,6 @@ namespace StarterGame{
                         break;
                     case "s":
                     //    player.displayInventory;
-                        break;
-                    case "a":
-                    //     start combat here
                         break;
                 }
             }
