@@ -14,13 +14,17 @@ namespace StarterGame
         public string Description { get {return Name + ", weight = " + Weight;}}
         private IItem _decorator;
         public bool IsContainer { get { return false; }}
+
+        public bool IsUsable;
+        private int _healAmount;
+        public int HealAmount { get {return _healAmount;} set {_healAmount = value;}}
         public Item() : this("Nameless") {}
-        public Item(string name) : this(name, 1f) {}
-        public Item(string name, float weight)
-        {
+        public Item(string name) : this(name, 1f, 0) {}
+        public Item(string name, float weight, int amount){
             Name = name;
             _weight = weight;
             _decorator = null;
+            HealAmount = amount;
         }
 
         public void Decorate(IItem decorator)
@@ -34,6 +38,9 @@ namespace StarterGame
                 _decorator.Decorate(decorator);
             }
 
+        }
+        override public string ToString(){
+            return Name; 
         }
     }
 
@@ -70,7 +77,7 @@ namespace StarterGame
         public ItemContainer(string name) : this(name, 1f){ }
 
         //Designated Constructor
-        public ItemContainer(string name, float weight) : base(name, weight)
+        public ItemContainer(string name, float weight) : base(name, weight, 0)
         {
             _items = new Dictionary<string, IItem>();
         }

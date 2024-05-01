@@ -41,7 +41,7 @@ namespace StarterGame{
 
         private static Enemy[] _enemyArray = { 
 		new Enemy("Goblin", 50, 2, 1),
-            	new Enemy("Bandit", 25, 4, 2), 
+            new Enemy("Bandit", 25, 4, 2), 
            	new Enemy ("Skeleton", 40, 8, 2),
           	new Enemy ("Angry ShopKeeper", 9999, 99, 99),
          	new Enemy ("Gargoyle", 20, 10, 15)
@@ -206,19 +206,19 @@ namespace StarterGame{
         {
             TrapRoom tp = new TrapRoom("unlock");
             IItem item = new Item("knife");
-            Floor[0,1].Drop(item);
+            //Floor[0,1].Drop(item);
             Floor[1,1].RoomDelegate = tp;
 
-            IItem decorator = new Item("gem", 0.5f);
+            IItem decorator = new Item("gem", 0.5f, 0);
             item.Decorate(decorator);
-            decorator = new Item("gold", 0.7f);
+            decorator = new Item("gold", 0.7f, 0);
             item.Decorate(decorator);
 
             IItemContainer chest = new ItemContainer("chest", 0f);
-            Floor[1,1].Drop(chest);
-            item = new Item("ball", 0.5f);
+            //Floor[1,1].Drop(chest);
+            item = new Item("ball", 0.5f, 0);
             chest.Insert(item);
-            item = new Item("bat", 3.5f);
+            item = new Item("bat", 3.5f, 0);
             chest.Insert(item);
 
             Enemy practiceDummy = new Enemy("Bandit", 20, 5, 5);

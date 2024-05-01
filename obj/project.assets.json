@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dsmit\\CSharp_Final\\CSharp_Final.csproj",
+      "projectUniqueName": "C:\\Users\\dsmit\\OneDrive\\Desktop\\CSharp_Final\\CSharp_Final.csproj",
       "projectName": "CSharp_Final",
-      "projectPath": "C:\\Users\\dsmit\\CSharp_Final\\CSharp_Final.csproj",
+      "projectPath": "C:\\Users\\dsmit\\OneDrive\\Desktop\\CSharp_Final\\CSharp_Final.csproj",
       "packagesPath": "C:\\Users\\dsmit\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dsmit\\CSharp_Final\\obj\\",
+      "outputPath": "C:\\Users\\dsmit\\OneDrive\\Desktop\\CSharp_Final\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dsmit\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -45,13 +45,13 @@ namespace StarterGame{
                 _roomDelegate = value;
             }
         }
-        private IItem _itemsOnFloor;
+        private IItemContainer _itemsOnFloor;
         public Room() : this("No Tag"){}
 
         // Designated Constructor
         public Room(string tag)
         {
-            _itemOnFloor = null;
+            _itemsOnFloor = null;
             _roomDelegate = null;
             _exits = new Dictionary<string, Room>();
             this.Tag = tag;
@@ -99,7 +99,7 @@ namespace StarterGame{
 
         public string Description()
         {
-            return "You are " + this.Tag + ".\n *** " + this.GetExits() + "\nItems: " + _itemsOnFloor.Description;
+            return "You are " + this.Tag + ".\n *** " + this.GetExits() + "\nItems: ";// + _itemsOnFloor.Description;
         }
     }
 
@@ -314,7 +314,6 @@ namespace StarterGame{
         Console.WriteLine("Level: " + player.LVL);
         Console.WriteLine("Exp: " + player.XP + " / " + player.MXP);
         Console.WriteLine("HP: " + player.HP + " / "  + player.MHP);
-        Console.WriteLine("Potions: ");
         }   
     }
     // barrier for shop class
