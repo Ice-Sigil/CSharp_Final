@@ -369,7 +369,6 @@ namespace StarterGame{
         Console.Clear(); 
         Console.WriteLine("=======================");
         Console.WriteLine("|| (B)uy      (S)ell ||");
-        Console.WriteLine("||      (A)ttack     ||");
         Console.WriteLine("||     (G)oodbye     ||");
         Console.WriteLine("=======================");
         }
