@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 
@@ -52,15 +52,15 @@ namespace StarterGame
                     {
                         if(command == null)
                         {
-                            Console.WriteLine("Nope!");
+                            _player.WarningMessage("That's not a command...");
                         }
-                        else if(command.ToString() == "start")
+                        else if(command.ToString() == "start" || command.ToString() == "help")
                         {
                             _gameStart = command.Execute(_player);
                         }
                         else
                         {
-                            Console.WriteLine("Nope!");
+                            _player.WarningMessage("You can't use that command yet...");
                         }
                     }
                     
@@ -84,7 +84,7 @@ namespace StarterGame
 
         public string Welcome()
         {
-            return "Welcome to the World of CSU!\n\n The World of CSU is a new, incredibly boring adventure game.\n\nType 'help' if you need help." + _player.CurrentRoom.Description();
+            return "Welcome to Dante-Jackson-NickTopia!\n\nType 'start' and your difficulty to begin [easy, medium, hard]\n\nType 'help' if you need help.";
         }
 
         public string Goodbye()
@@ -94,3 +94,4 @@ namespace StarterGame
 
     }
 }
+
