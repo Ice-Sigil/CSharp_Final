@@ -20,17 +20,16 @@ namespace StarterGame
         public int HealAmount { get {return _healAmount;} set {_healAmount = value;}}
         private int _count;
         public int Count { get {return _count;} set {_count = value;}}
-        private int _atkValue;
-        public int AtkValue { get {return _atkValue;} set {_atkValue = value;}}
+        private int _cost;
+        public int Cost { get {return _cost;} set {_cost = value;}}
         public Item() : this("Nameless") {}
         public Item(string name) : this(name, 1f, 0, 0) {}
-        public Item(string name, float weight, int amount){}
-        public Item(string name, float weight, int amount, int value){
+        public Item(string name, float weight, int amount, int cost){
             Name = name;
             _weight = weight;
             _decorator = null;
             HealAmount = amount;
-            _price = value;
+            Cost = cost;
         }
         public void Decorate(IItem decorator)
         {
