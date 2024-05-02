@@ -31,7 +31,7 @@ namespace StarterGame{
                 {
                     if(_roomDelegate == null)
                     {
-                        _roomDelegate.ContainingRoom = null;
+                        _roomDelegate.ContainingRoom = null; //Un-designates a delegated room if there's no delegate attached to it
                     }
                 }
                 else
@@ -59,25 +59,25 @@ namespace StarterGame{
 
         public IItem Drop(IItem item)
         {
-            IItem oldItem = _itemsOnFloor.Remove(item.Name);
-            _itemsOnFloor.Insert(item);
-            return oldItem;
+            IItem oldItem = _itemsOnFloor.Remove(item.Name); //Stores the old item if there's already one on the ground
+            _itemsOnFloor.Insert(item); //Puts the selected item onto the ground
+            return oldItem; //Gives you the old one if one was there so it's not permanently lost
         }
 
         public IItem Pickup(string itemName)
         {
-            return _itemsOnFloor.Remove(itemName);
+            return _itemsOnFloor.Remove(itemName); //Gives you the item that was on the ground
         }
 
         public void SetExit(string exitName, Room room)
         {
-            _exits[exitName] = room;
+            _exits[exitName] = room; //Sets a room's exit
         }
 
         public Room GetExit(string exitName)
         {
             Room room = null;
-            _exits.TryGetValue(exitName, out room);
+            _exits.TryGetValue(exitName, out room); //Try to get the exit object with the key of the name of the exit
             if(_roomDelegate != null)
             {
                 room = _roomDelegate.OnGetExit(room);

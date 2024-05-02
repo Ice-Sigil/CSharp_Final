@@ -26,7 +26,7 @@ namespace StarterGame{
         public Player(Room room, string? name) : this(room, name, 0) { }
         public Player(Room room, string? name, int hp) : this(room, name, hp, 0) { }
         public Player(Room room, string? name, int hp, int atk) : this(room, name, hp, atk, 0){}
-        public Player(Room room, string name, int hp, int atk, int def) : base(name, hp, atk, def)
+        public Player(Room room, string name, int hp, int atk, int def) : base(name, hp, atk, def) //Constructor hierarchy for player
         {
             _currentRoom = room;
             _backpack = new ItemContainer("backpack", 0f);
@@ -58,7 +58,7 @@ namespace StarterGame{
                 Notification combatStart = new Notification("PlayerDidStartCombat", this); 
                 NotificationCenter.Instance.PostNotification(combatStart);
                 Notification shopEnter = new Notification("PlayerDidEnterShop", this);
-                NotificationCenter.Instance.PostNotification(shopEnter);
+                NotificationCenter.Instance.PostNotification(shopEnter); //Activating observers for game events
                 NormalMessage("\n" + this.CurrentRoom.Description());
             }
             else
@@ -140,9 +140,9 @@ namespace StarterGame{
             Console.WriteLine("====================");
         }
           public void Inspect(string itemName){
-            IItem pickedUpItem = CurrentRoom.Pickup(itemName);
+            IItem pickedUpItem = CurrentRoom.Pickup(itemName); //Makes sure the item exists in the room before you inspect it
             if (pickedUpItem != null){
-                InfoMessage("\nItem Info: " + pickedUpItem.Description);
+                InfoMessage("\nItem Info: " + pickedUpItem.Description); //Gives you the item description if you have it.
             }
             else{
                 ErrorMessage("\n There is no item named that, or there is no such item in the room.");
@@ -154,19 +154,19 @@ namespace StarterGame{
             Console.Write("The player says: \"");
             NormalMessage(word);
             Console.Write("\"\n");
-            Notification notification = new Notification("PlayerDidSayAWord", this);
+            Notification notification = new Notification("PlayerDidSayAWord", this); //Create notification for saying word
             Dictionary<string, object> userInfo = new Dictionary<string, object>();
-            userInfo["word"] = word;
-            notification.UserInfo = userInfo;
-            NotificationCenter.Instance.PostNotification(notification);
+            userInfo["word"] = word; //Put word object into dictionary
+            notification.UserInfo = userInfo; 
+            NotificationCenter.Instance.PostNotification(notification); //Post the notification and do the effects of saying the word
     
         }
 
         public void Inventory(){
-            NormalMessage(_backpack.Description + "\n"); //itemcontainer, fix later
-            bool inInventoryMenu = true; 
+            NormalMessage(_backpack.Description + "\n"); 
+            bool inInventoryMenu = true; //Set game state to stay in the inventory until player manually exits.
             if (inInventoryMenu){
-            Console.WriteLine("(U)se||(E)xit");
+            Console.WriteLine("(U)se||(E)xit"); //Inventory menu
             string? playerInput = Console.ReadLine();
             switch (playerInput){
                 case "U":
@@ -177,7 +177,7 @@ namespace StarterGame{
                 }
                 break;
                 case "E":
-                inInventoryMenu = false;
+                inInventoryMenu = false; //Set game state to not inventory and break out of the menu
                 break;
                 default:
                 Console.WriteLine("Invalid Input...");
@@ -187,7 +187,7 @@ namespace StarterGame{
         }
         public void Give(IItem item){
             if (item != null){
-               _backpack.Insert(item);
+               _backpack.Insert(item); //Used to give the player an item without directly accessing the backpack
                item.Count++;
             }
             else{
@@ -199,7 +199,7 @@ namespace StarterGame{
             //Will iterate through the inventory to match with the given name and then use the item, 
             //then call Take() here instead of in Combat and only call Use() during Combat -Dante
             IItem item = Take(itemName);
-            Item itemInUse = (Item)item; 
+            Item itemInUse = (Item)item; //Cast to item to integrate with other systems
             if (itemInUse != null && itemInUse.Count > 1){
                 Heal(itemInUse);
                 itemInUse.Count--;
