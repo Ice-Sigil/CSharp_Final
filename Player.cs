@@ -38,7 +38,10 @@ namespace StarterGame
             HP = hp; 
             MHP = hp;
             ATK = atk;
-            DEF = def; 
+            DEF = def;
+            //Hardcode to test Potions
+            IItem healthPotion = new Item("Potion", 0.5f, 4); 
+            _backpack.Insert(healthPotion);
         }
         public void WaltTo(string direction)
         {
@@ -176,14 +179,40 @@ namespace StarterGame
         }
 
         public void Inventory(){
-            NormalMessage(_backpack.Description); //itemcontainer, fix later
+            NormalMessage(_backpack.Description + "\n"); //itemcontainer, fix later
+            bool inInventoryMenu = true; 
+            if (inInventoryMenu){
+            Console.WriteLine("(U)se||(E)xit");
+            string? playerInput = Console.ReadLine();
+            switch (playerInput){
+                case "U":
+                Console.WriteLine("Which item would you like to use? "); 
+                string? itemChoice = Console.ReadLine();
+                if (itemChoice != null){
+                Take(itemChoice);
+                }
+                break;
+                case "E":
+                inInventoryMenu = false;
+                break;
+                default:
+                Console.WriteLine("Invalid Input...");
+                break;
+                } 
+            }
         }
 
         public void Give(IItem item){
             _backpack.Insert(item);
         }
+        public void Use(ItemContainer _playerInventory, string itemName){
+            //Currently in Development 
+            //Will iterate through the inventory to match with the given name and then use the item, 
+            //then call Take() here instead of in Combat and only call Use() during Combat -Dante
+        }
 
         public IItem Take(string itemName){
+
             return _backpack.Remove(itemName);
         }
 
@@ -206,6 +235,16 @@ namespace StarterGame
             }
             else{
                 ErrorMessage("There is no item named " + itemName +" in your inventory.");
+            }
+        }
+        public void SetDifficulty(string difficulty){
+            if (MOD == null)
+            {
+                MOD = difficulty; 
+            }
+            else
+            {
+                
             }
         }
     }
