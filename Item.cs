@@ -44,7 +44,7 @@ namespace StarterGame
 
         }
         override public string ToString(){
-            return " x" + Count; 
+            return Name + " x" + Count; 
         }
     }
 
@@ -69,16 +69,12 @@ namespace StarterGame
             get
             {
                 string itemNames = "";
-                string totalAmount = "";
-                foreach(string name in _items.Keys)
-                {
-                    itemNames += " " + name; 
-                }
+                string itemsInContainer = "";
                 foreach (Item item in _items.Values)
                 {
-                    totalAmount += item.ToString();
+                    itemsInContainer += item.ToString();
                 }
-                return Name + ", weight = " + Weight + "\n" + itemNames + totalAmount;
+                return Name + ", weight = " + Weight + "\n" + itemsInContainer;
             }
         }
         public ItemContainer() : this("nameless") { }
