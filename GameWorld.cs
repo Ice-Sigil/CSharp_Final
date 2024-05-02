@@ -60,12 +60,18 @@ namespace StarterGame{
         new Item("Potion", 0.5f, 15, 10),
         new Item("Shuriken", 0.5f, 15, 15)
     };
-    private static Item[] nonUsableItems={
+    private static Item[] _nonUsableItems={
         new Item("Rusty Spear", 3, 1, 5),
-        new Item("New Sword", 5, 1, 25),
-        new Item("Spiked Mace", 10, 1, 20),
+        new Item("New Sword", 5, 1, 20),
+        new Item("Spiked Mace", 10, 1, 25),
         new Item("Moonlight Greatsword", 15, 1, 50)
     };
+    public static Item[] getUseableItems(){
+        return _useableItems;
+    }
+    public static Item[] getNonUsableItems(){
+        return _nonUsableItems;
+    }
 
 
         private GameWorld()
