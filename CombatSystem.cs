@@ -41,7 +41,7 @@ namespace StarterGame{
                 case "r":
                 //Run
                 // NEED to finish RUN method
-                player.Run(enemy); 
+                //player.Run(enemy); 
                 break;
                 default:
                 break; 

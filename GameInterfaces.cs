@@ -19,6 +19,8 @@ namespace StarterGame
         public string Description {get;}
         public void Decorate(IItem decorator);
         public bool IsContainer { get; }
+        public int Count { get; set; }
+        public int HealAmount { get; set; }
 
     }
 

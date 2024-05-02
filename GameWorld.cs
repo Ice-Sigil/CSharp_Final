@@ -47,13 +47,13 @@ namespace StarterGame{
          	new Enemy ("Gargoyle", 20, 10, 15)
         };
             
-	private static Enemy[] _enemyBosses = { 
-		new Enemy("Boss 1: Bandit Chief", 5, 5, 3), 
-		new Enemy("Boss 2: Mutant Rat", 7, 6, 4),
-		new Enemy("Boss 3: Stone Golem", 1, 10, 6),
-		new Enemy("Boss 4: Ghost Rider", 1, 15, 9),
-		new Enemy("Final Boss: Dr. Obando", 2, 20, 10)
-	};
+	    private static Enemy[] _enemyBosses = { 
+            new Enemy("Boss 1: Bandit Chief", 32, 12, 8), 
+            new Enemy("Boss 2: Mutant Rat", 47, 16, 12),
+            new Enemy("Boss 3: Stone Golem", 54, 20, 18),
+            new Enemy("Boss 4: Ghost Rider", 66, 33, 33),
+            new Enemy("Final Boss: Dr. Obando", 9999, 99, 99)
+	    };
 
     private static Item[] _useableItems = {
         new Item("FullRestore", 0, 1, 10),
@@ -221,16 +221,16 @@ namespace StarterGame{
             //Floor[0,1].Drop(item);
             Floor[1,1].RoomDelegate = tp;
 
-            IItem decorator = new Item("gem", 0.5f, 0);
+            IItem decorator = new Item("gem", 0.5f, 0,0);
             item.Decorate(decorator);
-            decorator = new Item("gold", 0.7f, 0);
+            decorator = new Item("gold", 0.7f, 0,0);
             item.Decorate(decorator);
 
             IItemContainer chest = new ItemContainer("chest", 0f);
             //Floor[1,1].Drop(chest);
-            item = new Item("ball", 0.5f, 0);
+            item = new Item("ball", 0.5f, 0,0);
             chest.Insert(item);
-            item = new Item("bat", 3.5f, 0);
+            item = new Item("bat", 3.5f, 0,0);
             chest.Insert(item);
 
             Enemy practiceDummy = new Enemy("Bandit", 20, 5, 5);
