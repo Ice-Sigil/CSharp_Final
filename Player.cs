@@ -37,7 +37,7 @@ namespace StarterGame{
             COIN = 13;
             HP = hp; 
             MHP = hp;
-            ATK = atk + CurrentWeapon.HealAmount;
+            ATK = atk + CurrentWeapon.UseValue;
             DEF = def;
             //Starting Items for the Player 
             Item fullRestore = new Item("Restore", 1.0f, MHP, 0);
@@ -126,10 +126,10 @@ namespace StarterGame{
             Console.WriteLine("|Level:" + LVL);
             Console.WriteLine("|Exp: " + XP + "/" + MXP); 
             Console.WriteLine("|HP: " + HP );
-            Console.WriteLine("|ATK: " + ATK + " (" + CurrentWeapon.HealAmount + ")");
+            Console.WriteLine("|ATK: " + ATK + " (" + CurrentWeapon.UseValue + ")");
             Console.WriteLine("|DEF: " + DEF); 
             Console.WriteLine("|Coins: " + COIN);
-            Console.WriteLine("|Current Weapon" + CurrentWeapon.Name);
+            Console.WriteLine("|Current Weapon: " + CurrentWeapon.Name);
             Console.WriteLine("====================");
         }
           public void Inspect(string itemName){
@@ -203,9 +203,9 @@ namespace StarterGame{
             }
         }
         public void Heal(Item item){
-            if (item.HealAmount > 0){
-                    Console.WriteLine("The Player used a " + item.Name + " gaining " + item.HealAmount + " HP!"); 
-                    HP += item.HealAmount;
+            if (item.UseValue > 0){
+                    Console.WriteLine("The Player used a " + item.Name + " gaining " + item.UseValue + " HP!"); 
+                    HP += item.UseValue;
                     if (HP > MHP){
                         HP = MHP; //prevents overhealing
                 }
