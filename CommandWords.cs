@@ -18,7 +18,8 @@ namespace StarterGame{
             new InventoryCommand(), 
             new DropCommand(), 
             new PickupCommand(),
-            new NextCommand()};
+            new NextCommand(),
+            new StatsCommand()};
 
         public CommandWords() : this(_commandArray) {}
 
