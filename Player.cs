@@ -8,8 +8,7 @@ namespace StarterGame{
      * Spring 2024
      */
     //Added a character class to hold Name, HP, MP?, ATK & DEF-Dante
-    public class Player : Character 
-    {
+    public class Player : Character {
         public int LVL {get; private set;}  // Player level
         public int XP {get; private set;}  // Experience points
         public int MXP {get; set;} // Max Exp
@@ -17,7 +16,8 @@ namespace StarterGame{
         Random rand = new Random();
         private Room _currentRoom = null; // Player's current location 
         public Room CurrentRoom { get { return _currentRoom; } set { _currentRoom = value; } }
-
+        private Item _currentWeapon;
+        public Item CurrentWeapon { get { return _currentWeapon;} set { _currentWeapon = value; } }
         private IItemContainer _backpack;
 
         //Constructors
@@ -26,8 +26,14 @@ namespace StarterGame{
         public Player(Room room, string? name) : this(room, name, 0) { }
         public Player(Room room, string? name, int hp) : this(room, name, hp, 0) { }
         public Player(Room room, string? name, int hp, int atk) : this(room, name, hp, atk, 0){}
+<<<<<<< HEAD
+        public Player(Room room, string name, int hp, int atk, int def) : base(name, hp, atk, def){
+            //Starting Weapon
+            CurrentWeapon = new Item("Dagger", 3.0f, 7, 5);
+=======
         public Player(Room room, string name, int hp, int atk, int def) : base(name, hp, atk, def) //Constructor hierarchy for player
         {
+>>>>>>> c1059bece6bc1649c860af60b804697c37c539ca
             _currentRoom = room;
             _backpack = new ItemContainer("backpack", 0f);
             LVL = 1; // to start
@@ -36,9 +42,9 @@ namespace StarterGame{
             COIN = 13;
             HP = hp; 
             MHP = hp;
-            ATK = atk;
+            ATK = atk + CurrentWeapon.HealAmount;
             DEF = def;
-            //Hardcode to test Potions
+            //Starting Items for the Player 
             Item fullRestore = new Item("Restore", 1.0f, MHP, 0);
             Give(fullRestore);
             Item healthPotion = new Item("Potion", 0.5f, 10, 0);
@@ -47,11 +53,9 @@ namespace StarterGame{
             }
             
         }
-        public void WaltTo(string direction)
-        {
+        public void WaltTo(string direction){
             Room nextRoom = this.CurrentRoom.GetExit(direction);
-            if (nextRoom != null)
-            {
+            if (nextRoom != null){
                 CurrentRoom = nextRoom;
                 Notification notification = new Notification("PlayerDidEnterRoom", this);
                 NotificationCenter.Instance.PostNotification(notification);
@@ -61,44 +65,37 @@ namespace StarterGame{
                 NotificationCenter.Instance.PostNotification(shopEnter); //Activating observers for game events
                 NormalMessage("\n" + this.CurrentRoom.Description());
             }
-            else
-            {
+            else{
                 ErrorMessage("\nThere is no door on " + direction);
             }
         }
 
-        public void OutputMessage(string message)
-        {
+        public void OutputMessage(string message){
             Console.Write(message);
         }
 
-        public void ColoredMessage(string message, ConsoleColor newColor)
-        {
+        public void ColoredMessage(string message, ConsoleColor newColor){
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = newColor;
             OutputMessage(message);
             Console.ForegroundColor = oldColor;
         }
 
-        public void NormalMessage(string message)
-        {
+        public void NormalMessage(string message){
             ColoredMessage(message, ConsoleColor.White);
         }
 
-        public void InfoMessage(string message)
-        {
+        public void InfoMessage(string message){
             ColoredMessage(message, ConsoleColor.Blue);
             Console.WriteLine();
         }
 
-        public void WarningMessage(string message)
-        {
+        public void WarningMessage(string message){
             ColoredMessage(message, ConsoleColor.DarkYellow);
             Console.WriteLine();
         }
 
-        public void ErrorMessage(string message)
-        {
+        public void ErrorMessage(string message){
             ColoredMessage(message, ConsoleColor.Red);
             Console.WriteLine();
         }
@@ -134,9 +131,10 @@ namespace StarterGame{
             Console.WriteLine("|Level:" + LVL);
             Console.WriteLine("|Exp: " + XP + "/" + MXP); 
             Console.WriteLine("|HP: " + HP );
-            Console.WriteLine("|ATK: " + ATK);
+            Console.WriteLine("|ATK: " + ATK + " (" + CurrentWeapon.HealAmount + ")");
             Console.WriteLine("|DEF: " + DEF); 
             Console.WriteLine("|Coins: " + COIN);
+            Console.WriteLine("|Current Weapon" + CurrentWeapon.Name);
             Console.WriteLine("====================");
         }
           public void Inspect(string itemName){
@@ -149,19 +147,23 @@ namespace StarterGame{
             }
         }
 
-        public void Say(string word)
-        {
+        public void Say(string word){
             Console.Write("The player says: \"");
             NormalMessage(word);
             Console.Write("\"\n");
             Notification notification = new Notification("PlayerDidSayAWord", this); //Create notification for saying word
             Dictionary<string, object> userInfo = new Dictionary<string, object>();
+<<<<<<< HEAD
+            userInfo["word"] = word;
+            notification.UserInfo = userInfo;
+            NotificationCenter.Instance.PostNotification(notification);
+=======
             userInfo["word"] = word; //Put word object into dictionary
             notification.UserInfo = userInfo; 
             NotificationCenter.Instance.PostNotification(notification); //Post the notification and do the effects of saying the word
     
+>>>>>>> c1059bece6bc1649c860af60b804697c37c539ca
         }
-
         public void Inventory(){
             NormalMessage(_backpack.Description + "\n"); 
             bool inInventoryMenu = true; //Set game state to stay in the inventory until player manually exits.
@@ -187,8 +189,12 @@ namespace StarterGame{
         }
         public void Give(IItem item){
             if (item != null){
+<<<<<<< HEAD
+               _backpack.Insert(item);
+=======
                _backpack.Insert(item); //Used to give the player an item without directly accessing the backpack
                item.Count++;
+>>>>>>> c1059bece6bc1649c860af60b804697c37c539ca
             }
             else{
                 Console.WriteLine("Cannot give that item for it does not exist...");
@@ -222,6 +228,24 @@ namespace StarterGame{
                 }
             }
         }
+        public void Equip(Item item){
+            if (CurrentWeapon == null){
+                CurrentWeapon = item; 
+                Console.WriteLine("The player equips" + item.Name); 
+            }
+            else{
+                //You already have a weapon equiped
+            }
+        }
+        public void UnEquip(Item item){
+            if (CurrentWeapon != null){
+                CurrentWeapon = null; 
+                Console.WriteLine("The player unequips" + item.Name); 
+            }
+            else{
+                
+            }
+        }
         public IItem Take(string itemName){
             
             return _backpack.Remove(itemName);
@@ -248,12 +272,10 @@ namespace StarterGame{
             }
         }
         public void SetDifficulty(string difficulty){
-            if (MOD == null)
-            {
+            if (MOD == null){
                 MOD = difficulty; 
             }
-            else
-            {
+            else{
                 
             }
         }

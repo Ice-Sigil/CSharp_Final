@@ -75,13 +75,13 @@ namespace StarterGame{
         public void TakeDamage(int damage){
             switch(MOD){
                 case "easy":
-                HP = Math.Max(HP - damage, 1); // Ensure HP does not go below 0
+                HP = Math.Max(HP - damage, 0); // Ensure HP does not go below 0
                 break;
                 case "medium":
-                HP = Math.Max(HP - damage, 1); // Ensure HP does not go below 0
+                HP = Math.Max(HP - damage, 0); // Ensure HP does not go below 0
                 break;
                 case "hard":
-                HP = Math.Max(HP - damage, 1); // Ensure HP does not go below 0
+                HP = Math.Max(HP - damage, 0); // Ensure HP does not go below 0
                 break;
                 default:
                 break;
