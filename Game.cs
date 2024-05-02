@@ -22,7 +22,7 @@ namespace StarterGame
         {
             _playing = false;
             _parser = new Parser(new CommandWords());
-            _player = new Player(GameWorld.Instance.Entrance, "Prisoner", 30, 12, 6);
+            _player = new Player(GameWorld.Instance.Entrance, "Prisoner", 30, 16, 8);
         }
 
         public void Play()

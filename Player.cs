@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.ComponentModel;
 
-namespace StarterGame
-{
+namespace StarterGame{
     /*
      * Spring 2024
      */
@@ -13,8 +12,8 @@ namespace StarterGame
     {
         public int LVL {get; private set;}  // Player level
         public int XP {get; private set;}  // Experience points
-        public int MXP {get; private set;} // Max Exp
-        public int COIN {get; private set;} // Player Coins 
+        public int MXP {get; set;} // Max Exp
+        public int COIN {get; set;} // Player Coins 
         Random rand = new Random();
         private Room _currentRoom = null; // Player's current location 
         public Room CurrentRoom { get { return _currentRoom; } set { _currentRoom = value; } }
@@ -40,8 +39,13 @@ namespace StarterGame
             ATK = atk;
             DEF = def;
             //Hardcode to test Potions
-            IItem healthPotion = new Item("Potion", 0.5f, 4); 
-            _backpack.Insert(healthPotion);
+            Item fullRestore = new Item("Restore", 1.0f, MHP, 0);
+            Give(fullRestore);
+            Item healthPotion = new Item("Potion", 0.5f, 10, 0);
+            for (int x = 0; x < 4; x++){
+                Give(healthPotion);
+            }
+            
         }
         public void WaltTo(string direction)
         {
@@ -124,26 +128,6 @@ namespace StarterGame
                 //Do Nothing 
             }
         }
-        //Needs to be finished
-        public void Run(Enemy enemy){
-            Random chance = new Random();
-            switch (chance.Next(0, 3)){
-                case 1:
-                    //No escape. Stay in combat system
-                    
-                    break;
-                case 2:
-                    //Rough escape. Exit combat system, but take damage.
-                    
-                    break;
-                case 3:
-                    //True escape. Exit combat system without damage.
-                    
-                    break;
-                default:
-                    break;
-            } 
-        }
         public void DisplayPlayerStats(){
             Console.WriteLine("====================");
             Console.WriteLine("|Name: " + Name);
@@ -189,7 +173,7 @@ namespace StarterGame
                 Console.WriteLine("Which item would you like to use? "); 
                 string? itemChoice = Console.ReadLine();
                 if (itemChoice != null){
-                Take(itemChoice);
+                Use(itemChoice);
                 }
                 break;
                 case "E":
@@ -201,21 +185,47 @@ namespace StarterGame
                 } 
             }
         }
-
         public void Give(IItem item){
-            _backpack.Insert(item);
+            if (item != null){
+               _backpack.Insert(item);
+               item.Count++;
+            }
+            else{
+                Console.WriteLine("Cannot give that item for it does not exist...");
+            }
         }
-        public void Use(ItemContainer _playerInventory, string itemName){
+        public void Use(string itemName){
             //Currently in Development 
             //Will iterate through the inventory to match with the given name and then use the item, 
             //then call Take() here instead of in Combat and only call Use() during Combat -Dante
+            IItem item = Take(itemName);
+            Item itemInUse = (Item)item; 
+            if (itemInUse != null && itemInUse.Count > 1){
+                Heal(itemInUse);
+                itemInUse.Count--;
+                Give(itemInUse);
+                }
+            else if (itemInUse != null && itemInUse.Count == 1){
+                Heal(itemInUse);
+                itemInUse.Count--;
+            }
+            else{
+               Console.WriteLine("That " + itemName + " does not exist.");  
+            }
         }
-
+        public void Heal(Item item){
+            if (item.HealAmount > 0){
+                    Console.WriteLine("The Player used a " + item.Name + " gaining " + item.HealAmount + " HP!"); 
+                    HP += item.HealAmount;
+                    if (HP > MHP){
+                        HP = MHP; //prevents overhealing
+                }
+            }
+        }
         public IItem Take(string itemName){
-
+            
             return _backpack.Remove(itemName);
         }
-
         public void Pickup(string itemName){
             IItem item = CurrentRoom.Pickup(itemName);
             if (item != null){

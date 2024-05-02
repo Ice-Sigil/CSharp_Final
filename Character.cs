@@ -73,7 +73,21 @@ namespace StarterGame{
         }
         //Take Damage Method
         public void TakeDamage(int damage){
-            HP = Math.Max(HP - damage, 0); // Ensure HP does not go below 0
+            switch(MOD){
+                case "easy":
+                HP = Math.Max(HP - damage, 1); // Ensure HP does not go below 0
+                break;
+                case "medium":
+                HP = Math.Max(HP - damage, 1); // Ensure HP does not go below 0
+                break;
+                case "hard":
+                HP = Math.Max(HP - damage, 1); // Ensure HP does not go below 0
+                break;
+                default:
+                break;
+
+            }
+            
         }
     }
 }

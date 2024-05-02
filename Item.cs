@@ -14,17 +14,21 @@ namespace StarterGame
         public string Description { get {return Name + ", weight = " + Weight;}}
         private IItem _decorator;
         public bool IsContainer { get { return false; }}
-
         public bool IsUsable;
         private int _healAmount;
         public int HealAmount { get {return _healAmount;} set {_healAmount = value;}}
+        private int _count;
+        public int Count { get {return _count;} set {_count = value;}}
+        private int _atkValue;
+        public int AtkValue { get {return _atkValue;} set {_atkValue = value;}}
         public Item() : this("Nameless") {}
-        public Item(string name) : this(name, 1f, 0) {}
-        public Item(string name, float weight, int amount){
+        public Item(string name) : this(name, 1f, 0, 0) {}
+        public Item(string name, float weight, int amount, int atk){
             Name = name;
             _weight = weight;
             _decorator = null;
             HealAmount = amount;
+            AtkValue = atk;
         }
 
         public void Decorate(IItem decorator)
@@ -40,7 +44,7 @@ namespace StarterGame
 
         }
         override public string ToString(){
-            return Name; 
+            return " x" + Count; 
         }
     }
 
@@ -65,11 +69,16 @@ namespace StarterGame
             get
             {
                 string itemNames = "";
+                string totalAmount = "";
                 foreach(string name in _items.Keys)
                 {
-                    itemNames += " " + name;
+                    itemNames += " " + name; 
                 }
-                return Name + ", weight = " + Weight + "\n" + itemNames;
+                foreach (Item item in _items.Values)
+                {
+                    totalAmount += item.ToString();
+                }
+                return Name + ", weight = " + Weight + "\n" + itemNames + totalAmount;
             }
         }
         public ItemContainer() : this("nameless") { }
@@ -77,7 +86,7 @@ namespace StarterGame
         public ItemContainer(string name) : this(name, 1f){ }
 
         //Designated Constructor
-        public ItemContainer(string name, float weight) : base(name, weight, 0)
+        public ItemContainer(string name, float weight) : base(name, weight, 0, 0)
         {
             _items = new Dictionary<string, IItem>();
         }
@@ -85,6 +94,7 @@ namespace StarterGame
         public bool Insert(IItem item)
         {
             _items[item.Name] = item;
+            item.Count++;
             return true;
         }
 
@@ -95,6 +105,7 @@ namespace StarterGame
             if(itemToRemove != null)
             {
                 _items.Remove(itemName);
+                itemToRemove.Count--;
             }
             return itemToRemove;
         }
