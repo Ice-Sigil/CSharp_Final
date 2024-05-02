@@ -1,20 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "xKMxRzKzjp402L3ESH1/BR8qUSywUGeh69iz/gCIkyJlTAybOqb56pHZGlDO6Y2lPT63+6Wv6p3GEDR/3wYlug==",
+  "dgSpecHash": "catmmmVPl0twT9LTwjn99n7ZXZ5tytFmxel01ChBU7TxWufI0+zTiy9sAWrAH1kLSr0zfuoWfKoVxRTDTJmATQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\dsmit\\OneDrive\\Desktop\\CSharp_Final\\CSharp_Final.csproj",
+  "projectFilePath": "C:\\Users\\grayj\\Desktop\\CSharp_Final\\CSharp_Final.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\dsmit\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.15\\microsoft.netcore.app.ref.7.0.15.nupkg.sha512",
-    "C:\\Users\\dsmit\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.15\\microsoft.windowsdesktop.app.ref.7.0.15.nupkg.sha512",
-    "C:\\Users\\dsmit\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.15\\microsoft.aspnetcore.app.ref.7.0.15.nupkg.sha512",
-    "C:\\Users\\dsmit\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.15\\microsoft.netcore.app.host.win-x64.7.0.15.nupkg.sha512"
+    "C:\\Users\\grayj\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.18\\microsoft.netcore.app.ref.7.0.18.nupkg.sha512",
+    "C:\\Users\\grayj\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.18\\microsoft.windowsdesktop.app.ref.7.0.18.nupkg.sha512",
+    "C:\\Users\\grayj\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.18\\microsoft.aspnetcore.app.ref.7.0.18.nupkg.sha512",
+    "C:\\Users\\grayj\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.18\\microsoft.netcore.app.host.win-x64.7.0.18.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\dsmit\\OneDrive\\Desktop\\CSharp_Final\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

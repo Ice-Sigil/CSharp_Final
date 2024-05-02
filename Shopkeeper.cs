@@ -16,7 +16,7 @@ namespace StarterGame{
              Random random= new Random(4);
              return possibleDialogue[random.Next()];
         }
-        private IItemContainer _inventory;
+        private IItemContainer _inventory = new ItemContainer("inventory");
 
         }
     }

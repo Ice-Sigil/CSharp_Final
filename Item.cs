@@ -11,6 +11,7 @@ namespace StarterGame
         public string Name { get {return _name;} set {_name = value;}}
         private float _weight;
         public float Weight {get {return _weight + (_decorator==null?0:_decorator.Weight);}}
+        private int _price{get {return _price;} set {_price = value;}}
         public string Description { get {return Name + ", weight = " + Weight;}}
         private IItem _decorator;
         public bool IsContainer { get { return false; }}
@@ -23,14 +24,22 @@ namespace StarterGame
         public int AtkValue { get {return _atkValue;} set {_atkValue = value;}}
         public Item() : this("Nameless") {}
         public Item(string name) : this(name, 1f, 0, 0) {}
+<<<<<<< HEAD
         public Item(string name, float weight, int amount, int atk){
+=======
+        public Item(string name, float weight, int amount){}
+        public Item(string name, float weight, int amount, int value){
+>>>>>>> bc7d096317a973a747234609294303b44e3660d6
             Name = name;
             _weight = weight;
             _decorator = null;
             HealAmount = amount;
+<<<<<<< HEAD
             AtkValue = atk;
+=======
+            _price = value;
+>>>>>>> bc7d096317a973a747234609294303b44e3660d6
         }
-
         public void Decorate(IItem decorator)
         {
             if(_decorator == null)
