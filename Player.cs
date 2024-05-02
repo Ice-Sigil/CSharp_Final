@@ -205,7 +205,7 @@ namespace StarterGame
         public void Give(IItem item){
             _backpack.Insert(item);
         }
-        public void Use(ItemContainer _playerInventory, string itemName){
+        public void Use(string itemName){
             //Currently in Development 
             //Will iterate through the inventory to match with the given name and then use the item, 
             //then call Take() here instead of in Combat and only call Use() during Combat -Dante
