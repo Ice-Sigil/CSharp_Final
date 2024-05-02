@@ -20,7 +20,7 @@ namespace StarterGame
         public void Decorate(IItem decorator);
         public bool IsContainer { get; }
         public int Count { get; set; }
-        public int HealAmount { get; set; }
+        public int UseValue { get; set; }
 
     }
 

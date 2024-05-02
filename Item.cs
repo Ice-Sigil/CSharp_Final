@@ -16,8 +16,8 @@ namespace StarterGame
         private IItem _decorator;
         public bool IsContainer { get { return false; }}
         public bool IsUsable;
-        private int _healAmount;
-        public int HealAmount { get {return _healAmount;} set {_healAmount = value;}}
+        private int _useValue;
+        public int UseValue { get {return _useValue;} set {_useValue = value;}}
         private int _count;
         public int Count { get {return _count;} set {_count = value;}}
         private int _cost;
@@ -28,7 +28,7 @@ namespace StarterGame
             Name = name;
             _weight = weight;
             _decorator = null;
-            HealAmount = amount;
+            UseValue = amount;
             Cost = cost;
         }
         public void Decorate(IItem decorator)
