@@ -61,6 +61,7 @@ namespace StarterGame{
         new Item("Shuriken", 0.5f, 15, 15)
     };
     private static Item[] nonUsableItems={
+        new Item("Rusty Spear", 3, 1, 5),
         new Item("New Sword", 5, 1, 25),
         new Item("Spiked Mace", 10, 1, 20),
         new Item("Moonlight Greatsword", 15, 1, 50)
