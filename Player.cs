@@ -26,14 +26,9 @@ namespace StarterGame{
         public Player(Room room, string? name) : this(room, name, 0) { }
         public Player(Room room, string? name, int hp) : this(room, name, hp, 0) { }
         public Player(Room room, string? name, int hp, int atk) : this(room, name, hp, atk, 0){}
-<<<<<<< HEAD
         public Player(Room room, string name, int hp, int atk, int def) : base(name, hp, atk, def){
             //Starting Weapon
             CurrentWeapon = new Item("Dagger", 3.0f, 7, 5);
-=======
-        public Player(Room room, string name, int hp, int atk, int def) : base(name, hp, atk, def) //Constructor hierarchy for player
-        {
->>>>>>> c1059bece6bc1649c860af60b804697c37c539ca
             _currentRoom = room;
             _backpack = new ItemContainer("backpack", 0f);
             LVL = 1; // to start
@@ -153,16 +148,9 @@ namespace StarterGame{
             Console.Write("\"\n");
             Notification notification = new Notification("PlayerDidSayAWord", this); //Create notification for saying word
             Dictionary<string, object> userInfo = new Dictionary<string, object>();
-<<<<<<< HEAD
             userInfo["word"] = word;
             notification.UserInfo = userInfo;
             NotificationCenter.Instance.PostNotification(notification);
-=======
-            userInfo["word"] = word; //Put word object into dictionary
-            notification.UserInfo = userInfo; 
-            NotificationCenter.Instance.PostNotification(notification); //Post the notification and do the effects of saying the word
-    
->>>>>>> c1059bece6bc1649c860af60b804697c37c539ca
         }
         public void Inventory(){
             NormalMessage(_backpack.Description + "\n"); 
@@ -189,12 +177,7 @@ namespace StarterGame{
         }
         public void Give(IItem item){
             if (item != null){
-<<<<<<< HEAD
                _backpack.Insert(item);
-=======
-               _backpack.Insert(item); //Used to give the player an item without directly accessing the backpack
-               item.Count++;
->>>>>>> c1059bece6bc1649c860af60b804697c37c539ca
             }
             else{
                 Console.WriteLine("Cannot give that item for it does not exist...");
