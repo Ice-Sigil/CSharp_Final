@@ -91,7 +91,6 @@ namespace StarterGame
         public bool Insert(IItem item)
         {
             _items[item.Name] = item;
-            item.Count++;
             return true;
         }
 
