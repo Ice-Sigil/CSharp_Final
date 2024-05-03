@@ -16,12 +16,16 @@ namespace StarterGame{
         Random rand = new Random();
         private Room _currentRoom = null; // Player's current location 
         public Room CurrentRoom { get { return _currentRoom; } set { _currentRoom = value; } }
+        public float WeightLimit { get {return _weightLimit;} set {_weightLimit = value;} }
+        Stack<Room> stack = new Stack<Room>();
+        
         private Item _currentWeapon;
         public Item CurrentWeapon { get { return _currentWeapon;} set { _currentWeapon = value; } }
         private Item _currentArmor;
         public Item CurrentArmor { get { return _currentArmor;} set { _currentArmor = value; } }
         private ItemContainer _backpack;
         public ItemContainer Backpack { get { return _backpack;} set { _backpack = value; } }
+        private float _weightLimit = 10.0f;
         
         //Constructors
         public Player() : this(null) { }
@@ -53,22 +57,44 @@ namespace StarterGame{
             
         }
         public void WaltTo(string direction){
+            stack.Push(this.CurrentRoom);
             Room nextRoom = this.CurrentRoom.GetExit(direction);
-            if (nextRoom != null){
-                CurrentRoom = nextRoom; 
-                Notification notification = new Notification("PlayerDidEnterRoom", this);
-                NotificationCenter.Instance.PostNotification(notification);
-                Notification combatStart = new Notification("PlayerDidStartCombat", this); 
-                NotificationCenter.Instance.PostNotification(combatStart);
-                Notification shopEnter = new Notification("PlayerDidEnterShop", this);
-                NotificationCenter.Instance.PostNotification(shopEnter); //Activating observers for game events
-                Console.Clear(); 
-                GameWorld.Instance.Map(this);
-                NormalMessage("\n" + this.CurrentRoom.Description());
-                
+            if(_backpack.Weight < _weightLimit)
+            {
+                if (nextRoom != null)
+                {
+                    CurrentRoom = nextRoom; 
+                    Notification notification = new Notification("PlayerDidEnterRoom", this);
+                    NotificationCenter.Instance.PostNotification(notification);
+                    Notification combatStart = new Notification("PlayerDidStartCombat", this); 
+                    NotificationCenter.Instance.PostNotification(combatStart);
+                    Notification shopEnter = new Notification("PlayerDidEnterShop", this);
+                    NotificationCenter.Instance.PostNotification(shopEnter); //Activating observers for game events
+                    Console.Clear(); 
+                    GameWorld.Instance.Map(this);
+                    NormalMessage("\n" + this.CurrentRoom.Description());
+                }   
             }
-            else{
-                ErrorMessage("\nThere is no door on " + direction);
+            else
+                {
+                    ErrorMessage("\nThere is no door on " + direction);
+                }
+            }
+            else
+            {
+                WarningMessage("Overencumbered! Drop some items to progress...");
+            }
+        }
+
+        public void GoBack(Player player){
+            if(player.CurrentRoom != GameWorld.Instance.Entrance)
+            {
+                player.CurrentRoom = stack.Peek();
+                stack.Pop();
+            }
+            else
+            {
+                player.ErrorMessage("No turning back now!");
             }
         }
 
@@ -187,6 +213,20 @@ namespace StarterGame{
         public void InventoryDisplay(){
             NormalMessage(_backpack.Description + "\n"); 
         }
+        public void Unlock(Player player)
+        {
+            foreach(string key in _backpack.items.Values)
+            {
+                if(key != null)
+                {
+                    if(key.Key == "key")
+                    {
+                        WorldEvent.ExecuteEvent();
+                    }
+                }
+            }
+
+        }
         public void Give(IItem item){
             if (item != null){
                _backpack.Insert(item);
@@ -269,7 +309,7 @@ namespace StarterGame{
 
         public void Drop(string itemName){
             IItem item = Take(itemName);
-            if (itemName != null){
+            if (item != null){
                 CurrentRoom.Drop(item);
                 NormalMessage("You have dropped up the " + itemName);
             }
@@ -303,11 +343,24 @@ namespace StarterGame{
             shop.Insert(item);
         }
         public void SetDifficulty(string difficulty){
-            if (MOD == null){
-                MOD = difficulty; 
+            float diffInt = 1.0f;
+            switch(difficulty)
+            {
+            case "easy":
+                diffInt = 1.5f;
+                break;
+            case "medium":
+                diffInt = 1;
+                break;
+            case "hard":
+                diffInt = 0.5f;
+                break;
+            default:
+                break;
             }
-            else{
-               //Do nothing 
+            if (MOD != 0.0f)
+            {
+                MOD = diffInt;
             }
         }
     }
