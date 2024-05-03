@@ -297,6 +297,11 @@ namespace StarterGame{
             shop.Remove(item.Name);
             }
         }
+        public void Sell(ItemContainer shop, Item item){
+            Take(item.Name);
+            COIN += item.Cost;
+            shop.Insert(item);
+        }
         public void SetDifficulty(string difficulty){
             if (MOD == null){
                 MOD = difficulty; 
