@@ -401,8 +401,9 @@ namespace StarterGame{
                         while(isSelling){
                             player.NormalMessage(shopInventory.Description);
                             playerInput = Console.ReadLine().ToLower();
-                            if(playerInput == "q");
+                            if(playerInput == "q"){
                             isSelling = false;
+                            }
                         }
                         break;
                 }
