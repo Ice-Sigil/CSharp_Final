@@ -397,6 +397,9 @@ namespace StarterGame{
                         }
                         break;
                     case "s":
+<<<<<<< HEAD
+                        player.NormalMessage(player._backpack.Description);
+=======
                         bool isSelling = true;
                         while(isSelling){
                             player.NormalMessage(shopInventory.Description);
@@ -404,6 +407,7 @@ namespace StarterGame{
                             if(playerInput == "q");
                             isSelling = false;
                         }
+>>>>>>> 289fe583d38a75d5fd9ca0cc33eb01a2007267a3
                         break;
                 }
             }
