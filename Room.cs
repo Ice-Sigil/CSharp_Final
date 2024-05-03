@@ -397,16 +397,10 @@ namespace StarterGame{
                             if(playerInput == "q"){
                                 isBuying = false;
                             }
-<<<<<<< HEAD
                             if(shopInventory.Items.TryGetValue(playerInput, out IItem item)){
                                 player.Give(item);
                                 Item boughtItem = (Item)item;
                                player.COIN = player.COIN - boughtItem.Cost;
-=======
-                            if(shopInventory.Items.TryGetValue(playerInput, out IItem item){
-                               player.Give(item);
-                               player.COIN = player.COIN - (Item)item.Price;
->>>>>>> 447ac428a5a55668c8a1f1e682d2c0cf6e88333f
                             }
 
                         }
