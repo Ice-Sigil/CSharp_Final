@@ -321,7 +321,7 @@ namespace StarterGame{
     {
         Random random = new Random();
         private Shopkeeper _shopkeeper;
-        private IItemContainer shopInventory = new ItemContainer("Shop's Inventory:");
+        private ItemContainer shopInventory = new ItemContainer("Shop's Inventory:");
         private IItem[] useableItems = GameWorld.getUseableItems();
         private IItem[] nonUsableItems = GameWorld.getNonUsableItems();
         public Shopkeeper Shopkeeper {
@@ -381,28 +381,35 @@ namespace StarterGame{
             shopInventory.Insert(useableItems[random.Next(useableItems.Length-1)]);
             shopInventory.Insert(useableItems[random.Next(useableItems.Length-1)]);
             shopInventory.Insert(nonUsableItems[random.Next(nonUsableItems.Length-1)]);
-            ShopMenu();
-            string? playerInput = Console.ReadLine().ToLower();
+            string? playerInput = " ";
             while(playerInput != "g"){
                 ShopMenu();
+                playerInput = Console.ReadLine().ToLower();
                 switch(playerInput){
                     case "b":
                         bool isBuying = true;
                         while(isBuying){
                             player.NormalMessage("Press q to exit the buy menu. Current Inventory: \n");
                             player.InventoryDisplay();
-                            playerInput = Console.ReadLine().ToLower();
                             player.InfoMessage("Shopkeeper: This is what we have right now. Take a look.");
                             player.NormalMessage(shopInventory.Description +"\n");
+                            playerInput = Console.ReadLine().ToLower();
                             if(playerInput == "q"){
                                 isBuying = false;
                             }
+                            if(shopInventory.Items.TryGetValue(playerInput, out IItem item){
+                                player.Give(item);
+                               // player.COIN = player.COIN - (Item)item.Price;
+                            }
+
                         }
                         break;
                     case "s":
                         bool isSelling = true;
                         while(isSelling){
-                            player.NormalMessage(shopInventory.Description);
+                            player.InfoMessage("Shopkeeper: You want to sell? Sure. I'll pay full price for any items.");
+                            player.NormalMessage("Press q to exit the sell menu. Current Inventory: \n");
+                            player.InventoryDisplay();
                             playerInput = Console.ReadLine().ToLower();
                             if(playerInput == "q");
                             isSelling = false;

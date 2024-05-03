@@ -11,7 +11,8 @@ namespace StarterGame
         public string Name { get {return _name;} set {_name = value;}}
         private float _weight;
         public float Weight {get {return _weight + (_decorator==null?0:_decorator.Weight);}}
-        private int _price{get {return _price;} set {_price = value;}}
+        private int _price;
+        private int Price {get {return _price;} set {_price = value;}}
         public string Description { get {return Name + ", weight = " + Weight;}}
         private IItem _decorator;
         public bool IsContainer { get { return false; }}
@@ -52,6 +53,10 @@ namespace StarterGame
     public class ItemContainer : Item, IItemContainer
     {
         private Dictionary<string, IItem> _items;
+        public Dictionary<string, IItem> Items{
+            get { return _items; }
+            set { _items = value; }
+        }
         public new bool IsContainer { get { return true; } }
         public new float Weight
         {

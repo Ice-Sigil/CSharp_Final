@@ -21,6 +21,7 @@ namespace StarterGame
         public bool IsContainer { get; }
         public int Count { get; set; }
         public int UseValue { get; set; }
+        
 
     }
 
