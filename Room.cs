@@ -381,16 +381,19 @@ namespace StarterGame{
             shopInventory.Insert(useableItems[random.Next(useableItems.Length-1)]);
             shopInventory.Insert(useableItems[random.Next(useableItems.Length-1)]);
             shopInventory.Insert(nonUsableItems[random.Next(nonUsableItems.Length-1)]);
-
             ShopMenu();
             string? playerInput = Console.ReadLine().ToLower();
             while(playerInput != "g"){
+                ShopMenu();
                 switch(playerInput){
                     case "b":
                         bool isBuying = true;
                         while(isBuying){
-                            player.NormalMessage(shopInventory.Description);
+                            player.NormalMessage("Press q to exit the buy menu. Current Inventory: \n");
+                            player.InventoryDisplay();
                             playerInput = Console.ReadLine().ToLower();
+                            player.InfoMessage("Shopkeeper: This is what we have right now. Take a look.");
+                            player.NormalMessage(shopInventory.Description +"\n");
                             if(playerInput == "q"){
                                 isBuying = false;
                             }
