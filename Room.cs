@@ -321,7 +321,7 @@ namespace StarterGame{
     {
         Random random = new Random();
         private Shopkeeper _shopkeeper;
-        private IItemContainer shopInventory = new ItemContainer();
+        private IItemContainer shopInventory = new ItemContainer("Shop's Inventory:");
         private IItem[] useableItems = GameWorld.getUseableItems();
         private IItem[] nonUsableItems = GameWorld.getNonUsableItems();
         public Shopkeeper Shopkeeper {
@@ -377,10 +377,11 @@ namespace StarterGame{
         Console.WriteLine("=======================");
         }
         public void ShopLoop(Player player, Shopkeeper shopkeeper){
-            IItem newItem = useableItems[0];
-            shopInventory.Insert(newItem);
-            //shopInventory.Insert(useableItems[1]);
-            //shopInventory.Insert(nonUsableItems[1]);
+            Random random = new Random();
+            shopInventory.Insert(useableItems[random.Next(useableItems.Length-1)]);
+            shopInventory.Insert(useableItems[random.Next(useableItems.Length-1)]);
+            shopInventory.Insert(nonUsableItems[random.Next(nonUsableItems.Length-1)]);
+
             ShopMenu();
             string? playerInput = Console.ReadLine().ToLower();
             while(playerInput != "g"){
@@ -390,8 +391,9 @@ namespace StarterGame{
                         while(isBuying){
                             player.NormalMessage(shopInventory.Description);
                             playerInput = Console.ReadLine().ToLower();
-                            if(playerInput == "q");
-                            isBuying = false;
+                            if(playerInput == "q"){
+                                isBuying = false;
+                            }
                         }
                         break;
                     case "s":
