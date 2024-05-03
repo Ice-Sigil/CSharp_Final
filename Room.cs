@@ -376,12 +376,6 @@ namespace StarterGame{
         Console.WriteLine("||     (G)oodbye     ||");
         Console.WriteLine("=======================");
         }
-
-        public IItem findItem(){
-            IItem item = null;
-            foreach(string key in shopInventory.Items.Keys){}
-            return item;
-        }
         public void ShopLoop(Player player, Shopkeeper shopkeeper){
             Random random = new Random();
             shopInventory.Insert(useableItems[random.Next(useableItems.Length-1)]);
