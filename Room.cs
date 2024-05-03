@@ -321,7 +321,7 @@ namespace StarterGame{
     {
         Random random = new Random();
         private Shopkeeper _shopkeeper;
-        private IItemContainer shopInventory;
+        private IItemContainer shopInventory = new ItemContainer();
         private IItem[] useableItems = GameWorld.getUseableItems();
         private IItem[] nonUsableItems = GameWorld.getNonUsableItems();
         public Shopkeeper Shopkeeper {
@@ -353,13 +353,7 @@ namespace StarterGame{
             if (_active){
                 if (player != null){
                     if(player.CurrentRoom == ContainingRoom){
-                        player.NormalMessage("SHOP ENTERED SHOP ENTERED");
-                        player.NormalMessage(_shopkeeper.getDialogue());
-                        player.NormalMessage("The first item in the array is :" + useableItems[0].Name);
-                        //shopInventory.Insert(useableItems[0]);
-                        //shopInventory.Insert(useableItems[1]);
-                        //shopInventory.Insert(nonUsableItems[1]);
-                        //ShopLoop(player, _shopkeeper);
+                        ShopLoop(player, _shopkeeper);
                     }
                 }
             }
@@ -376,13 +370,17 @@ namespace StarterGame{
 
         }
         public void ShopMenu(){
-        Console.Clear(); 
+        //Console.Clear(); 
         Console.WriteLine("=======================");
         Console.WriteLine("|| (B)uy      (S)ell ||");
         Console.WriteLine("||     (G)oodbye     ||");
         Console.WriteLine("=======================");
         }
         public void ShopLoop(Player player, Shopkeeper shopkeeper){
+            IItem newItem = useableItems[0];
+            shopInventory.Insert(newItem);
+            //shopInventory.Insert(useableItems[1]);
+            //shopInventory.Insert(nonUsableItems[1]);
             ShopMenu();
             string? playerInput = Console.ReadLine().ToLower();
             while(playerInput != "g"){
@@ -397,9 +395,6 @@ namespace StarterGame{
                         }
                         break;
                     case "s":
-<<<<<<< HEAD
-                        player.NormalMessage(player._backpack.Description);
-=======
                         bool isSelling = true;
                         while(isSelling){
                             player.NormalMessage(shopInventory.Description);
@@ -407,7 +402,6 @@ namespace StarterGame{
                             if(playerInput == "q");
                             isSelling = false;
                         }
->>>>>>> 289fe583d38a75d5fd9ca0cc33eb01a2007267a3
                         break;
                 }
             }
