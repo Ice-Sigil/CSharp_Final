@@ -411,8 +411,9 @@ namespace StarterGame{
                             player.NormalMessage("Press q to exit the sell menu. Current Inventory: \n");
                             player.InventoryDisplay();
                             playerInput = Console.ReadLine().ToLower();
-                            if(playerInput == "q");
+                            if(playerInput == "q"){
                             isSelling = false;
+                            }
                         }
                         break;
                 }
