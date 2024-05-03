@@ -398,8 +398,8 @@ namespace StarterGame{
                                 isBuying = false;
                             }
                             if(shopInventory.Items.TryGetValue(playerInput, out IItem item){
-                                player.Give(item);
-                               // player.COIN = player.COIN - (Item)item.Price;
+                               player.Give(item);
+                               player.COIN = player.COIN - (Item)item.Price;
                             }
 
                         }
