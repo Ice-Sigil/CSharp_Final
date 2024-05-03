@@ -30,8 +30,8 @@ namespace StarterGame{
         public Player(Room room, string? name, int hp, int atk) : this(room, name, hp, atk, 0){}
         public Player(Room room, string name, int hp, int atk, int def) : base(name, hp, atk, def){
             //Starting Weapon
-            CurrentWeapon = new Item("Dagger", 3.0f, 4, 5);
-            CurrentArmor = new Item("Leather Rags", 1.0f, 1, 1);
+            CurrentWeapon = new Item("Dagger", 3.0f, 4, 5, false);
+            CurrentArmor = new Item("Leather Rags", 1.0f, 1, 1, false);
             _currentRoom = room;
             _backpack = new ItemContainer("backpack", 0f);
             LVL = 1; // to start
@@ -43,9 +43,9 @@ namespace StarterGame{
             ATK = atk + CurrentWeapon.UseValue;
             DEF = def + CurrentArmor.UseValue;
             //Starting Items for the Player 
-            Item fullRestore = new Item("Restore", 1.0f, MHP, 0);
+            Item fullRestore = new Item("Restore", 1.0f, MHP, 0, true);
             Give(fullRestore);
-            Item healthPotion = new Item("Potion", 0.5f, 20, 0);
+            Item healthPotion = new Item("Potion", 0.5f, 20, 0, true);
             for (int x = 0; x < 4; x++){
                 Give(healthPotion);
             }
@@ -201,15 +201,21 @@ namespace StarterGame{
             //then call Take() here instead of in Combat and only call Use() during Combat -Dante
             IItem item = Take(itemName);
             Item itemInUse = (Item)item; //Cast to item to integrate with other systems
-
-            if (itemInUse != null && itemInUse.Count > 1){
+            if (itemInUse.Name.Equals("Shuriken"))
+            {
+                
+            }
+            else if (itemInUse != null && itemInUse.Count > 1 && itemInUse.IsUsable == true){
                 Heal(itemInUse);
                 itemInUse.Count--;
                 Give(itemInUse);
                 }
-            else if (itemInUse != null && itemInUse.Count == 1){
+            else if (itemInUse != null && itemInUse.Count == 1 && itemInUse.IsUsable == true){
                 Heal(itemInUse);
                 itemInUse.Count--;
+            }
+            else if (itemInUse != null && itemInUse.IsUsable != false){
+                Console.WriteLine("That " + itemName + " is not useable");
             }
             else{
                Console.WriteLine("That " + itemName + " does not exist.");  
@@ -251,6 +257,7 @@ namespace StarterGame{
                 
             }
         }
+
         public IItem Take(string itemName){
             
             return _backpack.Remove(itemName);
@@ -275,6 +282,11 @@ namespace StarterGame{
             else{
                 ErrorMessage("There is no item named " + itemName +" in your inventory.");
             }
+        }
+        public void Buy(ItemContainer shop, Item item){
+            Give(item);
+            COIN -= item.Cost;
+            shop.Remove(item.Name);
         }
         public void SetDifficulty(string difficulty){
             if (MOD == null){

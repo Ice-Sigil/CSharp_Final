@@ -16,7 +16,7 @@ namespace StarterGame
         public string Description { get {return Name + ", weight = " + Weight;}}
         private IItem _decorator;
         public bool IsContainer { get { return false; }}
-        public bool IsUsable;
+        public bool? IsUsable;
         private int _useValue;
         public int UseValue { get {return _useValue;} set {_useValue = value;}}
         private int _count;
@@ -24,14 +24,15 @@ namespace StarterGame
         private int _cost;
         public int Cost { get {return _cost;} set {_cost = value;}}
         public Item() : this("Nameless") {}
-        public Item(string name) : this(name, 1f, 0, 0) {}
+        public Item(string name) : this(name, 1f, 0, 0, null) {}
         
-        public Item(string  name, float weight, int amount, int cost){
+        public Item(string  name, float weight, int amount, int cost, bool? useable){
             Name = name;
             _weight = weight;
             _decorator = null;
             UseValue = amount;
             Cost = cost;
+            IsUsable = useable;
         }
         public void Decorate(IItem decorator)
         {
@@ -74,8 +75,8 @@ namespace StarterGame
         {
             get
             {
-                string itemNames = "";
-                string itemsInContainer = "";
+                string itemNames = string.Empty;
+                string itemsInContainer = string.Empty;
                 foreach (Item item in _items.Values)
                 {
                     itemsInContainer += item.ToString();
@@ -88,7 +89,7 @@ namespace StarterGame
         public ItemContainer(string name) : this(name, 1f){ }
 
         //Designated Constructor
-        public ItemContainer(string name, float weight) : base(name, weight, 0, 0)
+        public ItemContainer(string name, float weight) : base(name, weight, 0, 0, null)
         {
             _items = new Dictionary<string, IItem>();
         }

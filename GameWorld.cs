@@ -56,15 +56,15 @@ namespace StarterGame{
 	    };
 
     private static IItem[] _useableItems = {
-        new Item("FullRestore", 1.0f, 99, 30),
-        new Item("Potion", 0.5f, 15, 10),
-        new Item("Shuriken", 0.5f, 15, 15)
+        new Item("FullRestore", 1.0f, 99, 30, true),
+        new Item("Potion", 0.5f, 15, 10, true),
+        new Item("Shuriken", 0.5f, 15, 15, true)
     };
     private static IItem[] _nonUsableItems={
-        new Item("Rusty Spear", 3, 1, 5),
-        new Item("NewSword", 5, 1, 20),
-        new Item("SpikedMace", 10, 1, 25),
-        new Item("MoonlightGreatsword", 15, 1, 50)
+        new Item("Rusty Spear", 3, 1, 5, false),
+        new Item("New Sword", 5, 1, 20, false),
+        new Item("Spiked Mace", 10, 1, 25, false),
+        new Item("Moonlight Greatsword", 15, 1, 50, false)
     };
     public static IItem[] getUseableItems(){
         return _useableItems;
@@ -224,20 +224,20 @@ namespace StarterGame{
         public void FillRoom()
         {
             TrapRoom tp = new TrapRoom("unlock");
-            Item item = new Item("knife", 0.0f, 2, 2);
+            Item item = new Item("knife", 0.0f, 2, 2, false);
             Floor[0,1].Drop(item);
             Floor[1,1].RoomDelegate = tp;
 
-            IItem decorator = new Item("gem", 0.5f, 0,0);
+            IItem decorator = new Item("gem", 0.5f, 0,0,false);
             item.Decorate(decorator);
-            decorator = new Item("gold", 0.7f, 0,0);
+            decorator = new Item("gold", 0.7f, 0,0, false);
             item.Decorate(decorator);
 
             IItemContainer chest = new ItemContainer("chest", 0f);
             //Floor[1,1].Drop(chest);
-            item = new Item("ball", 0.5f, 0,0);
+            item = new Item("ball", 0.5f, 0,0, false);
             chest.Insert(item);
-            item = new Item("bat", 3.5f, 0,0);
+            item = new Item("bat", 3.5f, 0,0, false);
             chest.Insert(item);
 
             Enemy practiceDummy = new Enemy("Bandit", 20, 5, 5);
