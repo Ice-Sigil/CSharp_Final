@@ -61,10 +61,17 @@ namespace StarterGame{
         new Item("Shuriken", 0.5f, 15, 15, true)
     };
     private static IItem[] _nonUsableItems={
+<<<<<<< HEAD
         new Item("Rusty Spear", 3, 1, 5, false),
         new Item("New Sword", 5, 1, 20, false),
         new Item("Spiked Mace", 10, 1, 25, false),
         new Item("Moonlight Greatsword", 15, 1, 50, false)
+=======
+        new Item("Rusty Spear", 3, 1, 5),
+        new Item("NewSword", 5, 1, 20),
+        new Item("SpikedMace", 10, 1, 25),
+        new Item("MoonlightGreatsword", 15, 1, 50)
+>>>>>>> a6f672e65ad0d82b37471a4242ff66a6f47aaa1b
     };
     public static IItem[] getUseableItems(){
         return _useableItems;

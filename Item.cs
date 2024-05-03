@@ -71,7 +71,7 @@ namespace StarterGame
                 return myWeight;
             }
         }
-        public new string Description
+        public string Description
         {
             get
             {
