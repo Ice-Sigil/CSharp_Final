@@ -41,7 +41,7 @@ namespace StarterGame{
             HP = hp; 
             MHP = hp;
             ATK = atk + CurrentWeapon.UseValue;
-            DEF = def;
+            DEF = def + CurrentArmor.UseValue;
             //Starting Items for the Player 
             Item fullRestore = new Item("Restore", 1.0f, MHP, 0);
             Give(fullRestore);
@@ -134,9 +134,10 @@ namespace StarterGame{
             Console.WriteLine("|Exp: " + XP + "/" + MXP); 
             Console.WriteLine("|HP: " + HP );
             Console.WriteLine("|ATK: " + ATK + " (" + CurrentWeapon.UseValue + ")");
-            Console.WriteLine("|DEF: " + DEF); 
+            Console.WriteLine("|DEF: " + DEF + " (" + CurrentArmor.UseValue + ")"); 
             Console.WriteLine("|Coins: " + COIN);
             Console.WriteLine("|Current Weapon: " + CurrentWeapon.Name);
+            Console.WriteLine("|Current Armor: " + CurrentArmor.Name);
             Console.WriteLine("====================");
         }
           public void Inspect(string itemName){
@@ -210,7 +211,7 @@ namespace StarterGame{
                Console.WriteLine("That " + itemName + " does not exist.");  
             }
         }
-        public void Heal(Item item){
+        public void Heal(IItem item){
             if (item.UseValue > 0){
                     Console.WriteLine("The Player used a " + item.Name + " gaining " + item.UseValue + " HP!"); 
                     HP += item.UseValue;
