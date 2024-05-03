@@ -354,16 +354,10 @@ namespace StarterGame{
                 if (player != null){
                     if(player.CurrentRoom == ContainingRoom){
                         player.NormalMessage(_shopkeeper.getDialogue());
-<<<<<<< HEAD
                         shopInventory.Insert(useableItems[random.Next(2)]);
                         shopInventory.Insert(useableItems[random.Next(2)]);
                         shopInventory.Insert(nonUsableItems[random.Next(5)]);
-=======
-                        shopInventory.Insert(useableItems[0]);
-                        shopInventory.Insert(useableItems[1]);
-                        shopInventory.Insert(nonUsableItems[1]);
-                        ShopLoop(player, _shopkeeper);
->>>>>>> 289fe583d38a75d5fd9ca0cc33eb01a2007267a3
+                        ShopLoop(player, _shopkeeper); 
                     }
                 }
             }
@@ -401,9 +395,6 @@ namespace StarterGame{
                         }
                         break;
                     case "s":
-<<<<<<< HEAD
-                        player.NormalMessage(player._backpack.Description);
-=======
                         bool isSelling = true;
                         while(isSelling){
                             player.NormalMessage(shopInventory.Description);
@@ -411,7 +402,6 @@ namespace StarterGame{
                             if(playerInput == "q");
                             isSelling = false;
                         }
->>>>>>> 289fe583d38a75d5fd9ca0cc33eb01a2007267a3
                         break;
                 }
             }
