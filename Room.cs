@@ -321,9 +321,9 @@ namespace StarterGame{
     {
         Random random = new Random();
         private Shopkeeper _shopkeeper;
-        private IItemContainer shopInventory;
-        private Item[] useableItems = GameWorld.getUseableItems();
-        private Item[] nonUsableItems = GameWorld.getNonUsableItems();
+        private IItemContainer shopInventory = new ItemContainer();
+        private IItem[] useableItems = GameWorld.getUseableItems();
+        private IItem[] nonUsableItems = GameWorld.getNonUsableItems();
         public Shopkeeper Shopkeeper {
             get { return _shopkeeper; }
             set { _shopkeeper = value; }
@@ -353,11 +353,7 @@ namespace StarterGame{
             if (_active){
                 if (player != null){
                     if(player.CurrentRoom == ContainingRoom){
-                        player.NormalMessage(_shopkeeper.getDialogue());
-                        shopInventory.Insert(useableItems[random.Next(2)]);
-                        shopInventory.Insert(useableItems[random.Next(2)]);
-                        shopInventory.Insert(nonUsableItems[random.Next(5)]);
-                        ShopLoop(player, _shopkeeper); 
+                        ShopLoop(player, _shopkeeper);
                     }
                 }
             }
@@ -374,13 +370,17 @@ namespace StarterGame{
 
         }
         public void ShopMenu(){
-        Console.Clear(); 
+        //Console.Clear(); 
         Console.WriteLine("=======================");
         Console.WriteLine("|| (B)uy      (S)ell ||");
         Console.WriteLine("||     (G)oodbye     ||");
         Console.WriteLine("=======================");
         }
         public void ShopLoop(Player player, Shopkeeper shopkeeper){
+            IItem newItem = useableItems[0];
+            shopInventory.Insert(newItem);
+            //shopInventory.Insert(useableItems[1]);
+            //shopInventory.Insert(nonUsableItems[1]);
             ShopMenu();
             string? playerInput = Console.ReadLine().ToLower();
             while(playerInput != "g"){

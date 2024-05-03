@@ -61,7 +61,7 @@ namespace StarterGame{
                 NotificationCenter.Instance.PostNotification(combatStart);
                 Notification shopEnter = new Notification("PlayerDidEnterShop", this);
                 NotificationCenter.Instance.PostNotification(shopEnter); //Activating observers for game events
-                Console.Clear(); 
+                //Console.Clear(); 
                 GameWorld.Instance.Map(this);
                 NormalMessage("\n" + this.CurrentRoom.Description());
                 

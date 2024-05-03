@@ -55,21 +55,21 @@ namespace StarterGame{
             new Enemy("Final Boss: Dr. Obando", 9999, 99, 99)
 	    };
 
-    private static Item[] _useableItems = {
+    private static IItem[] _useableItems = {
         new Item("FullRestore", 1.0f, 99, 30),
         new Item("Potion", 0.5f, 15, 10),
         new Item("Shuriken", 0.5f, 15, 15)
     };
-    private static Item[] _nonUsableItems={
+    private static IItem[] _nonUsableItems={
         new Item("Rusty Spear", 3, 1, 5),
         new Item("New Sword", 5, 1, 20),
         new Item("Spiked Mace", 10, 1, 25),
         new Item("Moonlight Greatsword", 15, 1, 50)
     };
-    public static Item[] getUseableItems(){
+    public static IItem[] getUseableItems(){
         return _useableItems;
     }
-    public static Item[] getNonUsableItems(){
+    public static IItem[] getNonUsableItems(){
         return _nonUsableItems;
     }
 
