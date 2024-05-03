@@ -20,7 +20,8 @@ namespace StarterGame{
         public Item CurrentWeapon { get { return _currentWeapon;} set { _currentWeapon = value; } }
         private Item _currentArmor;
         public Item CurrentArmor { get { return _currentArmor;} set { _currentArmor = value; } }
-        private IItemContainer _backpack;
+        private ItemContainer _backpack;
+        public ItemContainer Backpack { get { return _backpack;} set { _backpack = value; } }
 
         //Constructors
         public Player() : this(null) { }
@@ -164,7 +165,7 @@ namespace StarterGame{
             NormalMessage(_backpack.Description + "\n"); 
             bool inInventoryMenu = true; //Set game state to stay in the inventory until player manually exits.
             if (inInventoryMenu){
-            Console.WriteLine("(U)se||(E)xit"); //Inventory menu
+            Console.WriteLine("(U)se||(E)xit||(T)hrow"); //Inventory menu
             string? playerInput = Console.ReadLine();
             switch (playerInput){
                 case "U":
@@ -201,11 +202,7 @@ namespace StarterGame{
             //then call Take() here instead of in Combat and only call Use() during Combat -Dante
             IItem item = Take(itemName);
             Item itemInUse = (Item)item; //Cast to item to integrate with other systems
-            if (itemInUse.Name.Equals("Shuriken"))
-            {
-                
-            }
-            else if (itemInUse != null && itemInUse.Count > 1 && itemInUse.IsUsable == true){
+            if (itemInUse != null && itemInUse.Count > 1 && itemInUse.IsUsable == true){
                 Heal(itemInUse);
                 itemInUse.Count--;
                 Give(itemInUse);
@@ -229,9 +226,6 @@ namespace StarterGame{
                         HP = MHP; //prevents overhealing
                 }
             }
-        }
-        public void Throw(Item item){
-            
         }
         public void EquipWeapon(Item item){
             if (CurrentWeapon == null){
@@ -284,16 +278,31 @@ namespace StarterGame{
             }
         }
         public void Buy(ItemContainer shop, Item item){
+            bool? itemExists = null;
+            Item? itemInInventory = null;
+            foreach (Item i in _backpack.Items.Values){
+                if (i.Name.Equals(item.Name)){
+                    itemInInventory = i;
+                    itemExists = true;
+                }
+            }
+            if (itemExists == true){
+                itemInInventory.Count ++;
+                COIN -= item.Cost;
+                shop.Remove(item.Name);   
+            }
+            else{
             Give(item);
             COIN -= item.Cost;
             shop.Remove(item.Name);
+            }
         }
         public void SetDifficulty(string difficulty){
             if (MOD == null){
                 MOD = difficulty; 
             }
             else{
-                
+               //Do nothing 
             }
         }
     }
