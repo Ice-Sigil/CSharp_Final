@@ -62,9 +62,9 @@ namespace StarterGame{
     };
     private static IItem[] _nonUsableItems={
         new Item("Rusty Spear", 3, 1, 5),
-        new Item("New Sword", 5, 1, 20),
-        new Item("Spiked Mace", 10, 1, 25),
-        new Item("Moonlight Greatsword", 15, 1, 50)
+        new Item("NewSword", 5, 1, 20),
+        new Item("SpikedMace", 10, 1, 25),
+        new Item("MoonlightGreatsword", 15, 1, 50)
     };
     public static IItem[] getUseableItems(){
         return _useableItems;

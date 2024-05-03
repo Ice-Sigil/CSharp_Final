@@ -376,6 +376,12 @@ namespace StarterGame{
         Console.WriteLine("||     (G)oodbye     ||");
         Console.WriteLine("=======================");
         }
+
+        public IItem findItem(){
+            IItem item = null;
+            foreach(string key in shopInventory.Items.Keys){}
+            return item;
+        }
         public void ShopLoop(Player player, Shopkeeper shopkeeper){
             Random random = new Random();
             shopInventory.Insert(useableItems[random.Next(useableItems.Length-1)]);
@@ -398,9 +404,24 @@ namespace StarterGame{
                                 isBuying = false;
                             }
                             if(shopInventory.Items.TryGetValue(playerInput, out IItem item)){
-                                player.Give(item);
-                                Item boughtItem = (Item)item;
+                                player.InfoMessage("You want to buy the " + playerInput + "? Sure.");
+                               Item boughtItem = (Item)item;
+                               int playersCoins = player.COIN;
                                player.COIN = player.COIN - boughtItem.Cost;
+                               if(player.COIN < 0){
+                                player.WarningMessage("Shopkeeper: Hey, you can't afford that!");
+                                player.COIN = playersCoins;
+                                isBuying = false;
+                               }
+                               else{
+                                player.Give(item);
+                                shopInventory.Remove(playerInput);
+                                isBuying = false;
+                               }
+                            }
+                            else{
+                                player.InfoMessage("Shopkeeper: I'm sorry, I don't think we have that right now.");
+                                isBuying = false;
                             }
 
                         }
