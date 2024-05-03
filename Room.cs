@@ -319,7 +319,11 @@ namespace StarterGame{
     // barrier for shop class
     public class ShopRoom : IRoomDelegate
     {
-        private Shopkeeper _shopkeeper; 
+        Random random = new Random();
+        private Shopkeeper _shopkeeper;
+        private IItemContainer shopInventory;
+        private Item[] useableItems = GameWorld.getUseableItems();
+        private Item[] nonUsableItems = GameWorld.getNonUsableItems();
         public Shopkeeper Shopkeeper {
             get { return _shopkeeper; }
             set { _shopkeeper = value; }
@@ -350,6 +354,9 @@ namespace StarterGame{
                 if (player != null){
                     if(player.CurrentRoom == ContainingRoom){
                         player.NormalMessage(_shopkeeper.getDialogue());
+                        shopInventory.Insert(useableItems[random.Next(2)]);
+                        shopInventory.Insert(useableItems[random.Next(2)]);
+                        shopInventory.Insert(nonUsableItems[random.Next(5)]);
                     }
                 }
             }
@@ -377,14 +384,17 @@ namespace StarterGame{
             string? playerInput = Console.ReadLine().ToLower();
             while(playerInput != "g"){
                 switch(playerInput){
-                    case "b": 
-                     //   shopkeeper.displayWares;
+                    case "b":
+                        bool isBuying = true;
+                        while(isBuying){
+                            player.NormalMessage(shopInventory.Description);
+                            playerInput = Console.ReadLine().ToLower();
+                            if(playerInput == "q");
+                            isBuying = false;
+                        }
                         break;
                     case "s":
-                    //    player.displayInventory;
-                        break;
-                    case "a":
-                    
+                        player.NormalMessage(player._backpack.Description);
                         break;
                 }
             }
