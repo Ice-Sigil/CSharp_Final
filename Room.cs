@@ -395,41 +395,44 @@ namespace StarterGame{
                     case "b":
                         bool isBuying = true;
                         while(isBuying){
-                            player.NormalMessage("Press q to exit the buy menu. Current Inventory: \n");
-                            player.InventoryDisplay();
-                            player.InfoMessage("Shopkeeper: This is what we have right now. Take a look.");
-                            player.NormalMessage(shopInventory.Description +"\n");
-                            playerInput = Console.ReadLine().ToLower();
-                            if(playerInput == "q"){
+                            bool inBuyMenu = true;
+                            if (inBuyMenu){
+                                player.NormalMessage("Press q to exit the buy menu. Current Inventory: \n");
+                                player.InventoryDisplay();
+                                player.InfoMessage("Shopkeeper: This is what we have right now. Take a look.");
+                                player.NormalMessage(shopInventory.Description +"\n");
+                                Console.WriteLine("(B)uy||(E)xit");
+                                string? instruction = Console.ReadLine();
+                                switch (instruction){
+                                    case "B":
+                                    Console.WriteLine("What item would you like to buy? ");
+                                    string? playerChoice = Console.ReadLine();
+                                    if(playerChoice != null){
+                                        foreach(Item item in shopInventory.Items.Values){
+                                            if(item.Name.Equals(playerChoice)){
+                                                player.Buy(shopInventory, item);
+                                                isBuying = false;
+                                            }
+                                        }
+                                    }
+                                    break;
+                                    case "E":
+                                    inBuyMenu = false;
+                                    break;
+                                    default:
+                                    break;
+                                }    
+                                playerInput = Console.ReadLine().ToLower();
+                                if(playerInput == "q"){
                                 isBuying = false;
+                                }
+                               //if(player.COIN < 0){
+                                //player.WarningMessage("Shopkeeper: Hey, you can't afford that!");
+                                //isBuying = false;
                             }
-<<<<<<< HEAD
                             
-                               //player.COIN = player.COIN - boughtItem.Cost;
-                            
-=======
-                            if(shopInventory.Items.TryGetValue(playerInput, out IItem item)){
-                                player.InfoMessage("You want to buy the " + playerInput + "? Sure.");
-                               Item boughtItem = (Item)item;
-                               int playersCoins = player.COIN;
-                               player.COIN = player.COIN - boughtItem.Cost;
-                               if(player.COIN < 0){
-                                player.WarningMessage("Shopkeeper: Hey, you can't afford that!");
-                                player.COIN = playersCoins;
-                                isBuying = false;
-                               }
-                               else{
-                                player.Give(item);
-                                shopInventory.Remove(playerInput);
-                                isBuying = false;
-                               }
-                            }
-                            else{
-                                player.InfoMessage("Shopkeeper: I'm sorry, I don't think we have that right now.");
-                                isBuying = false;
-                            }
->>>>>>> a6f672e65ad0d82b37471a4242ff66a6f47aaa1b
-
+                                //player.InfoMessage("Shopkeeper: I'm sorry, I don't think we have that right now.");
+                                //isBuying = false;
                         }
                         break;
                     case "s":

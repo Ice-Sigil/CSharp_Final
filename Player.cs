@@ -283,8 +283,10 @@ namespace StarterGame{
                 ErrorMessage("There is no item named " + itemName +" in your inventory.");
             }
         }
-        private void Buy(IItem item){
-            //
+        public void Buy(ItemContainer shop, Item item){
+            Give(item);
+            COIN -= item.Cost;
+            shop.Remove(item.Name);
         }
         public void SetDifficulty(string difficulty){
             if (MOD == null){
