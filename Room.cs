@@ -397,11 +397,9 @@ namespace StarterGame{
                             if(playerInput == "q"){
                                 isBuying = false;
                             }
-                            if(shopInventory.Items.TryGetValue(playerInput, out IItem item)){
-                                player.Give(item);
-                                Item boughtItem = (Item)item;
-                               player.COIN = player.COIN - boughtItem.Cost;
-                            }
+                            
+                               //player.COIN = player.COIN - boughtItem.Cost;
+                            
 
                         }
                         break;
