@@ -322,8 +322,8 @@ namespace StarterGame{
         Random random = new Random();
         private Shopkeeper _shopkeeper;
         private IItemContainer shopInventory;
-        private Item[] useableItems = GameWorld.getUseableItems();
-        private Item[] nonUsableItems = GameWorld.getNonUsableItems();
+        private IItem[] useableItems = GameWorld.getUseableItems();
+        private IItem[] nonUsableItems = GameWorld.getNonUsableItems();
         public Shopkeeper Shopkeeper {
             get { return _shopkeeper; }
             set { _shopkeeper = value; }
@@ -353,11 +353,13 @@ namespace StarterGame{
             if (_active){
                 if (player != null){
                     if(player.CurrentRoom == ContainingRoom){
+                        player.NormalMessage("SHOP ENTERED SHOP ENTERED");
                         player.NormalMessage(_shopkeeper.getDialogue());
-                        shopInventory.Insert(useableItems[0]);
-                        shopInventory.Insert(useableItems[1]);
-                        shopInventory.Insert(nonUsableItems[1]);
-                        ShopLoop(player, _shopkeeper);
+                        player.NormalMessage("The first item in the array is :" + useableItems[0].Name);
+                        //shopInventory.Insert(useableItems[0]);
+                        //shopInventory.Insert(useableItems[1]);
+                        //shopInventory.Insert(nonUsableItems[1]);
+                        //ShopLoop(player, _shopkeeper);
                     }
                 }
             }
