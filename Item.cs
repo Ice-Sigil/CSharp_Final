@@ -46,7 +46,7 @@ namespace StarterGame
 
         }
         override public string ToString(){
-            return Name + " x" + Count + " "; 
+            return Name + " x" + Count + " " + Weight + " "; 
         }
     }
 

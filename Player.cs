@@ -225,7 +225,7 @@ namespace StarterGame{
             }
         }
         public void Throw(Item item){
-
+            
         }
         public void EquipWeapon(Item item){
             if (CurrentWeapon == null){
