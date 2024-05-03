@@ -31,7 +31,7 @@ namespace StarterGame{
                 {
                     if(_roomDelegate == null)
                     {
-                        _roomDelegate.ContainingRoom = null; //Un-designates a delegated room if there's no delegate attached to it
+                        _roomDelegate.ContainingRoom = null;
                     }
                 }
                 else
@@ -59,25 +59,25 @@ namespace StarterGame{
 
         public IItem Drop(IItem item)
         {
-            IItem oldItem = _itemsOnFloor.Remove(item.Name); //Stores the old item if there's already one on the ground
-            _itemsOnFloor.Insert(item); //Puts the selected item onto the ground
-            return oldItem; //Gives you the old one if one was there so it's not permanently lost
+            IItem oldItem = _itemsOnFloor.Remove(item.Name);
+            _itemsOnFloor.Insert(item);
+            return oldItem;
         }
 
         public IItem Pickup(string itemName)
         {
-            return _itemsOnFloor.Remove(itemName); //Gives you the item that was on the ground
+            return _itemsOnFloor.Remove(itemName);
         }
 
         public void SetExit(string exitName, Room room)
         {
-            _exits[exitName] = room; //Sets a room's exit
+            _exits[exitName] = room;
         }
 
         public Room GetExit(string exitName)
         {
             Room room = null;
-            _exits.TryGetValue(exitName, out room); //Try to get the exit object with the key of the name of the exit
+            _exits.TryGetValue(exitName, out room);
             if(_roomDelegate != null)
             {
                 room = _roomDelegate.OnGetExit(room);
@@ -247,11 +247,6 @@ namespace StarterGame{
                             case 1:
                                 player.WarningMessage("Escape failed..!");
                                 break;
-                            case 2:
-                                player.InfoMessage("You escaped, but barely... [-2 HP]");
-                                player.HP -= 2;
-                                _escape = true;
-                                break;
                             default:
                                 player.InfoMessage("You escape successfully...");
                                 _escape = true;
@@ -267,7 +262,7 @@ namespace StarterGame{
                     break;
             }
             Console.ReadKey();  
-            if(_enemy.HP > 0){
+            if(_enemy.HP > 0 && playerAction != "i" && playerAction != ""){
                 //if the _enemy is alive they retaliate
                 //in the future implement different actions other than Attack
                 Console.WriteLine("The enemy swings!");
@@ -314,16 +309,13 @@ namespace StarterGame{
         Console.WriteLine("Level: " + player.LVL);
         Console.WriteLine("Exp: " + player.XP + " / " + player.MXP);
         Console.WriteLine("HP: " + player.HP + " / "  + player.MHP);
+        Console.WriteLine("Potions: ");
         }   
     }
     // barrier for shop class
     public class ShopRoom : IRoomDelegate
     {
-        Random random = new Random();
-        private Shopkeeper _shopkeeper;
-        private ItemContainer shopInventory = new ItemContainer("Shop's Inventory:");
-        private IItem[] useableItems = GameWorld.getUseableItems();
-        private IItem[] nonUsableItems = GameWorld.getNonUsableItems();
+        private Shopkeeper _shopkeeper; 
         public Shopkeeper Shopkeeper {
             get { return _shopkeeper; }
             set { _shopkeeper = value; }
@@ -353,7 +345,7 @@ namespace StarterGame{
             if (_active){
                 if (player != null){
                     if(player.CurrentRoom == ContainingRoom){
-                        ShopLoop(player, _shopkeeper);
+                        player.NormalMessage(_shopkeeper.getDialogue());
                     }
                 }
             }
@@ -370,94 +362,26 @@ namespace StarterGame{
 
         }
         public void ShopMenu(){
-        //Console.Clear(); 
+        Console.Clear(); 
         Console.WriteLine("=======================");
         Console.WriteLine("|| (B)uy      (S)ell ||");
+        Console.WriteLine("||      (A)ttack     ||");
         Console.WriteLine("||     (G)oodbye     ||");
         Console.WriteLine("=======================");
         }
         public void ShopLoop(Player player, Shopkeeper shopkeeper){
-            Random random = new Random();
-            shopInventory.Insert(useableItems[random.Next(useableItems.Length-1)]);
-            shopInventory.Insert(useableItems[random.Next(useableItems.Length-1)]);
-            shopInventory.Insert(nonUsableItems[random.Next(nonUsableItems.Length-1)]);
-            string? playerInput = " ";
+            ShopMenu();
+            string? playerInput = Console.ReadLine().ToLower();
             while(playerInput != "g"){
-                ShopMenu();
-                playerInput = Console.ReadLine().ToLower();
                 switch(playerInput){
-                    case "b":
-                        bool isBuying = true;
-                        while(isBuying){
-                            bool inBuyMenu = true;
-                            if (inBuyMenu){
-                                player.NormalMessage("Press q to exit the buy menu. Current Inventory: \n");
-                                player.InventoryDisplay();
-                                player.InfoMessage("Shopkeeper: This is what we have right now. Take a look.");
-                                player.NormalMessage(shopInventory.Description +"\n");
-                                Console.WriteLine("(B)uy||(E)xit");
-                                string? instruction = Console.ReadLine();
-                                switch (instruction){
-                                    case "B":
-                                    Console.WriteLine("What item would you like to buy? ");
-                                    string? playerChoice = Console.ReadLine();
-                                    if(playerChoice != null){
-                                        foreach(Item item in shopInventory.Items.Values){
-                                            if(item.Name.Equals(playerChoice)){
-                                                player.Buy(shopInventory, item);
-                                                isBuying = false;
-                                            }
-                                        }
-                                    }
-                                    break;
-                                    case "E":
-                                    inBuyMenu = false;
-                                    break;
-                                    default:
-                                    break;
-                                }    
-                                playerInput = Console.ReadLine().ToLower();
-                                if(playerInput == "q"){
-                                isBuying = false;
-                                }
-                            }
-                        }
+                    case "b": 
+                     //   shopkeeper.displayWares;
                         break;
                     case "s":
-                         bool isSelling = true;
-                        while(isSelling){
-                            bool inSellMenu = true;
-                            if (inSellMenu){
-                                player.NormalMessage("Press q to exit the sell menu. Current Inventory: \n");
-                                player.InventoryDisplay();
-                                player.InfoMessage("Shopkeeper: I'm willing to buy whatever you have on you.");
-                                Console.WriteLine("(S)ell||(E)xit");
-                                string? instruction = Console.ReadLine();
-                                switch (instruction){
-                                    case "S":
-                                    Console.WriteLine("What item would you like to sell? ");
-                                    string? playerChoice = Console.ReadLine();
-                                    if(playerChoice != null){
-                                        foreach(Item item in player.Backpack.Items.Values){
-                                            if(item.Name.Equals(playerChoice)){
-                                                player.Sell(shopInventory, item);
-                                                isBuying = false;
-                                            }
-                                        }
-                                    }
-                                    break;
-                                    case "E":
-                                    inSellMenu = false;
-                                    break;
-                                    default:
-                                    break;
-                                }    
-                                playerInput = Console.ReadLine().ToLower();
-                                if(playerInput == "q"){
-                                isSelling = false;
-                                }
-                            }
-                        }
+                    //    player.displayInventory;
+                        break;
+                    case "a":
+                    
                         break;
                 }
             }

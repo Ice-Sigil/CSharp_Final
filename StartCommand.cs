@@ -18,10 +18,17 @@ namespace StarterGame
         {
             if (this.HasSecondWord())
             {
-                player.SetDifficulty(SecondWord);
-                GameWorld.Instance.Map(player); 
-                player.InfoMessage(player.CurrentRoom.Description());
-                return true;
+                if(this.SecondWord == "easy" || this.SecondWord == "medium" || this.SecondWord == "hard")
+                {
+                    player.SetDifficulty(SecondWord);
+                    GameWorld.Instance.Map(player); 
+                    player.InfoMessage(player.CurrentRoom.Description());
+                    return true;
+                }
+                else
+                {
+                    player.ErrorMessage("Difficulty not on the list!");
+                }
             }
             else
             {

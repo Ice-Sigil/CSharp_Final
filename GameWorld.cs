@@ -17,7 +17,7 @@ namespace StarterGame{
         public string up = "up";
         public string down = "down";
         public string tile = "on a regular floor tile";
-        private int _floor = 0;
+        public static int _level = 0;
 
         private static GameWorld _instance;
         public static GameWorld Instance
@@ -33,46 +33,20 @@ namespace StarterGame{
         }
         private Room _entrance;
         public Room Entrance { get { return _entrance; } }
-        private Room _triggerRoom;
+        private Room _lockedRoom;
         public Room _worldOut;
         private Room _worldInAnnex;
-        private Room _combatRoom; 
+        private Room _bossRoom; 
         private Room _shopRoom;
-
-        private static Enemy[] _enemyArray = { 
-		new Enemy("Goblin", 50, 2, 1),
-            new Enemy("Bandit", 25, 4, 2), 
-           	new Enemy ("Skeleton", 40, 8, 2),
-          	new Enemy ("Angry ShopKeeper", 9999, 99, 99),
-         	new Enemy ("Gargoyle", 20, 10, 15)
-        };
+        public Enemy _shopKeep = new Enemy("Angry ShopKeeper", 9999, 99, 99);
             
-	    private static Enemy[] _enemyBosses = { 
-            new Enemy("Boss 1: Bandit Chief", 32, 16, 8), 
-            new Enemy("Boss 2: Mutant Rat", 47, 18, 12),
-            new Enemy("Boss 3: Stone Golem", 54, 24, 18),
-            new Enemy("Boss 4: Ghost Rider", 66, 33, 33),
-            new Enemy("Final Boss: Dr. Obando", 9999, 99, 99)
-	    };
-
-    private static IItem[] _useableItems = {
-        new Item("FullRestore", 1.0f, 99, 30, true),
-        new Item("Potion", 0.5f, 15, 10, true),
-        new Item("Shuriken", 0.5f, 15, 15, true)
-    };
-    private static IItem[] _nonUsableItems={
-        new Item("Rusty Spear", 3, 1, 5, false),
-        new Item("New Sword", 5, 1, 20, false),
-        new Item("Spiked Mace", 10, 1, 25, false),
-        new Item("Moonlight Greatsword", 15, 1, 50, false)
-    };
-    public static IItem[] getUseableItems(){
-        return _useableItems;
-    }
-    public static IItem[] getNonUsableItems(){
-        return _nonUsableItems;
-    }
-
+        private static Enemy[] _enemyBosses = { 
+            new Enemy("Boss 1: Bandit Chief", 50, 5, 3), 
+            new Enemy("Boss 2: Mutant Rat", 75, 6, 4),
+            new Enemy("Boss 3: Stone Golem", 100, 10, 6),
+            new Enemy("Boss 4: Ghost Rider", 150, 15, 9),
+            new Enemy("Final Boss: Dr. Obando", 200, 20, 10)
+        };
 
         private GameWorld()
         {
@@ -85,17 +59,13 @@ namespace StarterGame{
             Player player = (Player)notification.Object;
             if(player != null)
             {
-                if(player.CurrentRoom == _triggerRoom)
+                if(player.CurrentRoom == _lockedRoom)
                 {
                     player.WarningMessage("\n***Trigger Activated.");
                 }
-                if(player.CurrentRoom == _worldOut)
+                if (player.CurrentRoom == _bossRoom)
                 {
-                    player.InfoMessage("\n***Exit found..!");
-                }
-                if (player.CurrentRoom == _combatRoom)
-                {
-                    player.WarningMessage("You are in a Combat Room"); 
+                    player.WarningMessage("The boss is defeated... [use 'next']"); 
                 }
             }
         }
@@ -104,7 +74,7 @@ namespace StarterGame{
         {
             if (player.CurrentRoom == _worldOut)
             {
-                if (_floor < 5)
+                if (_level < 5)
                 {
                     Floor = null;
                     CreateWorld();
@@ -113,6 +83,7 @@ namespace StarterGame{
                 }
                 else
                 {
+                    _level = 0;
                     player.WarningMessage("You just beat the final boss! Congraturaltionese!");
                     player.WarningMessage(":DDDDD");
                     return true;
@@ -127,7 +98,8 @@ namespace StarterGame{
 
         private void CreateWorld()
         {
-            _floor += 1;
+            _level += 1;
+            _shopRoom = null;
             Random random = new Random();
             Height = random.Next(5,8); //Height can be from 5 to 8
             Width = 3;                 //the Width is gonna be the same so it doesnt take too long to complete the Floor, will change after project is over
@@ -142,13 +114,14 @@ namespace StarterGame{
                 #X# <-- _worldOut Floor[Height-1,Width-2]
 
             */
-            Floor[0,1] = new Room("at the beginning of Floor" + _floor + ".");
+            Floor[0,1] = new Room("at the beginning of Floor " + _level);
+            
             Floor[1,1] = new Room(tile);
             _entrance = Floor[0,1];
 
             Floor[Height-1,Width-2] = new Room("at the exit");
             Floor[Height-2,Width-2] = new Room(tile);
-            _worldOut = Floor[Height-1,Width-2];
+            _lockedRoom = Floor[Height-1,Width-2];
             direction = random.Next(1,10);
 
             for(int i = 1; i < Height-1; i+=2)    //create Floor
@@ -223,33 +196,79 @@ namespace StarterGame{
 
         public void FillRoom()
         {
+            Random rand = new Random();
             TrapRoom tp = new TrapRoom("unlock");
-            Item item = new Item("knife", 0.0f, 2, 2, false);
+            IItem item = new Item("knife", 10.0f);
+            IItem key = new Item("key");
             Floor[0,1].Drop(item);
             Floor[1,1].RoomDelegate = tp;
 
-            IItem decorator = new Item("gem", 0.5f, 0,0,false);
+            IItem decorator = new Item("gem", 0.5f);
             item.Decorate(decorator);
-            decorator = new Item("gold", 0.7f, 0,0, false);
+            decorator = new Item("gold", 0.7f);
             item.Decorate(decorator);
 
             IItemContainer chest = new ItemContainer("chest", 0f);
-            //Floor[1,1].Drop(chest);
-            item = new Item("ball", 0.5f, 0,0, false);
+            Floor[1,1].Drop(chest);
+            item = new Item("ball", 0.5f);
             chest.Insert(item);
-            item = new Item("bat", 3.5f, 0,0, false);
+            item = new Item("bat", 3.5f);
             chest.Insert(item);
 
-            Enemy practiceDummy = new Enemy("Bandit", 20, 5, 5);
-            CombatRoom cr = new CombatRoom(_enemyBosses[_floor-1]);
+            CombatRoom cr = new CombatRoom(_enemyBosses[_level-1]);
             Floor[Height-1,Width-2].RoomDelegate = cr;
-	        _combatRoom = Floor[Height-1, Width-2];
+	        _bossRoom = Floor[Height-1, Width-2];
 
             Shopkeeper shopkeeper = new Shopkeeper("Shopman", 20, 5, 5);
             ShopRoom sr = new ShopRoom(shopkeeper);
-            Floor[Height-2, Width-2].RoomDelegate = sr;
-	        _shopRoom = Floor[Height-2, Width-2];
-            
+            Enemy enemy = new Enemy("placeholder",10,10,10);
+            //Floor[Height-2, Width-2].RoomDelegate = sr;
+	        //_shopRoom = Floor[Height-2, Width-2];
+            bool dropped = false;
+            for(int i = 1; i < Height; i++)
+            {
+                for(int j = 0; j < Width; j++)
+                {
+                    if(Floor[i,j] != null)
+                    {
+                        if(Floor[i,j] != _lockedRoom)
+                        {
+                            double roomChance = rand.NextDouble();
+                            if(_shopRoom == null)
+                            {
+                                if(roomChance < 0.30)
+                                {
+                                    sr = new ShopRoom(shopkeeper);
+                                    Floor[i,j].RoomDelegate = sr;
+                                    _shopRoom = Floor[i,j];
+                                }
+                            }
+                            roomChance = rand.NextDouble();
+                            if(roomChance < 0.25)
+                            {
+                                if(Floor[i,j] != _shopRoom)
+                                {
+                                    enemy = enemy.enemyFactory(_level);
+                                    cr = new CombatRoom(enemy);
+                                    Floor[i,j].RoomDelegate = cr;
+                                }
+                            }
+                            if(!dropped)
+                            {
+                                roomChance = rand.NextDouble();
+                                if(roomChance < 0.25)
+                                {
+                                    if(Floor[i,j] != _lockedRoom)
+                                    {
+                                        Floor[i,j].Drop(key);
+                                        dropped = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public void Map(Player player)
@@ -271,7 +290,7 @@ namespace StarterGame{
                         Console.Write(" ");
                         break;
                     default:
-                        if(Floor[i,j] == _combatRoom)
+                        if(Floor[i,j] == _bossRoom)
                         {
                             Console.BackgroundColor = ConsoleColor.Red;
                             Console.Write(" ");
@@ -294,7 +313,35 @@ namespace StarterGame{
                 }
             }
             Console.WriteLine();
-            player.InfoMessage(" ^ the exit");
+            player.InfoMessage(" ^ the exit\n");
+            Legend();
+        }
+
+        public void Legend()
+        {
+            Console.WriteLine("Legend:\nP  <- The Player");
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.Write(" ");
+            Console.ResetColor();
+            Console.Write("  <- The Floor\n");
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.Write(" ");
+            Console.ResetColor();
+            Console.Write("  <- The Shopkeeper\n");
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.Write(" ");
+            Console.ResetColor();
+            Console.Write("  <- The Boss/Exit");
+        }
+
+        public static void Reset()
+        {
+            _level = 0;
+            _instance = null;
+            Game game = new Game();
+            Player _player = new Player(GameWorld.Instance.Entrance, "Prisoner", 30, 12, 6);
+            //_player.CurrentRoom = GameWorld.Floor[0,1];
+
         }
     
         // private void CreateWorld()
@@ -354,7 +401,7 @@ namespace StarterGame{
 
         //     greekCenter.SetExit("down", clockTower);
 
-        //     _triggerRoom = scctparking;
+        //     _lockedRoom = scctparking;
         //     _entrance = outside;
         //     _worldOut = schuster;
         //     _worldInAnnex = davidson;
@@ -367,23 +414,25 @@ namespace StarterGame{
             private Room _worldInAnnex;
             private string _directionFromWorld;
             private string _directionToWorld;
-            private Room _combatRoom;
+            private Room _bossRoom;
+            private Room _lockedRoom;
 
-            public WorldEvent(Room trigger, Room worldOut, Room worldInAnnex, string directionFromWorld, string directionToWorld, Room combatRoom)
+            public WorldEvent(Room trigger, Room worldOut, Room worldInAnnex, string directionFromWorld, string directionToWorld, Room combatRoom, Room lockedRoom)
             {
                 _trigger = trigger;
                 _worldOut = worldOut;
                 _worldInAnnex = worldInAnnex;
                 _directionFromWorld = directionFromWorld;
                 _directionToWorld = directionToWorld;
-                _combatRoom = combatRoom;
+                _bossRoom = combatRoom;
+                _lockedRoom = lockedRoom;
             }
 
 
             public void ExecuteEvent()
             {
-                _worldOut.SetExit(_directionFromWorld, _worldInAnnex);
-                _worldInAnnex.SetExit(_directionToWorld, _worldOut);
+                _worldOut = _lockedRoom;
+                _lockedRoom = null;
             }
 
         }
