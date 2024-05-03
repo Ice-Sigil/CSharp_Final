@@ -19,7 +19,8 @@ namespace StarterGame{
             new DropCommand(), 
             new PickupCommand(),
             new NextCommand(),
-            new StatsCommand()};
+            new StatsCommand(),
+            new BackCommand()};
 
         public CommandWords() : this(_commandArray) {}
 
