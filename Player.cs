@@ -20,7 +20,8 @@ namespace StarterGame{
         public Item CurrentWeapon { get { return _currentWeapon;} set { _currentWeapon = value; } }
         private Item _currentArmor;
         public Item CurrentArmor { get { return _currentArmor;} set { _currentArmor = value; } }
-        private IItemContainer _backpack;
+        private ItemContainer _backpack;
+        public ItemContainer Backpack { get { return _backpack; } set { _backpack = value;}}
 
         //Constructors
         public Player() : this(null) { }
@@ -287,6 +288,11 @@ namespace StarterGame{
             Give(item);
             COIN -= item.Cost;
             shop.Remove(item.Name);
+        }
+        public void Sell(ItemContainer shop, Item item){
+            Take(item.Name);
+            COIN += item.Cost;
+            shop.Insert(item);
         }
         public void SetDifficulty(string difficulty){
             if (MOD == null){

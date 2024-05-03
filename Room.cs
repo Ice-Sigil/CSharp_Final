@@ -420,24 +420,42 @@ namespace StarterGame{
                                 if(playerInput == "q"){
                                 isBuying = false;
                                 }
-                               //if(player.COIN < 0){
-                                //player.WarningMessage("Shopkeeper: Hey, you can't afford that!");
-                                //isBuying = false;
                             }
-                            
-                                //player.InfoMessage("Shopkeeper: I'm sorry, I don't think we have that right now.");
-                                //isBuying = false;
                         }
                         break;
                     case "s":
-                        bool isSelling = true;
+                         bool isSelling = true;
                         while(isSelling){
-                            player.InfoMessage("Shopkeeper: You want to sell? Sure. I'll pay full price for any items.");
-                            player.NormalMessage("Press q to exit the sell menu. Current Inventory: \n");
-                            player.InventoryDisplay();
-                            playerInput = Console.ReadLine().ToLower();
-                            if(playerInput == "q"){
-                            isSelling = false;
+                            bool inSellMenu = true;
+                            if (inSellMenu){
+                                player.NormalMessage("Press q to exit the sell menu. Current Inventory: \n");
+                                player.InventoryDisplay();
+                                player.InfoMessage("Shopkeeper: I'm willing to buy whatever you have on you.");
+                                Console.WriteLine("(S)ell||(E)xit");
+                                string? instruction = Console.ReadLine();
+                                switch (instruction){
+                                    case "S":
+                                    Console.WriteLine("What item would you like to sell? ");
+                                    string? playerChoice = Console.ReadLine();
+                                    if(playerChoice != null){
+                                        foreach(Item item in player.Backpack.Items.Values){
+                                            if(item.Name.Equals(playerChoice)){
+                                                player.Sell(shopInventory, item);
+                                                isBuying = false;
+                                            }
+                                        }
+                                    }
+                                    break;
+                                    case "E":
+                                    inSellMenu = false;
+                                    break;
+                                    default:
+                                    break;
+                                }    
+                                playerInput = Console.ReadLine().ToLower();
+                                if(playerInput == "q"){
+                                isSelling = false;
+                                }
                             }
                         }
                         break;
