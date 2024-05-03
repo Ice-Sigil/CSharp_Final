@@ -13,7 +13,7 @@ namespace StarterGame
         public float Weight {get {return _weight + (_decorator==null?0:_decorator.Weight);}}
         private int _price;
         private int Price {get {return _price;} set {_price = value;}}
-        public string Description { get {return Name + ", weight = " + Weight;}}
+        public string Description { get {return Name + ", weight = " + Weight + "lbs ";}}
         private IItem _decorator;
         public bool IsContainer { get { return false; }}
         public bool? IsUsable;
@@ -47,7 +47,7 @@ namespace StarterGame
 
         }
         override public string ToString(){
-            return Name + " x" + Count + " " + Weight + " "; 
+            return Name + " x" + Count + " " + Weight + "lbs "; 
         }
     }
 
