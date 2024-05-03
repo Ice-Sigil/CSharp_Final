@@ -9,12 +9,12 @@ namespace StarterGame
     {
         static void Main(string[] args)
         {
+            Game game = new Game();
             bool quit = false;
             while(!quit)
             {
                 string? input = "";
                 bool valid = false;
-                Game game = new Game();
                 game.Start();
                 game.Play();
                 Console.WriteLine("Start a new game? Y/N");

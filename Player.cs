@@ -18,6 +18,8 @@ namespace StarterGame{
         public Room CurrentRoom { get { return _currentRoom; } set { _currentRoom = value; } }
         private Item _currentWeapon;
         public Item CurrentWeapon { get { return _currentWeapon;} set { _currentWeapon = value; } }
+        private Item _currentArmor;
+        public Item CurrentArmor { get { return _currentArmor;} set { _currentArmor = value; } }
         private IItemContainer _backpack;
 
         //Constructors
@@ -28,7 +30,8 @@ namespace StarterGame{
         public Player(Room room, string? name, int hp, int atk) : this(room, name, hp, atk, 0){}
         public Player(Room room, string name, int hp, int atk, int def) : base(name, hp, atk, def){
             //Starting Weapon
-            CurrentWeapon = new Item("Dagger", 3.0f, 7, 5);
+            CurrentWeapon = new Item("Dagger", 3.0f, 4, 5);
+            CurrentArmor = new Item("Leather Rags", 1.0f, 1, 1);
             _currentRoom = room;
             _backpack = new ItemContainer("backpack", 0f);
             LVL = 1; // to start
@@ -38,11 +41,11 @@ namespace StarterGame{
             HP = hp; 
             MHP = hp;
             ATK = atk + CurrentWeapon.UseValue;
-            DEF = def;
+            DEF = def + CurrentArmor.UseValue;
             //Starting Items for the Player 
             Item fullRestore = new Item("Restore", 1.0f, MHP, 0);
             Give(fullRestore);
-            Item healthPotion = new Item("Potion", 0.5f, 10, 0);
+            Item healthPotion = new Item("Potion", 0.5f, 20, 0);
             for (int x = 0; x < 4; x++){
                 Give(healthPotion);
             }
@@ -51,14 +54,17 @@ namespace StarterGame{
         public void WaltTo(string direction){
             Room nextRoom = this.CurrentRoom.GetExit(direction);
             if (nextRoom != null){
-                CurrentRoom = nextRoom;
+                CurrentRoom = nextRoom; 
                 Notification notification = new Notification("PlayerDidEnterRoom", this);
                 NotificationCenter.Instance.PostNotification(notification);
                 Notification combatStart = new Notification("PlayerDidStartCombat", this); 
                 NotificationCenter.Instance.PostNotification(combatStart);
                 Notification shopEnter = new Notification("PlayerDidEnterShop", this);
                 NotificationCenter.Instance.PostNotification(shopEnter); //Activating observers for game events
+                Console.Clear(); 
+                GameWorld.Instance.Map(this);
                 NormalMessage("\n" + this.CurrentRoom.Description());
+                
             }
             else{
                 ErrorMessage("\nThere is no door on " + direction);
@@ -106,13 +112,14 @@ namespace StarterGame{
         private void LevelCheck(Player player){
             if (player.XP >= player.MXP){
                 Console.WriteLine(player.Name + " has leveled up!!!");  
-             //   player.MHP += 2;
-            //    player.HP = player.MHP; 
+                player.MHP += 2;
+                player.HP = player.MHP; 
                 player.XP = 0;
                 player.MXP *= 2; 
                 player.ATK += 2; 
                 player.DEF += 2;
                 player.LVL ++;
+                COIN = player.COIN; //ensures coins arent lost on a level up
                 DisplayPlayerStats();  
                 Console.ReadKey(); 
             }
@@ -127,9 +134,10 @@ namespace StarterGame{
             Console.WriteLine("|Exp: " + XP + "/" + MXP); 
             Console.WriteLine("|HP: " + HP );
             Console.WriteLine("|ATK: " + ATK + " (" + CurrentWeapon.UseValue + ")");
-            Console.WriteLine("|DEF: " + DEF); 
+            Console.WriteLine("|DEF: " + DEF + " (" + CurrentArmor.UseValue + ")"); 
             Console.WriteLine("|Coins: " + COIN);
             Console.WriteLine("|Current Weapon: " + CurrentWeapon.Name);
+            Console.WriteLine("|Current Armor: " + CurrentArmor.Name);
             Console.WriteLine("====================");
         }
           public void Inspect(string itemName){
@@ -189,6 +197,7 @@ namespace StarterGame{
             //then call Take() here instead of in Combat and only call Use() during Combat -Dante
             IItem item = Take(itemName);
             Item itemInUse = (Item)item; //Cast to item to integrate with other systems
+
             if (itemInUse != null && itemInUse.Count > 1){
                 Heal(itemInUse);
                 itemInUse.Count--;
@@ -202,7 +211,7 @@ namespace StarterGame{
                Console.WriteLine("That " + itemName + " does not exist.");  
             }
         }
-        public void Heal(Item item){
+        public void Heal(IItem item){
             if (item.UseValue > 0){
                     Console.WriteLine("The Player used a " + item.Name + " gaining " + item.UseValue + " HP!"); 
                     HP += item.UseValue;
@@ -211,7 +220,10 @@ namespace StarterGame{
                 }
             }
         }
-        public void Equip(Item item){
+        public void Throw(Item item){
+
+        }
+        public void EquipWeapon(Item item){
             if (CurrentWeapon == null){
                 CurrentWeapon = item; 
                 Console.WriteLine("The player equips" + item.Name); 
@@ -220,7 +232,13 @@ namespace StarterGame{
                 //You already have a weapon equiped
             }
         }
-        public void UnEquip(Item item){
+        public void EquipArmor(){
+
+        }
+        public void UnEquipArmor(){
+
+        }
+        public void UnEquipWeapon(Item item){
             if (CurrentWeapon != null){
                 CurrentWeapon = null; 
                 Console.WriteLine("The player unequips" + item.Name); 

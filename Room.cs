@@ -51,7 +51,7 @@ namespace StarterGame{
         // Designated Constructor
         public Room(string tag)
         {
-            _itemsOnFloor = null;
+            _itemsOnFloor = new ItemContainer("floor", 0f);
             _roomDelegate = null;
             _exits = new Dictionary<string, Room>();
             this.Tag = tag;
@@ -99,7 +99,7 @@ namespace StarterGame{
 
         public string Description()
         {
-            return "You are " + this.Tag + ".\n *** " + this.GetExits() + "\nItems: ";// + _itemsOnFloor.Description;
+            return "You are " + this.Tag + ".\n *** " + this.GetExits() + "\nItems: " + _itemsOnFloor.Description;
         }
     }
 

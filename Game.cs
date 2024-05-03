@@ -84,7 +84,7 @@ namespace StarterGame
 
         public string Welcome()
         {
-            return "Welcome to Dante-Jackson-NickTopia!\n\nType 'start' and your difficulty to begin [easy, medium, hard]\n\nType 'help' if you need help.";
+            return "Welcome to Dante-Jackson-NickTopia!\n\nType 'start' and your difficulty to begin [easy, normal, hard]\n\nType 'help' if you need help.";
         }
 
         public string Goodbye()

@@ -48,9 +48,9 @@ namespace StarterGame{
         };
             
 	    private static Enemy[] _enemyBosses = { 
-            new Enemy("Boss 1: Bandit Chief", 32, 12, 8), 
-            new Enemy("Boss 2: Mutant Rat", 47, 16, 12),
-            new Enemy("Boss 3: Stone Golem", 54, 20, 18),
+            new Enemy("Boss 1: Bandit Chief", 32, 16, 8), 
+            new Enemy("Boss 2: Mutant Rat", 47, 18, 12),
+            new Enemy("Boss 3: Stone Golem", 54, 24, 18),
             new Enemy("Boss 4: Ghost Rider", 66, 33, 33),
             new Enemy("Final Boss: Dr. Obando", 9999, 99, 99)
 	    };
@@ -224,8 +224,8 @@ namespace StarterGame{
         public void FillRoom()
         {
             TrapRoom tp = new TrapRoom("unlock");
-            IItem item = new Item("knife");
-            //Floor[0,1].Drop(item);
+            Item item = new Item("knife", 0.0f, 2, 2);
+            Floor[0,1].Drop(item);
             Floor[1,1].RoomDelegate = tp;
 
             IItem decorator = new Item("gem", 0.5f, 0,0);
