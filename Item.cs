@@ -24,7 +24,8 @@ namespace StarterGame
         public int Cost { get {return _cost;} set {_cost = value;}}
         public Item() : this("Nameless") {}
         public Item(string name) : this(name, 1f, 0, 0) {}
-        public Item(string name, float weight, int amount, int cost){
+        
+        public Item(string  name, float weight, int amount, int cost){
             Name = name;
             _weight = weight;
             _decorator = null;
@@ -44,7 +45,7 @@ namespace StarterGame
 
         }
         override public string ToString(){
-            return Name + " x" + Count; 
+            return Name + " x" + Count + " "; 
         }
     }
 
