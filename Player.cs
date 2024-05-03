@@ -183,6 +183,9 @@ namespace StarterGame{
                 } 
             }
         }
+        public void InventoryDisplay(){
+            NormalMessage(_backpack.Description + "\n"); 
+        }
         public void Give(IItem item){
             if (item != null){
                _backpack.Insert(item);
